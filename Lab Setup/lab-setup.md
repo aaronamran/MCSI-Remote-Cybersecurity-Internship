@@ -50,7 +50,9 @@
    `gvmd      | _gvm     | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | `<br/>
    `16440|pg-gvm|10|2200|f|22.6||`<br/>
           `OK: At least one user exists.`<br/>
-  ( some more stuff in between .. )<br/>
+     .<br/>
+     .<br/>
+     .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
 
