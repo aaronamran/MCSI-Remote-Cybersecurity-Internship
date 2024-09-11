@@ -10,10 +10,10 @@
 
 ### OpenVAS
 - Install Docker in Kali Linux: https://www.kali.org/docs/containers/installing-docker-on-kali/
-  Individual commands:
-    `sudo apt update`
-    `sudo apt update install -y docker.io`
-    `sudo systemctl enable docker --now`
+  Individual commands:<br/>
+    `sudo apt update`<br/>
+    `sudo apt update install -y docker.io`<br/>
+    `sudo systemctl enable docker --now`<br/>
     `docker`
 
 - Install OpenVAS: https://greenbone.github.io/docs/latest/22.4/kali/index.html
