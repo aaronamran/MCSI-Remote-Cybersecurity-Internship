@@ -9,49 +9,49 @@
 - In the Windows VM, ping the Kali Linux VM
 
 ### OpenVAS
-- Install Docker in Kali Linux: https://www.kali.org/docs/containers/installing-docker-on-kali/
+- Install Docker in Kali Linux: https://www.kali.org/docs/containers/installing-docker-on-kali/<br/>
   Individual commands:<br/>
     `sudo apt update`<br/>
     `sudo apt update install -y docker.io`<br/>
     `sudo systemctl enable docker --now`<br/>
     `docker`
 
-- Install OpenVAS: https://greenbone.github.io/docs/latest/22.4/kali/index.html
-  Troubleshooting links:
-    https://greenbone.github.io/docs/latest/22.4/kali/troubleshooting.html
-    https://forum.greenbone.net/t/database-gvmd-does-not-exist/18064/2
+- Install OpenVAS: https://greenbone.github.io/docs/latest/22.4/kali/index.html<br/>
+  Troubleshooting links:<br/>
+    https://greenbone.github.io/docs/latest/22.4/kali/troubleshooting.html<br/>
+    https://forum.greenbone.net/t/database-gvmd-does-not-exist/18064/2<br/>
   
-  If the following error appears:
+  If the following error appears:<br/>
 
-  `ERROR: The Postgresql DB does not exist.`
-        `FIX: Run 'sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database'`
+  `ERROR: The Postgresql DB does not exist.`<br/>
+        `FIX: Run 'sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database'`<br/>
 
-  `ERROR: Your GVM-23.11.0 installation is not yet complete!`
+  `ERROR: Your GVM-23.11.0 installation is not yet complete!`<br/>
   
-  1. Become the postgres user to access psql shell:
-     `sudo su postgres`
+  1. Become the postgres user to access psql shell:<br/>
+     `sudo su postgres`<br/>
 
-  2. Start the PostgreSQL shell:
-     `psql`
+  2. Start the PostgreSQL shell:<br/>
+     `psql`<br/>
 
-  3. Input the following commands:
-     `postgres=# \l`
-     `postgres=# ALTER DATABASE postgres REFRESH COLLATION VERSION;`
-     `postgres=# ALTER DATABASE template1 REFRESH COLLATION VERSION;`
+  3. Input the following commands:<br/>
+     `postgres=# \l`<br/>
+     `postgres=# ALTER DATABASE postgres REFRESH COLLATION VERSION;`<br/>
+     `postgres=# ALTER DATABASE template1 REFRESH COLLATION VERSION;`<br/>
 
-  4. Exit to terminal and run
-     `sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database`
-     `sudo gvm-setup`
-     `sudo gvm-check-setup`
+  4. Exit to terminal and run<br/>
+     `sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database`<br/>
+     `sudo gvm-setup`<br/>
+     `sudo gvm-check-setup`<br/>
 
-  5. PostgreSQL problem will be solved and the following will finally appear:
-     `Step 5: Checking Postgresql DB and user ... `
-          `OK: Postgresql version and default port are OK.`
-   `gvmd      | _gvm     | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | `
-   `16440|pg-gvm|10|2200|f|22.6||`
-          `OK: At least one user exists.`
-  ( some more stuff in between .. )
-     `It seems like your GVM-23.11.0 installation is OK.`
+  5. PostgreSQL problem will be solved and the following will finally appear:<br/>
+     `Step 5: Checking Postgresql DB and user ... `<br/>
+          `OK: Postgresql version and default port are OK.`<br/>
+   `gvmd      | _gvm     | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | `<br/>
+   `16440|pg-gvm|10|2200|f|22.6||`<br/>
+          `OK: At least one user exists.`<br/>
+  ( some more stuff in between .. )<br/>
+     `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
 
   
