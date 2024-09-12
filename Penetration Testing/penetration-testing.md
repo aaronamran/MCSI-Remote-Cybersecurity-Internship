@@ -2,7 +2,7 @@
 
 
 ### Create Google search queries to identify webpages and publicly available documents 	
-Usage of search operators <br/>
+Sample usage of search operators: <br/>
 
 - site:nameofwebsite.com
 - site:nameofwebsite.com "wordtosearch"
