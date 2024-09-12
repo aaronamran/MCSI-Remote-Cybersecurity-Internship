@@ -11,6 +11,8 @@ Sample usage of search operators: <br/>
 - site:nameofwebsite.com filetype:extensionoffile intext:"wordtosearch"
 - site:nameofwebsite.com "wordtosearch" before:yyyy-mm-dd after:yyyy-mm-dd
 
+More tips at: https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06 <br/>
+
 
 ### Write a PS script that installs an insecure Windows Service	
 
