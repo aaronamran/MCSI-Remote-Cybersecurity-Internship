@@ -55,6 +55,16 @@
      .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
+### Create a Template for a Professional Document
+- Include file naming convention: <br/>
+  Use the following name convention: [KEYWORD] - [TITLE] - v[VERSION].[EXTENSION]
+
+- Guidelines for creating template:
+  - Perform stakeholder analysis
+  - Perform Audience, Issue, Message, Storyline (AIMS) analysis
+  - Cover page
+  - Professional design
+  - Fonts and text sizes (Times New Roman or Arial, paragraph spacing (1.5 lines) and line spacing (1.0 line))
 
   
 
