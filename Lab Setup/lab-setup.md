@@ -1,9 +1,9 @@
-## Lab Setup
+# Lab Setup
 
-### Screen Recording
+## Screen Recording
 - Screen recording is done using OBS Studio: https://obsproject.com/download
 
-### Deploy a Virtual Machine in VirtualBox
+## Deploy a Virtual Machine in VirtualBox
 - Download Kali Linux: https://www.kali.org/get-kali/#kali-platforms (specific link: https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-virtualbox-amd64.7z)
 - Download Windows 7: https://techpp.com/2018/04/16/windows-7-iso-official-direct-download-links/ 
 - Kali Linux is installed as attacker machine, while Windows 7 is installed as target machine
@@ -11,7 +11,7 @@
 - Configure static IP addresses for each VMs
 - In the Windows VM, ping the Kali Linux VM
 
-### OpenVAS
+## OpenVAS
 - Install Docker in Kali Linux: https://www.kali.org/docs/containers/installing-docker-on-kali/<br/>
   Individual commands:<br/>
     `sudo apt update`<br/>
@@ -19,7 +19,7 @@
     `sudo systemctl enable docker --now`<br/>
     `docker`
 
-OpenVAS on Kali Linux Installation Guide
+### OpenVAS on Kali Linux Installation Guide
 - Install OpenVAS: https://greenbone.github.io/docs/latest/22.4/kali/index.html <br/>
   Troubleshooting links:<br/>
     https://greenbone.github.io/docs/latest/22.4/kali/troubleshooting.html<br/>
@@ -59,7 +59,7 @@ OpenVAS on Kali Linux Installation Guide
      .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
-OpenVAS via Docker on Kali Linux Installation Guide
+### OpenVAS via Docker on Kali Linux Installation Guide
   1. From this [video](https://www.youtube.com/watch?v=jZZhkrY0nOE), the user seems to be using OpenVAS from mikesplain <br/>
 
   2. Link to mikesplain's OpenVAS on docker: https://hub.docker.com/r/mikesplain/openvas/ <br/>
@@ -85,7 +85,7 @@ OpenVAS via Docker on Kali Linux Installation Guide
   `docker exec -it openvas bash` <br/>
 
 
-### Create a Template for a Professional Document
+## Create a Template for a Professional Document
 - Include file naming convention: <br/>
   Use the following name convention: [KEYWORD] - [TITLE] - v[VERSION].[EXTENSION]
 
