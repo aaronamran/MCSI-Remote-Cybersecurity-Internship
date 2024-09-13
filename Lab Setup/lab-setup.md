@@ -75,7 +75,7 @@
   docker run -d -p 443:443 --name openvas mikesplain/openvas:9
   ```
 
-  5. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` <br/>
+  5. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
   
   6. Both username and password: admin
   
