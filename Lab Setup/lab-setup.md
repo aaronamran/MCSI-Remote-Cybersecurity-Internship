@@ -87,7 +87,7 @@
 
 ## Create a Template for a Professional Document
 - Include file naming convention: <br/>
-  Use the following name convention: [KEYWORD] - [TITLE] - v[VERSION].[EXTENSION]
+  Use the following name convention: [KEYWORD] - [TITLE] - v[VERSION].[EXTENSION] <br/>
   Example: `Template - Professional Document -v0.0.1`
 
 - Guidelines for creating template:
