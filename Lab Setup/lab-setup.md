@@ -87,13 +87,13 @@
 ### Docker command tips:
 (add sudo first when necessary)
 - List all running / stopping containers on your system: <br/>
-  `docker ps -a`
+  `docker ps -a` <br/>
 - Stop the specific container: <br/>
-  `docker stop <container_name>` 
-- Remove the container (loses any changes made to container's filesystem since it was created. Use `docker commit` to create a new image based on the container before removing it): <br/>
-  `docker rm <container_name>` 
+  `docker stop <container_name>` <br/>
+- Remove the container (Discards any changes made to container's filesystem since it was created. Use `docker commit` to create a new image based on the container before removing it): <br/>
+  `docker rm <container_name>` <br/>
 - Start the container with the desired name: <br/>
-  `docker run --name <new_container_name> <image_name>`
+  `docker run --name <new_container_name> <image_name>` <br/>
 
 
 ## Create a Template for a Professional Document
