@@ -81,8 +81,8 @@ OpenVAS via Docker on Kali Linux Installation Guide
   
   7. To check the status of the process, run: `docker top openvas`
   
-  8. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run:
-  `docker exec -it openvas bash`
+  8. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run: <br/>
+  `docker exec -it openvas bash` <br/>
 
 
 ### Create a Template for a Professional Document
