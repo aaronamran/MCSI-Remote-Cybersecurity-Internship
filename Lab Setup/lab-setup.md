@@ -96,7 +96,29 @@
   - Professional design
   - Fonts and text sizes (Times New Roman or Arial, paragraph spacing (1.5 lines) and line spacing (1.0 line))
 
-- GitHub repository of pentesting reports: https://github.com/juliocesarfort/public-pentesting-reports 
+- GitHub repository of pentesting reports: https://github.com/juliocesarfort/public-pentesting-reports
+
+- Requirements for submitted professional document template: <br/>
+  - Cover page and headers/footers
+    - Title, author name, date, simple logo
+    - Same logo is in headers throughout the document
+
+  - Table of contents and page numbers
+    - Outlines document’s sections
+    - Display page numbers in headers/footers
+
+  - Revision History Section
+    - Track document versions and authors
+    - Table with the following columns: Version Number, Name, Date, Description of Changes
+
+  - Include citations and a references section
+    - Copy and paste a text section from a reputable source (research paper)
+    - In-text citations using APA/MLA style
+    - References section at end of document to list cited sources
+
+  - Incorporate images and format captions
+    - One relevant image
+    - Clear attribution for image caption
 
   
 
