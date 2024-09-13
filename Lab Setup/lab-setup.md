@@ -59,7 +59,7 @@ OpenVAS on Kali Linux Installation Guide
      .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
-  OpenVAS via Docker on Kali Linux Installation Guide
+OpenVAS via Docker on Kali Linux Installation Guide
   1. From this [video](https://www.youtube.com/watch?v=jZZhkrY0nOE), the user seems to be using OpenVAS from mikesplain <br/>
 
   2. Link to mikesplain's OpenVAS on docker: https://hub.docker.com/r/mikesplain/openvas/ <br/>
