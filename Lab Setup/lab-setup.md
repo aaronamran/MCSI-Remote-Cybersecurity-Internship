@@ -67,8 +67,22 @@ OpenVAS via Docker on Kali Linux Installation Guide
   3. Docker pull command <br/>
   `docker pull mikesplain/openvas` <br/>
 
-  4. 
+  4. Run the command <br/>
+  ```
+  # latest (9)
+  docker run -d -p 443:443 --name openvas mikesplain/openvas
+  # 9
+  docker run -d -p 443:443 --name openvas mikesplain/openvas:9
+  ```
 
+  5. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` <br/>
+  
+  6. Both username and password: admin
+  
+  7. To check the status of the process, run: `docker top openvas`
+  
+  8. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run:
+  `docker exec -it openvas bash`
 
 
 ### Create a Template for a Professional Document
