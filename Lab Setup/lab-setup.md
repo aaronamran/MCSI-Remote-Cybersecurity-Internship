@@ -84,6 +84,17 @@
   8. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run: <br/>
   `docker exec -it openvas bash` <br/>
 
+### Docker command tips:
+(add sudo first when necessary)
+- List all running / stopping containers on your system: <br/>
+  `docker ps -a`
+- Stop the specific container: <br/>
+  `docker stop <container_name>` 
+- Remove the container (loses any changes made to container's filesystem since it was created. Use `docker commit` to create a new image based on the container before removing it): <br/>
+  `docker rm <container_name>` 
+- Start the container with the desired name: <br/>
+  `docker run --name <new_container_name> <image_name>`
+
 
 ## Create a Template for a Professional Document
 - Include file naming convention: <br/>
