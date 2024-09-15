@@ -19,7 +19,7 @@
     `sudo systemctl enable docker --now`<br/>
     `docker`
 
-### OpenVAS on Kali Linux Installation Guide
+#### OpenVAS on Kali Linux Installation Guide
 - Install OpenVAS: https://greenbone.github.io/docs/latest/22.4/kali/index.html <br/>
   Troubleshooting links:<br/>
     https://greenbone.github.io/docs/latest/22.4/kali/troubleshooting.html<br/>
@@ -59,7 +59,7 @@
      .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
-### OpenVAS via Docker on Kali Linux Installation Guide (with Docker installation)
+#### OpenVAS via Docker on Kali Linux Installation Guide (with Docker installation)
   1. From this [video](https://www.youtube.com/watch?v=jZZhkrY0nOE), the user seems to be using OpenVAS from mikesplain <br/>
 
   2. Link to mikesplain's OpenVAS on docker: https://hub.docker.com/r/mikesplain/openvas/ <br/>
@@ -101,7 +101,7 @@
   14. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run: <br/>
   `docker exec -it openvas bash` <br/>
 
-### Docker command tips:
+#### Docker command tips:
 (add sudo first when necessary)
 - List all running / stopping containers on your system: <br/>
   `docker ps -a` <br/>
@@ -112,8 +112,9 @@
 - Start the container with the desired name: <br/>
   `docker run --name <new_container_name> <image_name>` <br/>
 
-### Scanning target VM with OpenVAS
+#### Scanning target VM with OpenVAS
 Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s)
+Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
 
 ## Create a Template for a Professional Document
 - Include file naming convention: <br/>
