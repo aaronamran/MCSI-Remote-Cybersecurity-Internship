@@ -88,7 +88,7 @@
   10. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
 
   11. If OpenVAS UI in web browser has "Login failed. Waiting for OMP service to become available." problem, run the following command <br/>
-  `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas`
+  `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas` <br/>
       This will make the full URL in web browser be `https://127.0.0.1:9392/login` and if necessary, run `sudo gvm-start` just to be sure.
   
   11. Default username and password: admin
