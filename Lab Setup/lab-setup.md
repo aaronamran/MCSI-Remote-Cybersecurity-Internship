@@ -114,8 +114,12 @@
 
 #### Scanning target VM with OpenVAS
 - Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s) <br/>
+- Use target VM IP address as scan target
 - Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
-
+- Results of the scan:
+  - Scan Results
+  - SecInfo / NVTs
+  - SecInfo / CVEs
 
 
 
