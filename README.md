@@ -16,5 +16,5 @@ This remote cybersecurity internship focuses on the following domains, in order:
 
 
 ### Disclaimer:
-This GitHub repository is purely intended to store important lessons learned throughout the remote internship programme as a personal reference for future usage. It is purposely left incomplete and not meant in anyway to be used for plagiarism purposes or as a walkthrough to complete similar activities.
+This GitHub repository is purely intended to store important lessons learned throughout the remote internship programme as a personal reference for future usage. It is intentionally left incomplete and is not intended to be used for plagiarism or as a walkthrough for completing similar tasks.
 
