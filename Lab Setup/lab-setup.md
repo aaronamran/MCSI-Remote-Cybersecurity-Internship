@@ -118,6 +118,8 @@
   Use the following name convention: [KEYWORD] - [TITLE] - v[VERSION].[EXTENSION] <br/>
   Example: `Template - Professional Document -v0.0.1`
 
+  Here is the link to my submitted template for the internship: [Template Link](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/Template%20-%20Professional%20Document%20-v0.0.1.pdf) 
+
 - Guidelines for creating template:
   - Perform stakeholder analysis
   - Perform Audience, Issue, Message, Storyline (AIMS) analysis
