@@ -116,7 +116,7 @@
 - Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s) <br/>
 - Use target VM IP address as scan target
 - Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
-- Results of the scan:
+- Screenshot results of the scan:
   - Scan Results
     ![Scan Results](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/images/scan-results.png) <br/>
     
