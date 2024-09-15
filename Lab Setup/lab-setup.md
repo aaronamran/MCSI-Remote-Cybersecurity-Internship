@@ -59,29 +59,46 @@
      .<br/>
      `It seems like your GVM-23.11.0 installation is OK.`<br/>
 
-### OpenVAS via Docker on Kali Linux Installation Guide
+### OpenVAS via Docker on Kali Linux Installation Guide (with Docker installation)
   1. From this [video](https://www.youtube.com/watch?v=jZZhkrY0nOE), the user seems to be using OpenVAS from mikesplain <br/>
 
   2. Link to mikesplain's OpenVAS on docker: https://hub.docker.com/r/mikesplain/openvas/ <br/>
 
-  3. Docker pull command <br/>
+  3. First, let's install Docker <br/>
+  `sudo apt install docker.io -y`
+    
+  4. Enable automatic starting of docker service when VM reboots <br/>
+  `sudo systemctl enable docker --now`
+
+  5. Check docker status <br/>
+  `sudo systemctl status docker`
+
+  6. Add docker to usergroup, so that no need to add sudo everytime. After complete, reboot the VM <br/>
+  `sudo usermod -aG docker $USER`
+
+  7. Check docker version <br/>
+  `docker --version`
+  
+  8. Docker pull command from mikesplain <br/>
   `docker pull mikesplain/openvas` <br/>
 
-  4. Run the command <br/>
-  ```
-  # latest (9)
-  docker run -d -p 443:443 --name openvas mikesplain/openvas
-  # 9
-  docker run -d -p 443:443 --name openvas mikesplain/openvas:9
-  ```
+  9. Run the command to start OpenVAS <br/>
+  `docker run -d -p 443:443 --name openvas mikesplain/openvas`
 
-  5. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
+  10. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
+
+  11. If OpenVAS UI in web browser has "Login failed. Waiting for OMP service to become available." problem, run the following command <br/>
+  `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas`
+      This will make the full URL in web browser be `https://127.0.0.1:9392/login` and if necessary, run `sudo gvm-start` just to be sure.
   
-  6. Both username and password: admin
+  11. Default username and password: admin
+
+  12. If Greenbone UI in web browser has a login failed problem regarding invalid username or password, run the following command in terminal and restart the web browser <br/>
+  `sudo -E -u _gvm -g _gvm gvmd --user=admin --new-password=admin`
   
-  7. To check the status of the process, run: `docker top openvas`
+  13. To check the status of the process, run: `docker top openvas`
   
-  8. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run: <br/>
+  14. In the output, look for the process scanning cert data. It contains a percentage. To run bash inside the container run: <br/>
   `docker exec -it openvas bash` <br/>
 
 ### Docker command tips:
