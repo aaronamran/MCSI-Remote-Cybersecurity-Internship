@@ -112,6 +112,8 @@
 - Start the container with the desired name: <br/>
   `docker run --name <new_container_name> <image_name>` <br/>
 
+### Scanning target VM with OpenVAS
+Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s)
 
 ## Create a Template for a Professional Document
 - Include file naming convention: <br/>
