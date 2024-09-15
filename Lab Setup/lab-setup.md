@@ -113,8 +113,8 @@
   `docker run --name <new_container_name> <image_name>` <br/>
 
 #### Scanning target VM with OpenVAS
-Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s)
-Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
+- Just run a quick scan: [Video guide](https://www.youtube.com/watch?v=MH4vVhHPm4s) <br/>
+- Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
 
 ## Create a Template for a Professional Document
 - Include file naming convention: <br/>
