@@ -6,7 +6,32 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 #### Preparation
 - Target machine: Lubuntu VM in VirtualBox
 - Start "apache2" service and the "ssh" service on the target virtual machine
-- Check that services are running on default ports (22 and 80)
+  - If "apache2" service is not installed, run the following commands step by step:
+    ```
+    sudo apt update
+    sudo apt install apache2
+    sudo systemctl start apache2
+    sudo systemctl status apache2
+    ```
+    <br/>
+    To enable Apache2 to start on boot, run `sudo systemctl enable apache2` <br/>
+
+  - If "ssh" service is not installed, run the following commands step by step: <br/>
+    Check for installed packages using dpkg or apt. If openssh-server is installed, it will be listed in the output
+    `dpkg -l | grep openssh-server`
+    `apt list --installed | grep openssh-server`
+
+    Commands to be run in terminal: <br/>
+    ```
+    sudo apt update
+    sudo apt install openssh-server
+    sudo systemctl start ssh
+    sudo systemctl status ssh
+    ```
+    <br/>
+    To enable ssh to start on boot, run `sudo systemctl enable ssh` <br/>
+    
+- Check that services are running on default ports (ssh on port 22 and apache2 (HTTP server) on port 80)
 - Check that Nmap can be used to detect open ports and the loopback address (127.0.0.1)
 
 #### TCP Scans
