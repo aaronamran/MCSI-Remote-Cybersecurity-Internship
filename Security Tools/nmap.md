@@ -31,7 +31,7 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
     
 - Check that services are running on default ports (ssh on port 22 and apache2 (HTTP server) on port 80)
 - Check that Nmap can be used to detect open ports and the loopback address (127.0.0.1) <br/>
-  `nmap <ip_address> -p 22,80`
+  `nmap <ip_address> -p 22,80` and `nmap 127.0.0.1`
 
 #### TCP Scans
 - Use Nmap's TCP Connect Scan ("-sT") against the target machine to identify open ports <br/>
@@ -64,12 +64,23 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 - Combine "-sU" with other flags such as "-sV" and "-p" for detailed scanning
 - Target machine: Lubuntu VM in VirtualBox
 - Install and start SNMP on the target machine, and ensure that SNMP is running on default port 161
+  ```
+  sudo apt update
+  sudo apt install snmpd
+  sudo systemctl status snmpd
+  ```
+  To enable SNMP to start on boot, run `sudo systemctl enable snmpd` <br/>
+  
 - Validate that open port(s) can be detected using Nmap with the "-sU" flag and the loopback address (127.0.0.1)
+  `sudo nmap <ip_address> -sU` and `sudo nmap 127.0.0.1 -sU` <br/> 
 
 #### UDP Scans
-- Perform a UDP scan against the target machine to identify open UDP ports
-- Perform a UDP service detection ("-sV") against the target machine to identify associated services
-- Use Nmap's scan option to scan all UDP ports ("-p-") against the target machine to identify all open ports
-- For each of the scans performed, ensure that Nmap successfully discovers port 161 (SNMP) as "open" on the target machine
-
+- Perform a UDP scan against the target machine to identify open UDP ports <br/>
+- `sudo nmap <ip_address> -sU` <br/>
+- Perform a UDP service detection ("-sV") against the target machine to identify associated services <br/>
+  `sudo nmap <ip_address> -sU -sV` 
+- Use Nmap's scan option to scan all UDP ports ("-p-") against the target machine to identify all open ports <br/>
+  `sudo nmap <ip_address> -sU -p-`
+- For each of the scans performed, ensure that Nmap successfully discovers port 161 (SNMP) as "open" on the target machine <br/>
+  Sample screenshot of Kali Linux (attacker VM) using Nmap to scan SNMP ports on Lubuntu (target VM): <br/>
 
