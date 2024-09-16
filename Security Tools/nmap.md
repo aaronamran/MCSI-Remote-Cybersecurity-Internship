@@ -13,7 +13,6 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
     sudo systemctl start apache2
     sudo systemctl status apache2
     ```
-    <br/>
     To enable Apache2 to start on boot, run `sudo systemctl enable apache2` <br/>
 
   - If "ssh" service is not installed, run the following commands step by step: <br/>
@@ -28,7 +27,6 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
     sudo systemctl start ssh
     sudo systemctl status ssh
     ```
-    <br/>
     To enable ssh to start on boot, run `sudo systemctl enable ssh` <br/>
     
 - Check that services are running on default ports (ssh on port 22 and apache2 (HTTP server) on port 80)
