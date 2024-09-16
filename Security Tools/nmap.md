@@ -50,7 +50,7 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 - Use Nmap's scan option to scan all TCP ports ("-p-") against the target machine to identify all open ports <br/>
   `nmap <ip_address> -p-`
 
-- For each of the scans performed, ensure that Nmap successfully discovers port 22 (SSH) and port 80 (HTTP) as "open" on the target machine
+- For each of the scans performed, ensure that Nmap successfully discovers port 22 (SSH) and port 80 (HTTP) as "open" on the target machine <br/>
   Sample screenshot of Kali Linux (attacker VM) using Nmap to scan Apache2 and SSH ports on Lubuntu (target VM): <br/>
   ![Nmap TCP Scan](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/images/nmap-tcp.png)
 
