@@ -76,7 +76,7 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 
 #### UDP Scans
 - Perform a UDP scan against the target machine to identify open UDP ports <br/>
-- `sudo nmap <ip_address> -sU` <br/>
+  `sudo nmap <ip_address> -sU` 
 - Perform a UDP service detection ("-sV") against the target machine to identify associated services <br/>
   `sudo nmap <ip_address> -sU -sV` 
 - Use Nmap's scan option to scan all UDP ports ("-p-") against the target machine to identify all open ports <br/>
