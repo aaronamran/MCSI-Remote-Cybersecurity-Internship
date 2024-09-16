@@ -34,7 +34,11 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 
 #### TCP Scans
 - Use Nmap's TCP Connect Scan ("-sT") against the target machine to identify open ports
+  `nmap <ip_address> -sT <br/>
+  
 - Use Nmap's TCP SYN Scan ("-sS") against the target machine to identify open ports using SYN packets
+  `nmap <ip_address> -sS <br/>
+  
 - Use Nmap's Service Detection ("-sV") against the target machine to identify the services running on open ports
 - Use Nmap's OS Detection ("-A") against the target machine to identify the operating system running on the target system
 - Use Nmap's scan option to scan all TCP ports ("-p-") against the target machine to identify all open ports
