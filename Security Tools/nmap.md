@@ -30,18 +30,25 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
     To enable ssh to start on boot, run `sudo systemctl enable ssh` <br/>
     
 - Check that services are running on default ports (ssh on port 22 and apache2 (HTTP server) on port 80)
-- Check that Nmap can be used to detect open ports and the loopback address (127.0.0.1)
+- Check that Nmap can be used to detect open ports and the loopback address (127.0.0.1) <br/>
+  `nmap <ip_address> -p 22,80`
 
 #### TCP Scans
-- Use Nmap's TCP Connect Scan ("-sT") against the target machine to identify open ports
-  `nmap <ip_address> -sT <br/>
+- Use Nmap's TCP Connect Scan ("-sT") against the target machine to identify open ports <br/>
+  `nmap <ip_address> -sT`
   
-- Use Nmap's TCP SYN Scan ("-sS") against the target machine to identify open ports using SYN packets
-  `nmap <ip_address> -sS <br/>
+- Use Nmap's TCP SYN Scan ("-sS") against the target machine to identify open ports using SYN packets <br/>
+  `sudo nmap <ip_address> -sS`
   
-- Use Nmap's Service Detection ("-sV") against the target machine to identify the services running on open ports
-- Use Nmap's OS Detection ("-A") against the target machine to identify the operating system running on the target system
-- Use Nmap's scan option to scan all TCP ports ("-p-") against the target machine to identify all open ports
+- Use Nmap's Service Detection ("-sV") against the target machine to identify the services running on open ports <br/>
+  `nmap <ip_address> -sV`
+
+- Use Nmap's OS Detection ("-A") against the target machine to identify the operating system running on the target system <br/>
+  `nmap <ip_address> -A`
+
+- Use Nmap's scan option to scan all TCP ports ("-p-") against the target machine to identify all open ports <br/>
+  `nmap <ip_address> -p-`
+
 - For each of the scans performed, ensure that Nmap successfully discovers port 22 (SSH) and port 80 (HTTP) as "open" on the target machine
 
 
