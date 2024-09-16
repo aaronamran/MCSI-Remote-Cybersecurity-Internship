@@ -38,7 +38,8 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
   `nmap <ip_address> -sT`
   
 - Use Nmap's TCP SYN Scan ("-sS") against the target machine to identify open ports using SYN packets <br/>
-  `sudo nmap <ip_address> -sS`
+  `sudo nmap <ip_address> -sS` <br/>
+  `sudo` is required because only root users can send special network packets that need low-level access to the network. The scan avoids completing the full connection handshake, which requires sending and managing raw packets directly.
   
 - Use Nmap's Service Detection ("-sV") against the target machine to identify the services running on open ports <br/>
   `nmap <ip_address> -sV`
