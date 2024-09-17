@@ -88,6 +88,17 @@ UDP scans in Nmap take a long time to complete the scan, because of the followin
 - Multiple Retries: <br/>
   To increase accuracy, Nmap sends multiple probes to each port, increasing overall scan time
 
+If attacker VM cannot detect SNMP on target VM as shown below <br/>
+```
+nc 192.168.1.17 161
+(UNKNOWN) [192.168.1.17] 161 (snmp) : Connection refused
+```
+run the commands in the following steps:
+1. Find the SNMP config file: `sudo nano /etc/snmp/snmpd.conf`
+2. Search for `agentAddress 127.0.0.1,[::1]` and replace to `0.0.0.0:161`
+3. Restart the service: `sudo systemctl restart snmpd`
+
+
 #### UDP Scans
 - Perform a UDP scan against the target machine to identify open UDP ports <br/>
   `sudo nmap <ip_address> -sU` 
