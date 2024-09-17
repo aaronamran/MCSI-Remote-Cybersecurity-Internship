@@ -1,4 +1,5 @@
 # OpenVAS
+OpenVAS is a vulnerability assessment tool designed to scan networks for potential security weaknesses. It can identify vulnerabilities in operating systems, applications, and databases, as well as assess the security of networks and systems.
 
 ## Perform A Vulnerability Scan With OpenVAS
 
