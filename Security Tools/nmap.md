@@ -106,6 +106,9 @@ run the commands in the following steps:
   `sudo nmap <ip_address> -sU -sV` 
 - Use Nmap's scan option to scan all UDP ports ("-p-") against the target machine to identify all open ports <br/>
   `sudo nmap <ip_address> -sU -p-`
+  If the UDP scan takes too long, it can be made faster by adding the `--min-rate` flag to increase speed and peformance <br/>
+  `sudo nmap <ip_address> -sU -p- --min-rate <number>`
+  The min-rate number means the number of packets sent per second. A low min-rate is more accurate, but takes longer time.
 - For each of the scans performed, ensure that Nmap successfully discovers port 161 (SNMP) as "open" on the target machine <br/>
   Sample screenshot of Kali Linux (attacker VM) using Nmap to scan SNMP ports on Lubuntu (target VM): <br/>
 
