@@ -9,9 +9,9 @@
 
 
 ## Use Metasploit To Exploit MS17-010
-The Eternal Blue exploit takes advantage of a vulnerability in the Server Message Block (SMB) protocol that was fixed by the MS17-010 patch. However, many organizations have not yet installed the patch, making their systems vulnerable to attack. The exploit can be delivered through a phishing email or a malicious website.
+The EternalBlue exploit targets a vulnerability in the Server Message Block (SMB) protocol, which was patched with the MS17-010 update. However, many systems remain unpatched, leaving them susceptible to this attack. The exploit can be delivered via phishing emails or malicious websites.
 
-A Penetration Tester can use Metasploit to exploit ms17-010 vulnerability by scanning for hosts that are vulnerable to the EternalBlue exploit. Once the Penetration Tester has found a vulnerable host, they can use Metasploit to upload and execute a malicious payload on the target host.
+Penetration testers can use Metasploit to identify hosts vulnerable to the EternalBlue exploit by scanning for the MS17-010 flaw. Once a vulnerable system is found, the tester can deploy and execute a malicious payload on the target using Metasploit.
 
 #### Tasks
 - Execute the appropriate MS17-010 exploit from Metasploit against the target machine to exploit the vulnerability
