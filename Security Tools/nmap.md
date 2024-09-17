@@ -88,7 +88,7 @@ UDP scans in Nmap take a long time to complete the scan, because of the followin
 - Multiple Retries: <br/>
   To increase accuracy, Nmap sends multiple probes to each port, increasing overall scan time
 
-If attacker VM cannot detect SNMP on target VM as shown below <br/>
+If the attacker VM cannot detect SNMP on the target VM as shown below <br/>
 ```
 nc 192.168.1.17 161
 (UNKNOWN) [192.168.1.17] 161 (snmp) : Connection refused
