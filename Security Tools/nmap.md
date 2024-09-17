@@ -1,4 +1,6 @@
 # Nmap
+
+Nmap is a powerful tool for network exploration and security auditing, commonly used to discover hosts, services, and potential security vulnerabilities within a network. 
 Nmap will return "open|filtered" when it is unable to determine whether a port is open or filtered
 
 ## Perform a TCP Port Scan Using Nmap
