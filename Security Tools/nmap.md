@@ -57,8 +57,6 @@ Nmap is a powerful tool for network exploration and security auditing, commonly 
 
 
 
-
-
 ## Perform a UDP Port Scan Using Nmap
 #### Preparation
 - Always include the "-sU" flag for UDP scans
@@ -111,4 +109,4 @@ run the commands in the following steps:
   The min-rate number means the number of packets sent per second. A low min-rate is more accurate, but takes longer time.
 - For each of the scans performed, ensure that Nmap successfully discovers port 161 (SNMP) as "open" on the target machine <br/>
   Sample screenshot of Kali Linux (attacker VM) using Nmap to scan SNMP ports on Lubuntu (target VM): <br/>
-
+  ![Nmap UDP Scan](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/images/nmap-udp.png)
