@@ -1,6 +1,9 @@
 # Metasploit
 
 ## Use Metasploit To Identify A Machine Vulnerable To MS17-010
+Metasploit is a flexible platform used for penetration testing and security auditing, enabling testers to uncover system vulnerabilities and evaluate security measures. The framework includes multiple modules that can be used together to perform various tasks, such as detecting and exploiting weaknesses.
+
+The MS17-010 EternalBlue vulnerability is a serious remote code execution flaw in the Windows Server Message Block (SMB) protocol. Exploiting this vulnerability allows attackers to run arbitrary code on the target machine, potentially leading to system compromise and unauthorized access.
 
 #### Tasks
 - Launch a VM running a vulnerable version of Windows (Windows 7)
