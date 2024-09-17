@@ -74,6 +74,19 @@ Nmap will return "open|filtered" when it is unable to determine whether a port i
 - Validate that open port(s) can be detected using Nmap with the "-sU" flag and the loopback address (127.0.0.1)
   `sudo nmap <ip_address> -sU` and `sudo nmap 127.0.0.1 -sU` <br/> 
 
+#### Important
+UDP scans in Nmap take a long time to complete the scan, because of the following: <br/>
+- No Handshake Mechanism: <br/>
+  Unlike TCP, which has a three-way handshake (SYN, SYN-ACK, ACK) that makes it easier to detect open ports, UDP is a connectionless protocol, which means there is no immediate feedback for closed ports
+- Closed Port Response: <br/>
+  For closed UDP ports, Nmap relies on receiving an ICMP "port unreachable" message from the target. Many firewalls and systems block or limit ICMP responses, causing Nmap to wait for a timeout, which adds a significant delay
+- Open Port Detection: <br/>
+  For open UDP ports, no packet may be sent back, so Nmap cannot easily distinguish between an open port and one where responses are blocked by a firewall. It must wait for a timeout before moving on
+- Rate-limiting and Firewalls: <br/>
+  Many systems impose rate limits on ICMP responses or may silently drop UDP packets to avoid scans, further increasing scan time
+- Multiple Retries: <br/>
+  To increase accuracy, Nmap sends multiple probes to each port, increasing overall scan time
+
 #### UDP Scans
 - Perform a UDP scan against the target machine to identify open UDP ports <br/>
   `sudo nmap <ip_address> -sU` 
