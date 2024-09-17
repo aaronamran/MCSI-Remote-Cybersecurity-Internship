@@ -14,6 +14,7 @@ This remote cybersecurity internship focuses on the following domains, in order:
 6. Secure Software Development
 7. Red Teaming
 
+Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as .md files within their respective folders.
 
 ### Disclaimer:
 This GitHub repository is intended to store key lessons learned during the remote internship program as a personal reference for future use. It is intentionally left incomplete and is not intended to be used for plagiarism or as a walkthrough for completing similar tasks.
