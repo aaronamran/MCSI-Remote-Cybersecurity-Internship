@@ -13,4 +13,4 @@ Sample usage of search operators: <br/>
 More tips at: <br/>
 - https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06
 - https://www.stationx.net/google-dorks-cheat-sheet/
-- 
+- https://www.freecodecamp.org/news/google-dorking-for-pentesters-a-practical-tutorial/
