@@ -19,7 +19,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 
 
 
-## Benchmarks
+## Recommended Approach
 - Enable your Windows Defender
 - Run the script on your local machine
 - Disable your Windows Defender
@@ -31,7 +31,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 - Scan/fix the remote hosts by passing the list to your tool
 
 
-## Recommended Approach
+## Benchmarks
 - Defender Enabled locally: The script running on your local machine correctly detects Windows Defender status as enabled
 - Defender Disabled locally: The script running on your local machine enables Windows Defender and updates itself
 - Ensure that real-time protection is enabled after turning on Windows Defender
