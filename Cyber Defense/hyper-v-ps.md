@@ -60,4 +60,8 @@ if ($hyperVStatus.State -eq "Enabled") {
    ```
    Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
    ```
+   And to check if Hyper-V is disabled, run:
+   ```
+   Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+   ```
 7. Alternatively, Hyper-V can be manually disabled in "Turn Windows features on or off" options.
