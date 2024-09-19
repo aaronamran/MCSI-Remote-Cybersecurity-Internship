@@ -10,7 +10,9 @@ Hyper-V, Microsoft's hypervisor, enables multiple operating systems to run on on
 
 ## PowerShell Script
 ```
-# Check if Hyper-V is enabled
+# Write A PS Script To Turn On Hyper-V
+
+# Store PowerShell cmdlet with parameters into a variable
 $hyperVStatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 
 # Function to enable Hyper-V
