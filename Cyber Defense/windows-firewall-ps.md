@@ -12,7 +12,7 @@ The Windows firewall is software that protects a network by blocking ports and p
 
 
 
-## Benchmarks
+## Recommended Approach
 - Enable your Windows Firewall
 - Run the script on your local machine
 - Disable your Windows Firewall
@@ -25,7 +25,7 @@ The Windows firewall is software that protects a network by blocking ports and p
 
 
 
-## Recommended Approach
+## Benchmarks
 - Firewall Enabled locally: The script running on your local machine correctly detects the Windows Firewall status as enabled
 - Firewall Disabled locally: The script running on your local machine enables the Windows Firewall
 - The remote hosts list scan detects the Windows firewall enabled on one machine
