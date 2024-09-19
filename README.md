@@ -9,9 +9,9 @@ This remote cybersecurity internship focuses on the following domains, in order:
 1. Lab Setup
 2. Security Tools
 3. Penetration Testing
-4. Cyber Defense
-5. Threat Hunting
-6. Secure Software Development
+4. Cyber Defense (PowerShell)
+5. Threat Hunting (YARA)
+6. Secure Software Development (PHP)
 7. Red Teaming
 
 Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as .md files within their respective folders.
