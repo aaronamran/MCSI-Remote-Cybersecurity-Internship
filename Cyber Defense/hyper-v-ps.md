@@ -1,6 +1,10 @@
 # Write A PS Script To Turn On Hyper-V
 Hyper-V, Microsoft's hypervisor, enables multiple operating systems to run on one physical machine. It enhances cybersecurity by protecting against memory-based credential theft (e.g., `lsass.exe`) and can block tools like Mimikatz, adding an extra layer of defense.
 
+## References
+- [Windows 10 Device Guard and Credential Guard Demystified](https://learn.microsoft.com/en-us/archive/blogs/ash/windows-10-device-guard-and-credential-guard-demystified) by Microsoft
+- [Isolated User Mode (IUM) Processes](https://learn.microsoft.com/en-us/windows/win32/procthread/isolated-user-mode--ium--processes) by Microsoft
+
 ## Tasks
 - Write a PowerShell script to check if Hyper-V is enabled by querying the appropriate Windows feature
 - Display a message indicating whether Hyper-V is enabled or disabled
