@@ -14,7 +14,7 @@ The MS17-010 EternalBlue vulnerability is a serious remote code execution flaw i
 - Validate the output from the "MS17-010 SMB RCE Detection" auxiliary module in Metasploit is 'Host is LIKELY vulnerable to MS17-010!'
 
 Screenshot of Metasploit successfully identifying MS17-010 vulnerability shown below: <br/>
-
+![Metasploit identifying MS17-010 vulnerability](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/images/metasploit-identify-ms17-010.png)
 
 
 
