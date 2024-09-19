@@ -56,7 +56,7 @@ if ($hyperVStatus.State -eq "Enabled") {
     ```
     Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
     ```
-6. To disable Hyper-V in PowerShell, run the following command:
+6. To disable Hyper-V in PowerShell, run the following command or add it to the beginning of the PowerShell script:
    ```
    Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
    ```
