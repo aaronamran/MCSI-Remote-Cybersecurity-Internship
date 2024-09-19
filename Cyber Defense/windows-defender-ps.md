@@ -31,6 +31,12 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 - Scan/fix the remote hosts by passing the list to your tool
 
 
+## Recommended Approach
+- Defender Enabled locally: The script running on your local machine correctly detects Windows Defender status as enabled
+- Defender Disabled locally: The script running on your local machine enables Windows Defender and updates itself
+- Ensure that real-time protection is enabled after turning on Windows Defender
+- The remote hosts list scan detects Windows Defender enabled on one machine
+- The remote hosts list scan enables Windows Defender on the vulnerable machine and updates itself
 
 
 
