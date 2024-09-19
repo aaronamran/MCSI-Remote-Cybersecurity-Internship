@@ -42,4 +42,12 @@ if ($hyperVStatus.State -eq "Enabled") {
 }
 ```
 
-Type the code in notepad and save as `.ps1` file type
+1. Open Notepad, paste the script, and save it as a .ps1 file (e.g., ManageHyperV.ps1).
+2. Open PowerShell as Administrator.
+3. Navigate to the folder where the script is saved using cd path\to\script.
+4. Run the script in PowerShell `./ManageHyperV.ps1` 
+5. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+    ```
+    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+    ```
+   
