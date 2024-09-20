@@ -1,19 +1,12 @@
-# PowerShell
-PowerShell is a cross-platform (Windows, Linux, and macOS) automation and configuration tool/framework that works well with your existing tools and is optimized for dealing with structured data (e.g. JSON, CSV, XML, etc.), REST APIs, and object models.
-
-
-
-
-
-## Write A PS Script That Enables The AlwaysInstallElevated Registry Key
+# Write A PS Script That Enables The AlwaysInstallElevated Registry Key
 The AlwaysInstallElevated vulnerability in Microsoft Windows lets unprivileged attackers install programs with elevated privileges without user consent, potentially enabling the installation of spyware and malware.
 
 Powerup.ps1 is a PowerShell script that escalates privileges by adding users, changing passwords, and modifying permissions, allowing attackers to access sensitive data or systems.
 
 
-#### Tasks
+## Tasks
 - Create a PowerShell script that modifies the Windows registry to enable the AlwaysInstallElevated registry key
 - Execute the PowerShell script to enable the AlwaysInstallElevated registry key on the target system
 - Exploit the AlwaysInstallElevated vulnerability using PowerUp.ps1
 
-#### 
+## 
