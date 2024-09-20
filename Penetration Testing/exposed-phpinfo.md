@@ -15,3 +15,6 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
 - Access the vulnerable PHP info page
 
 
+## Benchmarks
+- Confirm that the PHP information is displayed in the browser
+- Show detailed information about the PHP installation and server configuration
