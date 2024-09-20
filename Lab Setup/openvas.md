@@ -72,7 +72,7 @@
   9. Run the command to start OpenVAS <br/>
   `docker run -d -p 443:443 --name openvas mikesplain/openvas`
 
-  10. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
+  10. Run `sudo gvm-check-setup`. Once you see a `It seems like your OpenVAS-9 installation is OK.` process in the logs, go to `https://<machinename>` (type 127.0.0.1 in web browser) <br/>
 
   11. If OpenVAS UI in web browser has "Login failed. Waiting for OMP service to become available." problem, run the following command <br/>
   `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas` <br/>
