@@ -48,8 +48,7 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
    - Place the files (index.php and phpinfo.php) in the htdocs folder.
 5. Access the Web Application: <br/>
    Open your browser and go to the following URL to access the homepage:
-   `http://localhost/index.php` <br/>
-   or if it is saved in a subdirectory called phpinfoapp:
+   `http://localhost/index.php` or if it is saved in a subdirectory called phpinfoapp:
    `http://localhost/phpinfoapp/`
 7. Access the Vulnerable phpinfo.php Page: <br/>
    Visit the following URL to access the exposed phpinfo.php page:
