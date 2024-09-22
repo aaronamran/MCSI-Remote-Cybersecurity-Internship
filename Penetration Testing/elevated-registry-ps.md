@@ -3,6 +3,9 @@ The AlwaysInstallElevated vulnerability in Microsoft Windows lets unprivileged a
 
 Powerup.ps1 is a PowerShell script that escalates privileges by adding users, changing passwords, and modifying permissions, allowing attackers to access sensitive data or systems.
 
+## References
+- [AlwaysInstallElevated](https://learn.microsoft.com/en-us/windows/win32/msi/alwaysinstallelevated) by Microsoft
+- [PowerSploit / PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc) by PowerShellMafia on GitHub
 
 ## Tasks
 - Create a PowerShell script that modifies the Windows registry to enable the AlwaysInstallElevated registry key
