@@ -24,7 +24,7 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
 1. Navigate to the web application directory <br/>
    If using XAMPP, the files are placed in the `htdocs` folder. The default location for this folder is:
       - Windows: `C:\xampp\htdocs\`
-      - Linux/macOS: `/opt/lampp/htdocs/`
+      - Linux/macOS: `/opt/lampp/htdocs/` <br/>
    For organised folders, a subdirectory in `htdocs` folder can be made
 2. Create `index.php` as a simple homepage:
    ```
