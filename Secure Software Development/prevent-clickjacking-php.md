@@ -66,7 +66,7 @@ A clickjacking vulnerability occurs when an invisible frame is placed over a web
     </body>
     </html>
    ```
-3. Configure web server. Ensure XAMPP is running, and save `index.php` and `clickjack_test.php` in a subdirectory within the `htdocs` directory
-4. Access the web application by going to `http://localhost/index.php` in a web browser
+3. Configure web server. Ensure XAMPP is running, and save `index.php` and `clickjacktest.php` in a subdirectory (preventclickjackingapp) within the `htdocs` directory
+4. Access the web application by going to `http://localhost/preventclickjackingapp/` in a web browser
 5. Check the header by using developer tools (F12) to inspect the response headers. Confirm that `X-Frame-Options` is set to `DENY`
-6. Test clickjacking by navigating to `http://localhost/clickjack_test.php`. You should see an alert message indicating that the application cannot be loaded in an iframe
+6. Test clickjacking by navigating to `http://localhost/preventclickjackingapp/clickjacktest.php`. You should see an alert message indicating that the application cannot be loaded in an iframe
