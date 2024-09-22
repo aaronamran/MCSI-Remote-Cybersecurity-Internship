@@ -62,7 +62,7 @@ A clickjacking vulnerability occurs when an invisible frame is placed over a web
     </head>
     <body>
         <h1>Clickjack Test</h1>
-        <iframe src="http://localhost/index.php" width="600" height="400"></iframe>
+        <iframe src="http://localhost/preventclickjackingapp/index.php" width="600" height="400"></iframe>
     </body>
     </html>
    ```
