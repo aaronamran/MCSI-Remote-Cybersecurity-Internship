@@ -32,6 +32,7 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
    // index.php
    echo "<h1>Welcome to the Simple PHP Web Application</h1>";
    echo "<p>This is the homepage of the web application.</p>";
+   echo "<p>Enter phpinfo.php at the end of the URL to access the PHP info page.</p>";
    ?>
    ```
 3. Add a vulnerable `phpinfo.php` page:
