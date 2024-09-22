@@ -18,3 +18,47 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
 ## Benchmarks
 - Confirm that the PHP information is displayed in the browser
 - Show detailed information about the PHP installation and server configuration
+
+
+## Steps with Solutions
+1. Navigate to the web application directory <br/>
+   If using XAMPP, the files are placed in the `htdocs` folder. The default location for this folder is:
+      - Windows: `C:\xampp\htdocs\`
+      - Linux/macOS: `/opt/lampp/htdocs/`
+2. Create `index.php` as a simple homepage:
+   ```
+   <?php
+   // index.php
+   echo "<h1>Welcome to the Simple PHP Web Application</h1>";
+   echo "<p>This is the homepage of the web application.</p>";
+   ?>
+   ```
+3. Add a vulnerable `phpinfo.php` page:
+   ```
+   <?php
+   // phpinfo.php
+   // Exposing the PHP version, modules, environment variables and server configuration
+   phpinfo();
+   ?>
+   ```
+4. Host the Vulnerable Web Application:
+   - Start Apache from the XAMPP control panel (or manually, if using LAMP).
+   - Place the files (index.php and phpinfo.php) in the htdocs folder.
+5. Access the Web Application: <br/>
+   Open your browser and go to the following URL to access the homepage:
+   `http://localhost/index.php`
+6. Access the Vulnerable phpinfo.php Page: <br/>
+   Visit the following URL to access the exposed phpinfo.php page:
+   `http://localhost/phpinfo.php`
+7. (Optional) Secure the page: <br/>
+   You can secure the phpinfo.php page by restricting access or deleting it altogether in a live environment.
+   ```
+   <?php
+   // A simple way to restrict access to phpinfo.php
+   if ($_SERVER['REMOTE_ADDR'] !== '127.0.0.1') {
+      die("Access denied");
+   }
+   phpinfo();
+   ?>
+   ```
+
