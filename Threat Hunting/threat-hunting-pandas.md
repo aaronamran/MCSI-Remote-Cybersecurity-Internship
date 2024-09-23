@@ -15,5 +15,5 @@ Threat hunting is the proactive search for threats to an organization's security
 
 ## Steps With Solutions
 1. Download and install [Redline](https://fireeye.market/apps/211364) software from FireEye Market
-2. Download and install the classic [Jupyter Notebook](https://jupyter.org/install) by typing 'pip install notebook' in PowerShell with administrative privileges
+2. Download and install the classic [Jupyter Notebook](https://jupyter.org/install) by typing `pip install notebook` in PowerShell with administrative privileges
 3. 
