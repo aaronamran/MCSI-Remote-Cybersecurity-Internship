@@ -3,7 +3,8 @@ Threat hunting involves proactively searching for threats in an organization's n
 
 ## References
 - [Virus Total - YARA](https://github.com/VirusTotal/yara/releases) by Virus Total
-- [Virus Total - YARA Releases](https://github.com/VirusTotal/yara/releases) by Virus Total
+- [YARA](https://sourceforge.net/projects/yara.mirror/) by SourceForge
+- [HxD - Freeware Hex Editor and Disk Editor](https://mh-nexus.de/en/hxd/) by mh-nexus
 
 
 ## Tasks
