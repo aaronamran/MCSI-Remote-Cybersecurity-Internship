@@ -22,4 +22,5 @@ Threat hunting involves proactively searching for threats in an organization's n
 - Confirm that you have yara64.exe on your machine
 - Confirm that you have HxD Hex Editor installed on your machine
 - Verify that you have successfully created a dataset containing at least 15GB of known good files from the installed Windows virtual machines
+![image](https://github.com/user-attachments/assets/50cc60e3-7e3f-4ac3-af1f-59792755af5d)
 
