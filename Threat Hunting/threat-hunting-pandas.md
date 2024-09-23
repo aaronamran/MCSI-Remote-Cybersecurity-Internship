@@ -79,4 +79,12 @@ Threat hunting is the proactive search for threats to an organization's security
    selected_columns = w32processes[['ProcessName', 'PID', 'CommandLine']]
    print(selected_columns)
    ```
-
+4. Filtering specific data elements
+   ```
+   w32processes[condition]
+   ```
+   Example:
+   ```
+   filtered_processes = w32processes[w32processes['ProcessName'] == 'notepad.exe']
+   print(filtered_processes)
+   ```
