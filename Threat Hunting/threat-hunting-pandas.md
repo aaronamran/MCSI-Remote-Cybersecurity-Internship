@@ -44,7 +44,7 @@ Threat hunting is the proactive search for threats to an organization's security
     # convert dataset into pandas
     w32processes = processes_dataset.read().to_pandas()
     ```
-13. Pressing Shift + Enter on the keyboard moves to a new cell
+13. Pressing Shift + Enter on the keyboard runs the current cell operation and moves to a new cell
 14. Enter `w32processes` and the following output (which displays the first five rows and last five rows) is seen:
     ![image](https://github.com/user-attachments/assets/ef221076-49da-4b87-bbf1-9bd224a69afe)
 15. To undo cell operation after facing error, right-click on cell and clear cell output and undo cell operation
