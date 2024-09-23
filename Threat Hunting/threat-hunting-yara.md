@@ -14,6 +14,8 @@ Threat hunting involves proactively searching for threats in an organization's n
 - Install all three versions of Windows into virtual machines
 - Create a shared folder named "known-safe" between the three virtual machines
 - From each virtual machine, copy the entire C: drive and store the files in the shared folder
+  <br/> Screenshot sample of transferring C: drive contents into 'known-safe' shared folder
+  ![image](https://github.com/user-attachments/assets/e6d80076-9e90-4765-97c2-4b42f87f7012)
 - Download and install the HxD Hex Editor on your machine
 
 ## Benchmarks
