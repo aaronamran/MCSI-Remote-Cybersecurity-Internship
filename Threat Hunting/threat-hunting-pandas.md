@@ -55,8 +55,8 @@ Threat hunting is the proactive search for threats to an organization's security
    ```
    Example:
    ```
-   # search for rows where the process name contains 'notepad'
-   search_results = w32processes[w32processes['ProcessName'].str.contains('notepad', na=False)]
+   # search for rows where the process name contains 'xagt'
+   search_results = w32processes[w32processes['name'].str.contains('xagt', na=False)]
    print(search_results)
    ```
 2. Sorting data
@@ -66,7 +66,7 @@ Threat hunting is the proactive search for threats to an organization's security
    Example:
    ```
    # sort by PID in descending order
-   sorted_processes = w32processes.sort_values(by='PID', ascending=False)
+   sorted_processes = w32processes.sort_values(by='pid', ascending=False)
    print(sorted_processes)
    ```
 3. Selecting specific columns
@@ -76,7 +76,7 @@ Threat hunting is the proactive search for threats to an organization's security
    Example:
    ```
    # selecting specific columns
-   selected_columns = w32processes[['ProcessName', 'PID', 'CommandLine']]
+   selected_columns = w32processes[['name', 'SecurityID', 'SecurityType']]
    print(selected_columns)
    ```
 4. Filtering specific data elements
@@ -85,6 +85,7 @@ Threat hunting is the proactive search for threats to an organization's security
    ```
    Example:
    ```
-   filtered_processes = w32processes[w32processes['ProcessName'] == 'notepad.exe']
+   # filtering specific process
+   filtered_processes = w32processes[w32processes['name'] == 'prevhost.exe']
    print(filtered_processes)
    ```
