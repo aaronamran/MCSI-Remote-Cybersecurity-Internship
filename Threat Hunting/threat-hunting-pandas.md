@@ -13,4 +13,7 @@ Threat hunting is the proactive search for threats to an organization's security
 - Load a sample Parquet dataset into a pandas DataFrame and display its contents
 - Perform basic data manipulation tasks using pandas, such as filtering or searching for specific data elements within the DataFrame
 
-
+## Steps With Solutions
+1. Download and install [Redline](https://fireeye.market/apps/211364) software from FireEye Market
+2. Download and install the classic [Jupyter Notebook](https://jupyter.org/install) by typing 'pip install notebook' in PowerShell with administrative privileges
+3. 
