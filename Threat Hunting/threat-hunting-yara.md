@@ -5,6 +5,7 @@ Threat hunting involves proactively searching for threats in an organization's n
 - [Virus Total - YARA](https://github.com/VirusTotal/yara/releases) by Virus Total
 - [YARA](https://sourceforge.net/projects/yara.mirror/) by SourceForge
 - [HxD - Freeware Hex Editor and Disk Editor](https://mh-nexus.de/en/hxd/) by mh-nexus
+- [How To Share Folders & Files Between Windows Host & Windows Guest | VirtualBox Virtual Machine Guide](https://www.youtube.com/watch?v=HbLQnUVEHuE) by Full Speed Mac & PC
 
 
 ## Tasks
