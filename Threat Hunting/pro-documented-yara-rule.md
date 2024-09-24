@@ -12,28 +12,28 @@ When documenting YARA rules, consider the following:
 ## YARA Rules Guidelines
 When documenting YARA rules, it is important to keep a few things in mind. First, be sure to use a clear and concise style, which will make the rules easy to read and understand. Additionally, be sure to use professional formatting, which will make the rules look polished and professional. Finally, be sure to document any caveats or restrictions that may be associated with the rule. By following these guidelines, you can create rules that will delight instructors and impress industry peers.
 
-- Naming Convention
+- Naming Convention <br/>
 Use a naming convention. We recommend that you watch the video that Kaspersky kindly provided us where they share their name convention (which is excellent).
 
-- Use the Metadata section
+- Use the Metadata section <br/>
 YARA rules can contain a metada section. Use it to its full potential.
 
-- Metadata: description
+- Metadata: description <br/>
 Enter a concise description of what the rule is meant to detect and how to best use it
 
-- Metadata: author
+- Metadata: author <br/>
 Include your name and email
 
-- Metadata: MD5/SHA1/SHA256
+- Metadata: MD5/SHA1/SHA256 <br/>
 Provide one or several examples of file hashes that the YARA rule is meant to detect
 
-- Metadata: version
+- Metadata: version <br/>
 Include the version of the rule. For example: 0.1, 0.2, 1.0 etc.
 
-- Metadata: references
+- Metadata: references <br/>
 Include references to online materials that are relevant to the YARA rule (e.g. threat reports, virus total files etc.)
 
-- Code Indentation
+- Code Indentation <br/>
 Properly indent your code! Make it easy for other people to read it and rapidly understand it.
 
 
