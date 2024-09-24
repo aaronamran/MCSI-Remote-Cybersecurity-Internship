@@ -21,9 +21,13 @@ Download and install the necessary tools for reverse engineering and malware ana
 - IDA
 - PE Studio
 - Process Explorer
-- Python 2.7 (prove by entering `py -2 --version` command)
-- Python >=3.6 (prove by entering `python --version` command)
+- Python 2.7 <br/>
+  prove by entering `py -2 --version` command
+- Python >=3.6 <br/>
+  prove by entering `python --version` command
 - strings[64].exe <br/>
+  - If you have a 32-bit system, copy strings.exe to C:\Windows\System32\
+  - If you have a 64-bit system, rename strings64.exe to strings.exe and then copy it to C:\Windows\System32\
   ```
   strings * | findstr /i TextToSearchFor
   ```
