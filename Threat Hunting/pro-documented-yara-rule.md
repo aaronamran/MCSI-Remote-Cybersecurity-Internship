@@ -38,13 +38,13 @@ Properly indent your code! Make it easy for other people to read it and rapidly 
 
 
 ## YARA Rules Testing Guidelines
-1. Create a test dataset and validate your rule(s) against it
+1. Create a test dataset and validate your rule(s) against it <br/>
 Create a small dataset of less than 20 files to initially test your YARA rules against. Make sure that this dataset contains positive and negative files. Confirm with absolute certainty that your YARA rule(s) work against this dataset before moving on to the next step.
 
-2. Test your rule(s) against a large dataset
+2. Test your rule(s) against a large dataset <br/>
 Now test your rule against a large dataset (i.e. 5GB+ of random files). This could be as simple as scanning your C: drive on Windows. Confirm that no false positives are returned.
 
-3. Test your rule(s) against a goodware and a malware dataset
+3. Test your rule(s) against a goodware and a malware dataset <br/>
 If you're writing rules to detect malware samples then make sure to validate that your rules do not detect false positive by first scanning a large goodware dataset (10GB+). Only once that's been confirmed that you can scan your malware dataset.
 
 
