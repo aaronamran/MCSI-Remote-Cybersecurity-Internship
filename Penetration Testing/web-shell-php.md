@@ -1,6 +1,12 @@
 # Write A Web Shell In PHP
 A PHP web shell is a script that lets a hacker remotely control a web server. Once installed, it grants access to files and allows command execution, potentially leading to full server control and attacks on other sites.
 
+## References
+- [C99 WebShell with PHP7 and MySQL Support](https://github.com/cermmik/C99-WebShell) by cermmik on GitHub
+- [chopper.jsp](https://github.com/JoyChou93/webshell/blob/master/jsp/chopper.jsp) by JoyChou93 on GitHub
+- [Detecting and Defeating the China Chopper Web Shell](https://www.mandiant.com/sites/default/files/2021-09/rpt-china-chopper.pdf) by Tony Lee, Ian Ahl and Dennis Hanzlik from FireEye Labs
+
+
 ## Tasks
 - Develop a PHP backdoor that requires the operator to enter a password before allowing its use
 - Implement functionality to execute malicious commands on the target web server through the PHP web shell
