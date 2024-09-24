@@ -11,3 +11,5 @@ An insecure XSS filter occurs when an application fails to properly validate use
 - Use various XSS techniques, such as HTML encoding, JavaScript obfuscation, and bypassing blacklist filters, to inject malicious JavaScript code into the input fields
 - Verify that the injected malicious JavaScript code is executed on the web application's frontend, demonstrating the bypass of the insecure XSS filters
 
+## Steps With Solutions
+- hfekf
