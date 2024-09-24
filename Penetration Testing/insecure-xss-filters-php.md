@@ -75,3 +75,15 @@ An insecure XSS filter occurs when an application fails to properly validate use
 - JavaScript Obfuscation: <br/>
    `<svg/onload=alert('XSS')>`
    - SVG tags are often overlooked by filters, and the event handler can still execute the script
+4. Securing XSS
+- Blacklists are inherently insecure because they cannot account for all possible obfuscations or new techniques
+- Proper XSS prevention involves:
+   - Whitelisting allowed HTML tags and attributes
+   - HTML Encoding all user-generated content before rendering
+   - Using built-in functions like `htmlspecialchars()` in PHP to encode dangerous characters
+- Example by encoding characters like `<`, `>` and `&`:
+  ```
+  // Secure the input by encoding special HTML characters
+  echo "<p>" . htmlspecialchars($user_input, ENT_QUOTES, 'UTF-8') . "</p>";
+  ```
+
