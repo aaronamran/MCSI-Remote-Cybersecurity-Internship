@@ -10,7 +10,7 @@ When documenting YARA rules, consider the following:
 
 
 ## YARA Rules Guidelines
-When documenting YARA rules, it is important to keep a few things in mind. First, be sure to use a clear and concise style, which will make the rules easy to read and understand. Additionally, be sure to use professional formatting, which will make the rules look polished and professional. Finally, be sure to document any caveats or restrictions that may be associated with the rule. By following these guidelines, you can create rules that will delight instructors and impress industry peers.
+When documenting YARA rules, it is important to keep a few things in mind. First, be sure to use a clear and concise style, which will make the rules easy to read and understand. Additionally, be sure to use professional formatting, which will make the rules look polished and professional. Finally, be sure to document any caveats or restrictions that may be associated with the rule
 
 - Naming Convention <br/>
 Use a naming convention. We recommend that you watch the video that Kaspersky kindly provided us where they share their name convention (which is excellent).
