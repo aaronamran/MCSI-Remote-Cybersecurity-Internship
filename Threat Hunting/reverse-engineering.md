@@ -21,8 +21,8 @@ Download and install the necessary tools for reverse engineering and malware ana
 - IDA
 - PE Studio
 - Process Explorer
-- Python 2.7
-- Python >=3.6
+- Python 2.7 (prove by entering `py -2 --version` command)
+- Python >=3.6 ((prove by entering `python --version` command)
 - strings[64].exe
 - Volatility
 - Windbg
