@@ -34,3 +34,6 @@ Download and install the necessary tools for reverse engineering and malware ana
 - Volatility
 - Windbg
 - Wireshark
+<br/>
+![image](https://github.com/user-attachments/assets/078c1448-0289-41ec-8e17-7a2dc67e136d)
+
