@@ -6,8 +6,8 @@ Threat hunting with Yara rules involves identifying and eliminating threats miss
 
 ## Tasks
 - Complete the following prerequisites first:
-  - Lab Setup: Threat Hunting with YARA
-  - Write a YARA Rule that is Professionally Documented
+  - [Lab Setup: Threat Hunting with YARA](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-yara.md)
+  - [Write a YARA Rule that is Professionally Documented](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/pro-documented-yara-rule.md)
 - Write a YARA rule with the following string: "I love YARA"
 - Save the YARA rule as "self_rule.yar" in a location on your hard drive
 - Use YARA to scan your hard drive and search for files that contain the string "I love YARA" using the created rule
