@@ -49,13 +49,13 @@ If you're writing rules to detect malware samples then make sure to validate tha
 
 
 ## Tasks
-Create a YARA rule using either legitimate or bogus malware data
-Professionally document your YARA rule making sure to include all the Metadata listed below
-- Author - Provide the name of the author who created the YARA rule
-- Author's email - Include the email address of the rule's author for contact purposes
-- Example of a MD5 hash - Include an example MD5 hash of a known malware sample that the rule is designed to detect
-- Date of creation - Add the date when the rule was initially written
-- Version number - Specify the version number of the YARA rule to facilitate rule updates and tracking
-- Reference URL - Include a URL to an online webpage that provides more information about the malware sample that the rule detects
-- Type of malware - Indicate the type of malware the rule detects (e.g., APT, Ransomware, Adware, etc.)
+- Create a YARA rule using either legitimate or bogus malware data
+- Professionally document your YARA rule making sure to include all the Metadata listed below
+  - Author - Provide the name of the author who created the YARA rule
+  - Author's email - Include the email address of the rule's author for contact purposes
+  - Example of a MD5 hash - Include an example MD5 hash of a known malware sample that the rule is designed to detect
+  - Date of creation - Add the date when the rule was initially written
+  - Version number - Specify the version number of the YARA rule to facilitate rule updates and tracking
+  - Reference URL - Include a URL to an online webpage that provides more information about the malware sample that the rule detects
+  - Type of malware - Indicate the type of malware the rule detects (e.g., APT, Ransomware, Adware, etc.)
 
