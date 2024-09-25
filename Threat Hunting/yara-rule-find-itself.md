@@ -38,7 +38,6 @@ Threat hunting with Yara rules involves identifying and eliminating threats miss
    cd C:\YARA
    yara64.exe -r "C:\YARA\rules\self_rule.yar" "C:\YARA\rules\"
    ```
-   <br/>
    The `yara64.exe` runs recursively to find the target file in the given directory
 8. The sample output will look like this: <br/>
 ![image](https://github.com/user-attachments/assets/6a0d0d39-cb3f-4e43-9fce-83600be90e44)
