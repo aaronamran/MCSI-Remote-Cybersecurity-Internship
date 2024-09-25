@@ -2,7 +2,6 @@ rule Pandora_Detection_v1
 {
     /*
     Rule Name: Pandora_Detection_v1
-    Student ID: nxCLnZGLgyOUMpnDw16rtDvYuTF2
     Author: Aaron Amran Bin Amiruddin
     Email: aaronamranba@gmail.com
     Date of Creation: 2024-09-25
