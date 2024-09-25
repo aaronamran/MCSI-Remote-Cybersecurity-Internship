@@ -26,10 +26,9 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
    rule small_pe {
        meta:
            description = "Detects small Portable Executable files under 500KB"
-           author = "Aaron Amran Bin Amiruddin"
-   	student_id = "nxCLnZGLgyOUMpnDw16rtDvYuTF2"
+           author = "Aaron Amran"
            date_created = "2024-09-25"
-   	version = "1.0"
+           version = "1.0"
        
        condition:
            // File size is less than 500KB(500 * 1024 bytes = 512000 bytes)
