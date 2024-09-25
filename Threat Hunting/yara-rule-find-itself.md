@@ -14,11 +14,12 @@ Threat hunting with Yara rules involves identifying and eliminating threats miss
 - Ensure that YARA successfully identifies and lists the "self_rule.yar" file containing the string "I love YARA"
 
 ## Solutions With Scripts
+[Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/self_rule.yar)
 1. Download YARA precompiled binaries for Windows from [YARA GitHub Releases](https://github.com/VirusTotal/yara/releases)
 2. Download the .zip file that matches the system architecture (x64)
 3. Extract the .zip file to a folder, e.g., `C:\YARA`
 4. Add YARA to Path. Right-click This PC → Properties → Advanced system settings → Environment Variables. Under System variables, find the `Path` variable, click Edit, and add the folder where YARA is located, e.g., `C:\YARA`.
-5. Write the YARA rule ([Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/self_rule.yar))
+5. Write the YARA rule 
    ```
    rule Find_Self {
     meta:
