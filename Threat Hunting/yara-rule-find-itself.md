@@ -13,7 +13,7 @@ Threat hunting with Yara rules involves identifying and eliminating threats miss
 - Use YARA to scan your hard drive and search for files that contain the string "I love YARA" using the created rule
 - Ensure that YARA successfully identifies and lists the "self_rule.yar" file containing the string "I love YARA"
 
-## Solutions With Scripts1
+## Solutions With Scripts
 1. Download YARA precompiled binaries for Windows from [YARA GitHub Releases](https://github.com/VirusTotal/yara/releases)
 2. Download the .zip file that matches the system architecture (x64)
 3. Extract the .zip file to a folder, e.g., `C:\YARA`
