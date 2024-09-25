@@ -19,6 +19,34 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
 - Ensure that the YARA rule accurately identifies small Windows Portable Executables (PEs) less than 500KB in size
 
 ## Solutions With Scripts
-- 
+1. Write the YARA Rule
+   ```
+   import "pe"
+
+   rule small_pe {
+       meta:
+           description = "Detects small Portable Executable files under 500KB"
+           author = "Aaron Amran Bin Amiruddin"
+   	student_id = "nxCLnZGLgyOUMpnDw16rtDvYuTF2"
+           date_created = "2024-09-25"
+   	version = "1.0"
+       
+       condition:
+           // File size is less than 500KB(500 * 1024 bytes = 512000 bytes)
+           filesize < 512000 and
+           
+           // File type is Portable Executable (PE)
+           pe.is_pe
+   }
+   ```
+2. Save it as `small_pe.yar` in a folder
+3. To scan for portable executables in a target directory, open Command Prompt with administrator privileges and run the following commands:
+   ```
+   cd C:\YARA
+   yara64.exe -r "C:\YARA\rules\small_pe.yar" "C:\Windows\System32"
+   ```
+4. The sample output will look like this:
+   <br/>
+   
 
 
