@@ -1,4 +1,4 @@
-# Lab Setup: Threat Hunting with YARA
+# Lab Setup: Threat Hunting With YARA
 Threat hunting involves proactively searching for threats in an organization's network using various tools and techniques. YARA is a key tool for identifying malware by creating rules that scan systems, detect malicious files, and track infections. Threat hunters use YARA rules to quickly spot threats. A known-safe dataset serves as a clean reference for comparing against potentially malicious datasets. The HxD Editor is used to view and edit hexadecimal data, which consists of numbers 0-9 and letters A-F.
 
 ## References
