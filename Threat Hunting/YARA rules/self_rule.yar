@@ -1,7 +1,6 @@
 rule Find_Self {
     /* 
     Rule Name: self_rule.yar
-    Student ID: nxCLnZGLgyOUMpnDw16rtDvYuTF2
     */
     meta:
         description = "A rule to find the YARA rule itself"
