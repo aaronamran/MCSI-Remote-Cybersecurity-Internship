@@ -3,7 +3,7 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
 
 ## References
 - [Writing YARA Rules](https://yara.readthedocs.io/en/v3.8.1/writingrules.html) by VirusTotal on yara
-- [PE Module](https://yara.readthedocs.io/en/v3.8.1/modules/pe.html) by VirusTotal on yara
+- [PE Module](https://yara.readthedocs.io/en/v4.4.0/modules/pe.html) by VirusTotal on yara
 
 ## Tasks
 1. Complete the following prerequisites first:
