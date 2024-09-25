@@ -47,6 +47,7 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
    ```
 4. The sample output will look like this:
    <br/>
-   
+   ![image](https://github.com/user-attachments/assets/2c331ac1-7d6f-45d0-bc00-cd7ee061f2af)
+
 
 
