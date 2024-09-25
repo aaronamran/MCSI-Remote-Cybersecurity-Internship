@@ -19,6 +19,7 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
 - Ensure that the YARA rule accurately identifies small Windows Portable Executables (PEs) less than 500KB in size
 
 ## Solutions With Scripts
+[Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/small_pe.yar)
 1. Write the YARA Rule
    ```
    import "pe"
