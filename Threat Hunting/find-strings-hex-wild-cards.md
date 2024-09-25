@@ -21,3 +21,5 @@ YARA rules are essential for threat hunting, enabling the identification of spec
 [Link to YARA rule]()
 <br/>
 1. 
+
+yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\hex_wildcard_strings.yar" "C:\Users\bboyz\OneDrive\Documents"
