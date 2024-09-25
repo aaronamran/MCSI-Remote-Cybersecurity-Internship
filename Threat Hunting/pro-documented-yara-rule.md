@@ -60,6 +60,7 @@ If you're writing rules to detect malware samples then make sure to validate tha
   - Type of malware - Indicate the type of malware the rule detects (e.g., APT, Ransomware, Adware, etc.)
 
 ## Solutions With Scripts
+- Reference link: [Detecting Pandora Ransomware with Wazuh](https://wazuh.com/blog/detecting-pandora-ransomware-with-wazuh/) by Openime Oniagbi on Wazuh
 - [Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/Pandora_Detection_v1.yar)
 - Sample script:
   ```
