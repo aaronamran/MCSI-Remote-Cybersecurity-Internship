@@ -19,4 +19,5 @@ YARA rules are essential for threat hunting, enabling the identification of spec
 
 ## Solutions With Scripts
 [Link to YARA rule]()
+<br/>
 1. 
