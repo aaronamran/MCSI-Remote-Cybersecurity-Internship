@@ -18,10 +18,28 @@ YARA rules are essential for threat hunting, enabling the identification of spec
 5. Confirm that the rule correctly identifies files containing the specified strings using hexadecimal notation and wild-cards without false positives
 
 ## Solutions With Scripts
-[Link to YARA rule]()
+[Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/hex_wildcard_strings.yar)
 <br/>
-1. 
+1. Write the following YARA rule:
+   ```
+   rule HexWildcardStrings {
+    meta:
+        description = "Detects patterns using hex strings and wildcards"
+        author = "Aaron Amran"
+	student_id = "nxCLnZGLgyOUMpnDw16rtDvYuTF2"
+        date = "2024-09-25"
+	version = "1.0"
+    
+    strings:
+        $hex_string1 = { 68 ?? 65 6C 6C 6F }  // with wildcards
+        $hex_string2 = { 77 6F 72 [1-4] 6C 64 } // with variable length
+
+    condition:
+        any of them
+   }
+   ```
+
+
 
 ![image](https://github.com/user-attachments/assets/b9ed6902-c265-4334-9c8d-2b4cd664f14a)
 
-yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\hex_wildcard_strings.yar" "C:\Users\bboyz\OneDrive\Documents"
