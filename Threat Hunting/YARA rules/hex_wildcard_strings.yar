@@ -2,7 +2,6 @@ rule HexWildcardStrings {
     meta:
         description = "Detects patterns using hex strings and wildcards"
         author = "Aaron Amran"
-	student_id = "nxCLnZGLgyOUMpnDw16rtDvYuTF2"
         date = "2024-09-25"
 	version = "1.0"
     
