@@ -1,4 +1,4 @@
-# Threat Hunting
+# Threat Hunting - List Of Contents
 
 ## [Lab Setup: Threat Hunting With Pandas](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-pandas.md)
 
