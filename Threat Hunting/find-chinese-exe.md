@@ -23,4 +23,4 @@ YARA rules are powerful tools for threat hunting, enabling quick identification 
 Link to YARA rule
 1. 
 
-`yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\chinese_exe.yar" "C:\Windows"`
+`yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\chinese_exe.yar" "C:\Windows\System32"`
