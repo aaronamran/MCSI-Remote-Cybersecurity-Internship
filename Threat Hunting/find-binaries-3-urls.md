@@ -50,4 +50,6 @@ Link to YARA rule
    `yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\more_than_3_urls.yar" "C:\Windows\System32"`
    
 
+![image](https://github.com/user-attachments/assets/36009b68-74ad-4389-9217-72eced8480d9)
+
      
