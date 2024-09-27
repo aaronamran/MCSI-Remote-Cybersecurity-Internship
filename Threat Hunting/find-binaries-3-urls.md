@@ -20,7 +20,34 @@ YARA rules are powerful tools for threat hunting, enabling the detection of malw
 
 ## Solutions With Scripts
 Link to YARA rule
-1. 
+1. YARA rule:
+   ```
+   rule more_than_3_urls
+   {
+       meta:
+           description = "Detects executable files with more than 3 occurrences of URLs (http:// or https://)"
+           author = "Aaron Amran"
+           date = "2024-09-26"
+   	version = "1.0"
+
+    strings:
+        $http = "http://"
+        $https = "https://"
+
+    condition:
+        // Check if file is a Portable Executable (PE) and count the number of URLs
+        uint16(0) == 0x5A4D and 
+        ( 
+            #http >= 3 or 
+            #https >= 3 or 
+            (#http + #https) > 3
+        )
+   }
+   ```
+2. 
+
+   
+   `yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\more_than_3_urls.yar" "C:\Windows\System32"`
    
 
      
