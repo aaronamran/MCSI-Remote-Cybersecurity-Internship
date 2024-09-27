@@ -24,3 +24,7 @@ Link to YARA rule
 1. 
 
 `yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\chinese_exe.yar" "C:\Windows\System32"`
+
+
+![image](https://github.com/user-attachments/assets/ed367cae-6649-4d69-b688-7c61c630c00e)
+
