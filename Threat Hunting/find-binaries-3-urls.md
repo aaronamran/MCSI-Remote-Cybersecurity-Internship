@@ -20,7 +20,7 @@ YARA rules are powerful tools for threat hunting, enabling the detection of malw
 
 ## Solutions With Scripts
 Link to YARA rule
-1. YARA rule:
+1. Write the YARA rule:
    ```
    rule more_than_3_urls
    {
@@ -44,12 +44,14 @@ Link to YARA rule
         )
    }
    ```
-2. 
-
-   
-   `yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\more_than_3_urls.yar" "C:\Windows\System32"`
-   
-
+2. Save it as `more_than_3_urls.yar` in a folder
+3. To scan for portable executables in a target directory, open Command Prompt with administrator privileges and run the following commands:
+   ```
+   cd C:\YARA
+   yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\more_than_3_urls.yar" "C:\Windows\System32"
+   ```
+4. The sample output will look like this:
+<br/>
 ![image](https://github.com/user-attachments/assets/36009b68-74ad-4389-9217-72eced8480d9)
 
      
