@@ -6,12 +6,12 @@ The MCSI Remote Cybersecurity Internship is not a traditional office-based, paid
 Duration of internship: August 2024 - January 2025 (6 months)
 
 This remote cybersecurity internship focuses on the following domains, in order:
-1. Lab Setup (OpenVAS)
-2. Security Tools (Nmap, Metasploit)
-3. Penetration Testing (PHP, PowerShell)
-4. Cyber Defense (PowerShell)
-5. Threat Hunting (Pandas, YARA)
-6. Secure Software Development (PHP)
+1. [Lab Setup](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/CONTENTS-Lab-Setup.md)
+2. [Security Tools](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/CONTENTS-security-tools.md)
+3. Penetration Testing
+4. [Cyber Defense ](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/CONTENTS-Cyber-Defense.md)
+5. [Threat Hunting](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/CONTENTS-Threat-Hunting.md)
+6. Secure Software Development
 7. Red Teaming
 
 Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as .md files within their respective folders.
