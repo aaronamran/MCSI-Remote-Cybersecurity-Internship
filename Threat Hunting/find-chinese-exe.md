@@ -20,7 +20,7 @@ YARA rules are powerful tools for threat hunting, enabling quick identification 
 5. Confirm that the YARA rule correctly identifies Portable Executables with language identifiers 0x04 or 0x004 (Chinese)
 
 ## Solutions With Scripts
-Link to YARA rule
+[Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/chinese_exe.yar)
 1. Write the YARA rule
    ```
    import "pe"
