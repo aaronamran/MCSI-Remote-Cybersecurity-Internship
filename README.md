@@ -1,7 +1,7 @@
 # MCSI-Remote-Cybersecurity-Internship
 ### Remote cybersecurity internship with Mossé Cyber Security Institute (MCSI)
 
-The MCSI Remote Cybersecurity Internship is not a traditional office-based, paid internship. Instead, it is a 100% practical, hands-on, self-paced, unpaid remote internship programme designed to develop cybersecurity skills.
+The MCSI Remote Cybersecurity Internship is not a traditional office-based, paid internship. Instead, it is a 100% practical, self-paced, unpaid remote internship programme designed to develop cybersecurity skills.
 
 Duration of internship: August 2024 - January 2025 (6 months)
 
