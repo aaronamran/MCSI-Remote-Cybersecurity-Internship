@@ -12,7 +12,7 @@ This remote cybersecurity internship focuses on the following domains, in order:
 4. [Cyber Defense ](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/CONTENTS-Cyber-Defense.md)
 5. [Threat Hunting](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/CONTENTS-Threat-Hunting.md)
 6. [Secure Software Development](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/CONTENTS-secure-software-development.md)
-7. [Red Teaming](
+7. [Red Teaming](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Red%20Teaming/CONTENTS-red-teaming.md)
 
 Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as .md files within their respective folders.
 
