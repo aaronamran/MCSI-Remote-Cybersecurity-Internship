@@ -21,28 +21,30 @@ YARA rules are powerful tools for threat hunting, enabling quick identification 
 
 ## Solutions With Scripts
 Link to YARA rule
-1. 
+1. Write the YARA rule
+   ```
+   import "pe"
+   
+   rule chinese_exe {
+       meta:
+	   description = "Detects PE files with Chinese language identifiers (0x04 or 0x004)"
+	   author = "Aaron Amran"
+	   date = "2024-09-28"
+	   version = "1.0"
 
-```
-import "pe"
-
-rule chinese_exe {
-    meta:
-        description = "Detects PE files with Chinese language identifiers (0x04 or 0x004)"
-        author = "Aaron Amran"
-	student_id = "nxCLnZGLgyOUMpnDw16rtDvYuTF2"
-        date = "2024-09-28"
-        version = "1.0"
-
-    condition:
-        // Ensure the file is a PE and has Chinese language identifier
-        pe.is_pe and
-        (pe.language(0x04) or pe.language(0x004))
-}
-```
-
-`yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\chinese_exe.yar" "C:\Windows\System32"`
-
-
+       condition:
+	   // Ensure the file is a PE and has Chinese language identifier
+	   pe.is_pe and
+	   (pe.language(0x04) or pe.language(0x004))
+    }
+    ```
+2. Save it as `chinese_exe.yar` in a folder
+3. To scan for portable executables in a target directory, open Command Prompt with administrator privileges and run the following commands:
+   ```
+   cd C:\YARA
+   yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\chinese_exe.yar" 
+   "C:\Windows\System32"`
+   ```
+4. The sample output will look like this:
 ![image](https://github.com/user-attachments/assets/ed367cae-6649-4d69-b688-7c61c630c00e)
 
