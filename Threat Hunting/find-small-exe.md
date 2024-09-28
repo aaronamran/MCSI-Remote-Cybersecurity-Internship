@@ -20,7 +20,7 @@ YARA rules are powerful for threat hunting, helping detect malware by scanning s
 
 ## Solutions With Scripts
 [Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/small_pe.yar)
-1. Write the YARA Rule
+1. Write the YARA rule
    ```
    import "pe"
 
