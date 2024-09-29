@@ -46,9 +46,9 @@ A PHP web shell is a script that lets a hacker remotely control a web server. On
     SSN: 123-45-6789
     Bank Account: 9876543210
     ```
-1. Login to `webshell.php` hosted on the localhost using the password `password123`. An invalid password error would appear as the following on the screen:
+1. Login to `webshell.php` hosted on the localhost using the password `password123`. An invalid password error would appear as the following on the screen: <br/>
    ![image](https://github.com/user-attachments/assets/4834a641-3f93-4423-ad2e-3db190fa011b)
-2. The homepage of the PHP web shell is shown below:
+2. The homepage of the PHP web shell is shown below: <br/>
    ![image](https://github.com/user-attachments/assets/0ed8b5cb-ed1c-40f9-8820-789737728940)
 3. To see the current directory, enter the command `pwd`
 4. Use the command combination of `cd <directory> && ls` to list files and folders in the specified directory
