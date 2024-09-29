@@ -1,6 +1,10 @@
 # Write A PS Script That Installs An Insecure Windows Service
 An insecure Windows service is one that can be easily exploited by a Penetration Tester. These services often lack proper security protections and can be compromised through vulnerabilities in the code or weak passwords.
 
+## References
+- [PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc) by HarmJ0y
+- [How to Set Permission on a Service Using Subinacl](http://www.waynezim.com/2010/02/how-to-set-permission-on-a-service-using-subinacl/) by Wayne Zimmerman
+
 ## Tasks
 - Research how to set up a Windows service with insecure configurations, such as weak permissions or allowing modifications by EVERYONE
 - Create a PowerShell script that automates the creation of the insecure Windows service, incorporating the vulnerable configurations identified in the research
