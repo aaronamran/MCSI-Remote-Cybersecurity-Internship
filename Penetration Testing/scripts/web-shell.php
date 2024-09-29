@@ -78,6 +78,7 @@ if (isset($_POST['password'])) {
         .error {
             color: red;
             margin-bottom: 20px;
+            margin-top: 20px;
             font-size: 18px;
         }
         .cmd-output {
