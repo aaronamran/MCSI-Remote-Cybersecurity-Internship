@@ -25,7 +25,7 @@ A PHP web shell is a script that lets a hacker remotely control a web server. On
 - Confirm that the downloaded file is received intact and matches the original file on the target web server
 
 ## Solutions With Scripts
-- [Link to web-shell.php](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/scripts/web-shell.php)
+[Link to web-shell.php](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/scripts/web-shell.php)
 - Sample of malicious executables:
   - Batch script for Windows:
     ```
@@ -46,6 +46,18 @@ A PHP web shell is a script that lets a hacker remotely control a web server. On
     SSN: 123-45-6789
     Bank Account: 9876543210
     ```
+1. Login to `webshell.php` hosted on the localhost using the password `password123`. An invalid password error would appear as the following on the screen:
+   ![image](https://github.com/user-attachments/assets/4834a641-3f93-4423-ad2e-3db190fa011b)
+2. The homepage of the PHP web shell is shown below:
+   ![image](https://github.com/user-attachments/assets/0ed8b5cb-ed1c-40f9-8820-789737728940)
+3. To see the current directory, enter the command `pwd`
+4. Use the command combination of `cd <directory> && ls` to list files and folders in the specified directory
+5. To upload a (malicious) file, browse and click 'Upload File'
+6. To download a file, identify the absolute path of the file and enter into the download text field, then click 'Download'. For example `/var/www/html/uploads/yourfile.txt
+`
+
+   
+
 
 
 
