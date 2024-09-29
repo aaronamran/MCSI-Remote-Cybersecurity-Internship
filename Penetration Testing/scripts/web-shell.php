@@ -9,6 +9,7 @@ $password = 'password123'; // Change this to your desired password
 $authenticated = false;
 $error = ''; // Error message variable
 $cmd_output = ''; // Variable to hold command output
+$download_error = '', // Error message variable
 
 if (isset($_POST['password'])) {
     if ($_POST['password'] === $password) {
@@ -28,6 +29,15 @@ if (isset($_POST['password'])) {
         // File download feature
         if (isset($_POST['download'])) {
             $file = $_POST['download'];
+
+            // Specify the absolute path where files are located
+            $absolute_path = '/path/to/your/files/'; // Replace this with the actual absolute path
+        
+            // Sanitize the file name to prevent directory traversal attacks
+            $file = basename($file); 
+        
+            $file_path = $absolute_path . $file;
+            
             if (file_exists($file)) {
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
@@ -40,7 +50,7 @@ if (isset($_POST['password'])) {
                 readfile($file);
                 exit;
             } else {
-                echo "File not found!";
+                $download_error = 'File not found!';
             }
         }
     } else {
