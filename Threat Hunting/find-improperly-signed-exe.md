@@ -2,7 +2,6 @@
 YARA rules help detect malware by defining specific patterns, widely used by antivirus programs, incident response teams, and security researchers. To identify binaries pretending to be signed by Microsoft or those with invalid signatures, YARA rules can be written to detect such cases.
 
 ## Tasks
-## Tasks
 1. Complete the following prerequisites first:
    - [Lab Setup: Threat Hunting With YARA](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-yara.md)
    - [Lab Setup: Malware Dataset](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/malware-dataset.md)
