@@ -5,7 +5,7 @@ The MCSI Remote Cybersecurity Internship is not a traditional office-based, paid
 
 Duration of internship: August 2024 - January 2025 (6 months)
 
-This remote cybersecurity internship focuses on the following domains, in order:
+This remote cybersecurity internship focuses on the following domains:
 1. [Lab Setup](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/CONTENTS-Lab-Setup.md)
 2. [Security Tools](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/CONTENTS-Security-Tools.md)
 3. [Penetration Testing](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/CONTENTS-Penetration-Testing.md)
