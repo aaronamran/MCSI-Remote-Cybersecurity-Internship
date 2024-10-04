@@ -22,4 +22,9 @@ Submitted spreadsheet: Link
 Screenshot of commands used on the target website: <br/>
 ![image](https://github.com/user-attachments/assets/8a459588-f1e7-4e7e-bb50-776a4e90feb7)
 
+- `-d targetdomain.com`: specifies the target domain to be searched
+- `-s`: performs a Shodan search (requires API keys in `api-keys.yaml` file)
+- `-n`: skips reverse DNS resolution (does not perform looking up hostnames from IP addresses) to save time or avoid issues with DNS resolution
+- `-c`: performs a DNS brute-force (guesses subdomains and hosts by using wordlists/dictionary)
+- `-b all`: specifies to use all search engines/data sources
 
