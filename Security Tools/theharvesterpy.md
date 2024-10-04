@@ -5,7 +5,7 @@ TheHarvester is a useful OSINT (Open Source Intelligence) tool that helps cybers
 ## Create A Spreadsheet To Document The Results
 Headings required: Target Domain, Discovery Date, Name, Email, URLs, Subdomains, IP
 
-Submitted spreadsheet will not be linked here as it is considered confidential
+Submitted spreadsheet will not be provided or linked here as it is considered confidential
 
 
 ## Perform Reconnaisance With TheHarvester
