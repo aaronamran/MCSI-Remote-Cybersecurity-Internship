@@ -16,8 +16,8 @@ OpenVAS is a vulnerability assessment tool designed to scan networks for potenti
 
 ## Solutions With Screenshots
 Chosen Vulnerability: Enabling SMBv1 via Registry (Without PowerShell)
-- Since PowerShell 1.0 can't handle the commands to check or enable SMBv1, you'll need to enable it manually via the registry or using the Control Panel
+- Since PowerShell 1.0 can't handle the commands to check or enable SMBv1, it needs to enable it manually via the registry or using the Control Panel
 - Open Registry Editor (regedit.exe)
 - Navigate to: `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters`
 - Create a new DWORD (32-bit) value: Name it: SMB1 and set its value to 1 (to enable SMBv1)
-- After this, restart your machine to apply the changes
+- After this, restart the machine to apply the changes
