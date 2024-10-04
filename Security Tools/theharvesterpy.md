@@ -14,4 +14,12 @@ Submitted spreadsheet: Link
 - Gather a list of subdomains belonging to the target domain
 - Perform DNS brute forcing to discover hidden subdomains or domain variations
 
-- The command theharvester is deprecated, use theHarvester instead.
+- The command theharvester is deprecated, use theHarvester instead:
+  ```
+  theHarvester -d eccouncil.org -s -n -c -b all
+  ```
+
+Screenshot of commands used on the target website: <br/>
+![image](https://github.com/user-attachments/assets/8a459588-f1e7-4e7e-bb50-776a4e90feb7)
+
+
