@@ -1,6 +1,10 @@
 # Perform A Vulnerability Scan With OpenVAS
 OpenVAS is a vulnerability assessment tool designed to scan networks for potential security weaknesses. It can identify vulnerabilities in operating systems, applications, and databases, as well as assess the security of networks and systems.
 
+## References
+- [](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008)
+
+
 ## Tasks
 - Setup 1 attacker machine (Kali Linux) and 3 target machines (Windows 10, Lubuntu, Windows 7)
 - Research common vulnerabilities that OpenVAS can identify
@@ -11,7 +15,26 @@ OpenVAS is a vulnerability assessment tool designed to scan networks for potenti
   
 
 ## Solutions With Screenshots
-Chosen Vulnerability: Enabling SMBv1 via Registry (Without PowerShell)
+Chosen Vulnerability: SMBv1 
+
+#### Enabling SMBv1 via Registry (With PowerShell v2.0 or later)
+- To detect SMBv1 on SMB Server (Windows 7 VM):
+  ```
+  Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters | ForEach-Object {Get-ItemProperty $_.pspath}
+  ```
+- Default configuration = Enabled (No registry named value is created), so no SMB1 value will be returned
+- To enable SMBv1;
+  ```
+  Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type DWORD -Value 1 -Force
+  ```
+- To disable SMBv1:
+  ```
+  Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type DWORD -Value 0 -Force
+  ```
+- After changes are made, the computer/VM must be restarted
+
+
+#### Enabling SMBv1 via Registry (Without PowerShell)
 - Since PowerShell 1.0 can't handle the commands to check or enable SMBv1, it needs to enable it manually via the registry or using the Control Panel
 - Open Registry Editor (regedit.exe)
 - Navigate to: `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters`
