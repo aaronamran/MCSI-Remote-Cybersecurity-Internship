@@ -2,7 +2,7 @@
 OpenVAS is a vulnerability assessment tool designed to scan networks for potential security weaknesses. It can identify vulnerabilities in operating systems, applications, and databases, as well as assess the security of networks and systems.
 
 ## References
-- [](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008)
+- [How to detect, enable and disable SMBv1, SMBv2, and SMBv3 in Windows](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008)
 
 
 ## Tasks
