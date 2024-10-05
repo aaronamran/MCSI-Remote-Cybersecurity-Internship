@@ -46,3 +46,8 @@ Chosen Vulnerability: SMBv1
   Default: 1 = Enabled (No registry key is created)
   ```
 - After changes are made, restart the machine to apply the changes
+
+
+- `sudo systemctl status gsad`
+- `sudo systemctl restart gsad`
+  
