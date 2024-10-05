@@ -47,7 +47,7 @@ Chosen Vulnerability: SMBv1
   ```
 - After changes are made, restart the machine to apply the changes
 
-
+- `sudo gvm-check-setup`
 - `sudo systemctl status gsad`
 - `sudo systemctl restart gsad`
   
