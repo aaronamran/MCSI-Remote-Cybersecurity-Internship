@@ -2,7 +2,7 @@
 OpenVAS is a vulnerability assessment tool designed to scan networks for potential security weaknesses. It can identify vulnerabilities in operating systems, applications, and databases, as well as assess the security of networks and systems.
 
 ## References
-- [How to detect, enable and disable SMBv1, SMBv2, and SMBv3 in Windows](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008)
+- [How to detect, enable and disable SMBv1, SMBv2, and SMBv3 in Windows](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008) by Microsoft
 
 
 ## Tasks
@@ -18,7 +18,7 @@ OpenVAS is a vulnerability assessment tool designed to scan networks for potenti
 Chosen Vulnerability: SMBv1 
 
 #### Enabling SMBv1 via Registry (With PowerShell v2.0 or later)
-- To detect SMBv1 on SMB Server (Windows 7 VM):
+- To detect SMBv1 on SMB server (Windows 7 VM):
   ```
   Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters | ForEach-Object {Get-ItemProperty $_.pspath}
   ```
@@ -35,8 +35,14 @@ Chosen Vulnerability: SMBv1
 
 
 #### Enabling SMBv1 via Registry (Without PowerShell)
-- Since PowerShell 1.0 can't handle the commands to check or enable SMBv1, it needs to enable it manually via the registry or using the Control Panel
+- Since PowerShell 1.0 can't handle the commands to check or enable SMBv1, it needs to be enabled manually via the registry or using the Control Panel
 - Open Registry Editor (regedit.exe)
 - Navigate to: `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters`
-- Create a new DWORD (32-bit) value: Name it: SMB1 and set its value to 1 (to enable SMBv1)
-- After this, restart the machine to apply the changes
+- To enable SMBv1 on the SMB server, configure it by creating a new DWORD (32-bit) value. Name it SMB1 and set its value to 1 (to enable SMBv1) as shown below:
+  ```
+  Registry entry: SMB1
+  REG_DWORD: 0 = Disabled
+  REG_DWORD: 1 = Enabled
+  Default: 1 = Enabled (No registry key is created)
+  ```
+- After changes are made, restart the machine to apply the changes
