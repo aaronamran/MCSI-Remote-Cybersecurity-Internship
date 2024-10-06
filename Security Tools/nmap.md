@@ -53,7 +53,7 @@ Nmap is a powerful tool for network exploration and security auditing, commonly 
 
 - For each of the scans performed, ensure that Nmap successfully discovers port 22 (SSH) and port 80 (HTTP) as "open" on the target machine <br/>
   Sample screenshot of Kali Linux (attacker VM) using Nmap to scan Apache2 and SSH ports on Lubuntu (target VM): <br/>
-  ![Nmap TCP Scan](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/images/nmap-tcp.png)
+  ![nmap-tcp](https://github.com/user-attachments/assets/87390a83-446e-45f2-b1d8-cbc06e2d055e)
 
 
 
@@ -109,4 +109,5 @@ run the commands in the following steps:
   The min-rate number means the number of packets sent per second. A low min-rate is more accurate, but takes longer time.
 - For each of the scans performed, ensure that Nmap successfully discovers port 161 (SNMP) as "open" on the target machine <br/>
   Sample screenshot of Kali Linux (attacker VM) using Nmap to scan SNMP ports on Lubuntu (target VM): <br/>
-  ![Nmap UDP Scan](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/images/nmap-udp.png)
+  ![nmap-udp](https://github.com/user-attachments/assets/0d3b1f5b-c870-4c9c-84d4-e6380df2368a)
+
