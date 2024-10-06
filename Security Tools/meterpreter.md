@@ -37,12 +37,7 @@ Gaining SYSTEM privileges on a Windows machine is essential for penetration test
 16. Enter `shell` and `whoami` to get `nt authority\system`
 
 <br/>
-Sample screenshot of a successful Meterpreter session is shown below: <br/>
+Sample screenshot of a successful Meterpreter session is shown below: 
+
 ![image](https://github.com/user-attachments/assets/e61bc49c-66f1-4a0a-8025-539e6ed14d7d)
-
-
-
-
-
-
 
