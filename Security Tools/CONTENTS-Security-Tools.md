@@ -1,8 +1,8 @@
 # Security Tools - List Of Contents
 
-## [Perform A TCP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap.md#perform-a-tcp-port-scan-using-nmap)
+## [Perform A TCP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap-tcp.md)
 
-## [Perform A UDP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap.md#perform-a-udp-port-scan-using-nmap)
+## [Perform A UDP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap-udp.md)
 
 ## [Perform A Vulnerability Scan With OpenVAS](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/openvas.md)
 
