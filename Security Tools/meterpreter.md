@@ -75,6 +75,7 @@ Screenshot of how Kiwi is used in a Meterpreter session:
 ![image](https://github.com/user-attachments/assets/3fbaa79a-b163-43d5-bc50-7bb025b4c288)
 
 Screenshot of how hashdump is used in a Meterpreter session:
-![image](https://github.com/user-attachments/assets/c7454ba6-d740-40a6-8712-484b0b132c90)
+![image](https://github.com/user-attachments/assets/5ded7cc0-7b98-4ad2-8e50-a35ff5841958)
+
 
 
