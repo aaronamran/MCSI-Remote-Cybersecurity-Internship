@@ -12,5 +12,8 @@ Gaining SYSTEM privileges on a Windows machine is essential for penetration test
 - Transfer the payload to the target machine
 - Create a Meterpreter listener
 - On the target machine, right-click the payload file and select "Run as administrator" to start the reverse shell with elevated privileges
-- Within the Meterpreter session, use the "getsystem" command to escalate your privileges to SYSTEM level
-- Execute either the "whoami" or "getuid" command
+- Within the Meterpreter session, use the `getsystem` command to escalate your privileges to SYSTEM level
+- Execute either the `whoami` or `getuid` command
+
+#### Solutions 
+1. 
