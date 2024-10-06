@@ -47,7 +47,18 @@ Chosen Vulnerability: SMBv1
   ```
 - After changes are made, restart the machine to apply the changes
 
-- `sudo gvm-check-setup`
-- `sudo systemctl status gsad`
-- `sudo systemctl restart gsad`
+#### Enable OpenVAS on Docker in Kali Linux
+- List all the running containers: `docker ps -a`
+- Run `sudo gvm-check-setup`. Once you see a `It seems like your OpenVAS-9 installation is OK.`, If 
+- If the error notification for `ERROR: gsad service did not start` appears, run `sudo systemctl status gsad` and `sudo systemctl restart gsad` to check and restart the Greenborne Security Assistant Daemon (GSAD)
+- To start OpenVAS, run the command `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas` and enter the following URL in the web browser: `https://127.0.0.1:9392/login`. The login username and password are both set to `admin`
+
+## Solutions
+Screenshot of vulnerability scanning task for all 3 VMs:
+- Windows 7 VM IP address: 192.168.1.3
+- Windows 10 VM IP address: 192.168.1.18
+- Lubuntu VM IP address: 192.168.1.17
+<br/>
+![image](https://github.com/user-attachments/assets/eb551495-5d4b-42ca-9b51-4e79463b1b3b)
+
   
