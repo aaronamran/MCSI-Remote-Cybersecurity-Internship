@@ -41,3 +41,21 @@ Sample screenshot of a successful Meterpreter session is shown below:
 
 ![image](https://github.com/user-attachments/assets/e61bc49c-66f1-4a0a-8025-539e6ed14d7d)
 
+
+## Use Meterpreter To Dump Password Hashes Stored In The SAM Database And LSASS
+In cybersecurity, understanding how attackers extract credentials is key to effective defense. Meterpreter, a post-exploitation tool, enables attackers to access compromised Windows systems and extract sensitive data like password hashes. Through Meterpreter, tools like Mimikatz can dump password hashes from LSASS memory and the SAM database
+
+#### References
+- [Meterpreter Basics](https://www.offsec.com/metasploit-unleashed/meterpreter-basics/#hashdump)
+- [Mimikatz](https://www.offsec.com/metasploit-unleashed/mimikatz/)
+
+#### Tasks
+- Launch Metasploit and use an appropriate exploit to gain a Meterpreter session on the Windows 7 virtual machine
+- Once you have a Meterpreter session, use the "getsystem" command to escalate privileges to SYSTEM level
+- Use the "getuid" command to display the current user's privileges
+- Use Mimikatz commands within the Meterpreter session to extract usernames and password hashes from the LSASS memory
+- Use the "hashdump" command in Meterpreter to dump password hashes from the SAM database
+
+
+#### Solutions
+1. 
