@@ -50,7 +50,7 @@ Chosen Vulnerability: SMBv1
 #### Enable OpenVAS on Docker in Kali Linux
 - List all the running containers: `docker ps -a`
 - Run `sudo gvm-check-setup`. Once you see a `It seems like your OpenVAS-9 installation is OK.`, If 
-- If the error notification for `ERROR: gsad service did not start` appears, run `sudo systemctl status gsad` and `sudo systemctl restart gsad` to check and restart the Greenborne Security Assistant Daemon (GSAD)
+- If the error notification for `ERROR: gsad service did not start` appears, run `sudo systemctl status gsad` and `sudo systemctl restart gsad` to check and restart the Greenbone Security Assistant Daemon (GSAD)
 - To start OpenVAS, run the command `docker run -d -p 443:443 -p 9392:9392 --name openvas mikesplain/openvas` and enter the following URL in the web browser: `https://127.0.0.1:9392/login`. The login username and password are both set to `admin`
 
 
