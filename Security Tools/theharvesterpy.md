@@ -1,4 +1,4 @@
-# TheHarvester.py
+# Use TheHarvester.py To Gather Information About Targets
 TheHarvester is a useful OSINT (Open Source Intelligence) tool that helps cybersecurity professionals and researchers gather information like domains, email addresses, usernames, and subdomains from public sources
 
 
