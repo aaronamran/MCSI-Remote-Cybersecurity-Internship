@@ -18,4 +18,4 @@
 
 ## [Use Metasploit's Port Forwarding Capabilities To Gain Access To A Machine That Doesn't Have Direct Internet Access](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit-pivoting.md)
 
-## [Use Mimikatz To Perform A Pass-The-Hash Attack]
+## [Use Mimikatz To Perform A Pass-The-Hash Attack](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/mimikatz-pass-the-hash.md)
