@@ -22,8 +22,10 @@ Some networks isolate business-critical machines from the Internet and more vuln
 3. Ping Target 2 from Kali Linux to ensure 100% packet loss
 4. In Kali Linux, open Metasploit, and exploit Target 1 based on the [steps provided here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit-exploit-ms17-010.md)
 5. Once a Meterpreter session is opened, use `background` to background the session
+   ![image](https://github.com/user-attachments/assets/9d63e6de-a334-41dd-8437-98a40b50aaac)
 6. Enter `use multi/manage/autoroute`. Enter `options` and if the Meterpreter's session ID previously is 1, enter `set SESSION 1`, and if the IP address of both Targets is 192.168.1.X, enter `set SUBNET 192.168.1.0` and `run`
 7. Show the current routing table Metasploit is using with `route print` and confirm the Subnet, Netmask and Gateway information
+   ![image](https://github.com/user-attachments/assets/05392fa7-41ec-473e-bdca-b2ecb1458e94)
 8. Enter `scanner/portscan/tcp` and `options`. Set the RHOSTS to Target 2 and define the range of ports with RPORTS, for example `set PORTS 1-500`. Set the THREADS to 3 and run. It should return the following output:
-![image](https://github.com/user-attachments/assets/bb182e9b-a896-4a73-a7e0-bfa8924fb982)
+   ![image](https://github.com/user-attachments/assets/bb182e9b-a896-4a73-a7e0-bfa8924fb982)
 
