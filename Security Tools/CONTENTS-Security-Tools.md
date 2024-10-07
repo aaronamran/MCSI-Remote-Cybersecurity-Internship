@@ -6,11 +6,11 @@
 
 ## [Perform A Vulnerability Scan With OpenVAS](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/openvas.md)
 
-## [Use Metasploit To Identify A Machine Vulnerable To MS17-010](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit.md#use-metasploit-to-identify-a-machine-vulnerable-to-ms17-010)
+## [Use Metasploit To Identify A Machine Vulnerable To MS17-010](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit-identify-ms17-010.md)
 
-## [Use Metasploit To Exploit MS17-010](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit.md#use-metasploit-to-exploit-ms17-010)
+## [Use Metasploit To Exploit MS17-010](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit-exploit-ms17-010.md)
 
-## [Use Metasploit's Port Forwarding Capabilities To Gain Access To A Machine That Doesn't Have Direct Internet Access](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit.md#use-metasploits-port-forwarding-capabilities-to-gain-access-to-a-machine-that-doesnt-have-direct-internet-access)
+## [Use Metasploit's Port Forwarding Capabilities To Gain Access To A Machine That Doesn't Have Direct Internet Access](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/metasploit-pivoting.md)
 
 ## [Escalate Privileges To SYSTEM Using Meterpreter’s Command GETSYSTEM](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/meterpreter.md#escalate-privileges-to-system-using-meterpreters-command-getsystem)
 
