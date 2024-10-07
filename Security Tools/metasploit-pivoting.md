@@ -2,7 +2,7 @@
 Some networks isolate business-critical machines from the Internet and more vulnerable corporate systems using Virtual LANs (VLANs) or physical segmentation. Despite this isolation, network engineers and system administrators still require access to these restricted networks for tasks like troubleshooting, patching, or rebooting machines. As a penetration tester or red teamer, your goal is to identify users who need access to these restricted networks, target the machines they use for management, and compromise them. Once you gain control of a machine with access, you can route your traffic through it to reach the restricted network. This method, known as 'pivoting,' allows you to move into otherwise unreachable network environments.
 
 ## References
-- [Pivoting](https://www.offsec.com/metasploit-unleashed/pivoting/)
+- [Pivoting](https://www.offsec.com/metasploit-unleashed/pivoting/) by Offensive Security
 
 ## Tasks
 - Prepare the following lab setup:
