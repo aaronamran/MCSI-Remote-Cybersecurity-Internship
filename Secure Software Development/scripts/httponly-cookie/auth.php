@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'httponly' => true,  // Ensure cookie is not accessible via JavaScript
             'secure' => false,   // Set to true if using HTTPS
             'samesite' => 'Strict'
+            'path' => '/'  // Ensure same path across all session cookies
         ]);
 
         header("Location: dashboard.php");
