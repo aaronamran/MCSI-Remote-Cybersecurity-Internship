@@ -21,3 +21,63 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
 - Access the web application through a web browser
 - Use the web developer tools to inspect the cookies set by the application
 - Confirm that the session id cookie has the Secure flag turned on, indicating that it is only transmitted over HTTPS connections
+
+
+## Solutions With Scripts
+1. Before starting the PHP Session on localhost in XAMPP, HTTPS needs to be set up by configuring Apache to use SSL with a self-signed certificate
+2. Enable OpenSSL in XAMPP by navigating to XAMPP's configuration directory
+   ```
+   sudo nano /opt/lampp/etc/httpd.conf
+   ```
+4. Look for the following lines and make sure they are not commented out. Remove the # if necessary
+   ```
+   LoadModule ssl_module modules/mod_ssl.so
+   Include etc/extra/httpd-ssl.conf
+   ```
+5. Generate a self-signed SSL certificate using each of the following commands in order
+   ```
+   cd /opt/lampp
+   sudo mkdir ssl
+   cd ssl
+   ```
+6. Now generate a self-signed SSL certificate using OpenSSL. During the certificate generation process, you will be asked to enter details such as your country, state, and common name (you can leave most of them blank, but use localhost for the Common Name (CN))
+   ```
+   sudo openssl req -new -x509 -days 365 -nodes -out server.crt -keyout server.key
+   ```
+7. Configure Apache for SSL. Edit the Apache SSL configuration file (httpd-ssl.conf) to use the newly generated certificate
+   ```
+   sudo nano /opt/lampp/etc/extra/httpd-ssl.conf
+   ```
+8. Look for the following lines and update them to point to your self-signed certificate
+   ```
+   # SSL certificate file
+   SSLCertificateFile "/opt/lampp/ssl/server.crt"
+   # SSL certificate key file
+   SSLCertificateKeyFile "/opt/lampp/ssl/server.key"
+   ```
+9. Update the VirtualHost to use HTTPS: In the same file (httpd-ssl.conf), update or add the <VirtualHost> section to handle HTTPS requests on localhost
+   ```
+   <VirtualHost _default_:443>
+      DocumentRoot "/opt/lampp/htdocs"
+      ServerName localhost:443
+      SSLEngine on
+      SSLCertificateFile "/opt/lampp/ssl/server.crt"
+      SSLCertificateKeyFile "/opt/lampp/ssl/server.key"
+      <Directory "/opt/lampp/htdocs">
+          Options Indexes FollowSymLinks
+          AllowOverride All
+          Require all granted
+      </Directory>
+    </VirtualHost>
+   ```
+10. Allow HTTP and HTTPS Ports in Kali Firewall (Optional): If you're running a firewall on Kali, make sure ports 80 (HTTP) and 443 (HTTPS) are allowed
+   ```
+   sudo ufw allow 80/tcp
+   sudo ufw allow 443/tcp
+   ```
+11. Restart Apache to Apply Changes: After making these changes, restart Apache to apply the SSL configuration
+   ```
+   sudo /opt/lampp/lampp restart
+   ```
+
+
