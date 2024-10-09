@@ -68,7 +68,7 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
           AllowOverride All
           Require all granted
       </Directory>
-    </VirtualHost>
+   </VirtualHost>
    ```
 10. Allow HTTP and HTTPS Ports in Kali Firewall (Optional): If you're running a firewall on Kali, make sure ports 80 (HTTP) and 443 (HTTPS) are allowed
    ```
