@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         setcookie(session_name(), session_id(), [
             'httponly' => true,  // Ensure cookie is not accessible via JavaScript
             'secure' => false,   // Set to true if using HTTPS
-            'samesite' => 'Strict'
+            'samesite' => 'Strict',
             'path' => '/'  // Ensure same path across all session cookies
         ]);
 
