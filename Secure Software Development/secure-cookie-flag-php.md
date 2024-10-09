@@ -76,9 +76,10 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
     sudo ufw allow 80/tcp
     sudo ufw allow 443/tcp
     ```
-11. Restart Apache to Apply Changes: After making these changes, restart Apache to apply the SSL configuration
+10. Restart Apache to Apply Changes: After making these changes, restart Apache to apply the SSL configuration
     ```
     sudo /opt/lampp/lampp restart
     ```
-
+11. The site can now be accessed using the URL that has https in it
+12. When the web application is running, login to it. Open the browser's developer tools and navigate to the "Application" or "Storage" tab. Under cookies, verifu the session cookie has the "Secure" flag enabled, meaning it is only sent over HTTPS
 
