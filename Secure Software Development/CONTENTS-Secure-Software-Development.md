@@ -6,7 +6,7 @@
 
 ## [Write A Web Application That Correctly Utilizes The HTTP Only Cookie Flag](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/http-only-cookie-php.md)
 
-## [Write A Web Application That Automatically Logs Out Users After 5 Minutes Of Inactivity](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/5-minutes-auto-logoout-php.md)
+## [Write A Web Application That Automatically Logs Out Users After 5 Minutes Of Inactivity](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/5-minutes-auto-logout-php.md)
 
 ## [Write A Web Application That Detects And Safely Handles Crashes And Exceptions]
 
