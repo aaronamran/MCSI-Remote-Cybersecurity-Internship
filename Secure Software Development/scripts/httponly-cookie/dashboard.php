@@ -16,7 +16,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 </head>
 <body>
     <h2>Welcome to your Dashboard!</h2>
-    <p>You are logged in as <?php echo htmlentities($validUsername); ?></p>
+    <p>You are logged in</p>
     <a href="logout.php">Logout</a>
 </body>
 </html>
