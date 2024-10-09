@@ -71,13 +71,13 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
    </VirtualHost>
    ```
 9. Allow HTTP and HTTPS Ports in Kali Firewall (Optional): If you're running a firewall on Kali, make sure ports 80 (HTTP) and 443 (HTTPS) are allowed
-   ```
-   sudo ufw allow 80/tcp
-   sudo ufw allow 443/tcp
-   ```
-10. Restart Apache to Apply Changes: After making these changes, restart Apache to apply the SSL configuration
-   ```
-   sudo /opt/lampp/lampp restart
-   ```
+    ```
+    sudo ufw allow 80/tcp
+    sudo ufw allow 443/tcp
+    ```
+11. Restart Apache to Apply Changes: After making these changes, restart Apache to apply the SSL configuration
+    ```
+    sudo /opt/lampp/lampp restart
+    ```
 
 
