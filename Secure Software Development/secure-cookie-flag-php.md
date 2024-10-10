@@ -82,4 +82,6 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
     ```
 11. The site can now be accessed using the URL that has https in it
 12. When the web application is running, login to it. Open the browser's developer tools and navigate to the "Application" or "Storage" tab. Under cookies, verify the session cookie has the "Secure" flag enabled, meaning it is only sent over HTTPS
+    ![image](https://github.com/user-attachments/assets/41c62973-0249-446f-ab64-72ccf9697288)
+
 
