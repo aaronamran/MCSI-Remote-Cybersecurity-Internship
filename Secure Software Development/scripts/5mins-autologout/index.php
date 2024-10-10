@@ -21,6 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Set the session variables
         $_SESSION['username'] = $username;
         $_SESSION['last_activity'] = time(); // Set last activity time
+
+        // Set secure cookie with Secure and HttpOnly flags
+        setcookie(session_name(), session_id(), [
+            'expires' => time() + 3600, // 1-hour expiration
+            'path' => '/',
+            'domain' => '', // Use domain if hosted publicly
+            'secure' => true, // Ensure cookie is sent over HTTPS only
+            'httponly' => true, // Prevent JavaScript access to the cookie
+            'samesite' => 'Strict' // Optional: Prevent cross-site requests
+        ]);
+        
         header('Location: dashboard.php');
         exit();
     } else {
