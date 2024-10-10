@@ -8,7 +8,7 @@ if (isset($_SESSION['username'])) {
 }
 
 // Dummy credentials for the purpose of this example
-$valid_username = 'user';
+$valid_username = 'admin';
 $valid_password = 'password';
 
 // Handle form submission for login
