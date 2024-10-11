@@ -1,9 +1,8 @@
-<?php
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-    header('Location: index.php');
+    header('Location: index.php?login_required=1');
     exit();
 }
 
@@ -23,7 +22,6 @@ if (time() - $_SESSION['last_activity'] > $session_timeout) {
 
 // Calculate remaining time
 $remaining_time = $session_timeout - (time() - $_SESSION['last_activity']);
-
 ?>
 
 <!DOCTYPE html>
@@ -44,25 +42,20 @@ $remaining_time = $session_timeout - (time() - $_SESSION['last_activity']);
     <a href="logout.php">Logout</a>
 
     <script>
-        // Pass PHP remaining time to JavaScript
         let remainingTime = <?php echo $remaining_time; ?>;
 
-        // Start countdown timer
         function startCountdown() {
             let countdownElement = document.getElementById('countdown');
 
-            // Update the countdown every 1 second
             let countdownInterval = setInterval(function() {
                 let minutes = Math.floor(remainingTime / 60);
                 let seconds = remainingTime % 60;
-
-                // Format the time to always show two digits
                 seconds = seconds < 10 ? '0' + seconds : seconds;
                 countdownElement.innerHTML = minutes + ":" + seconds;
 
                 if (remainingTime <= 0) {
                     clearInterval(countdownInterval);
-                    window.location.href = 'logout.php'; // Auto logout when countdown reaches 0
+                    window.location.href = 'logout.php';
                 }
 
                 remainingTime--;
