@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         setcookie(session_name(), session_id(), [
             'expires' => time() + 3600, // 1-hour expiration
             'path' => '/',
-            'domain' => '', // Use domain if hosted publicly
-            'secure' => true, // Ensure cookie is sent over HTTPS only
-            'httponly' => true, // Prevent JavaScript access to the cookie
-            'samesite' => 'Strict' // Optional: Prevent cross-site requests
+            'domain' => '',
+            'secure' => true, 
+            'httponly' => true, 
+            'samesite' => 'Strict'
         ]);
-        
+
         header('Location: dashboard.php');
         exit();
     } else {
@@ -59,6 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Show message if session timed out
     if (isset($_GET['timeout']) && $_GET['timeout'] == 1) {
         echo "<p style='color:red;'>Session timed out. Please log in again.</p>";
+    }
+
+    // Show message if user tries to access a protected page without logging in
+    if (isset($_GET['login_required']) && $_GET['login_required'] == 1) {
+        echo "<p style='color:red;'>You must log in to access that page.</p>";
     }
     ?>
 
