@@ -3,6 +3,8 @@ OpenVAS is a vulnerability assessment tool designed to scan networks for potenti
 
 ## References
 - [How to detect, enable and disable SMBv1, SMBv2, and SMBv3 in Windows](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#for-windows-7-windows-server-2008-r2-windows-vista-and-windows-server-2008) by Microsoft
+- [Apache Lounge](https://www.apachelounge.com/download/win64/) by Apache
+- [Microsoft Visual C++ 2010 Service Pack 1 Redistributable Package MFC Security Update](https://www.microsoft.com/en-us/download/details.aspx?id=26999) by Microsoft
 
 
 ## Tasks
@@ -47,6 +49,16 @@ Chosen Vulnerability: SMBv1
   ```
 - After changes are made, restart the machine to apply the changes
 
+Chosen vulnerability: Apache 2.2.34 64-bit
+#### Enabling Apache 2.2.34
+- Download Microsoft Visual C++ 2010 Redistributable in the reference link above. Select 'vcredist_x64.exe' for 64-bit Windows, download and install
+- Download Apache 2.2.34 64-bit from the reference link above and extract the files to the location `C:\Apache2`. To install Apache, open a Command Prompt with administrator privileges, and navigate to the Apache bin directory using `cd C:\Apache2\bin`
+- Now install Apache as a service with the command `httpd -k install`
+- After successful installation, run the Apache with `httpd -k start`
+- To verify Apache is running, open the web browser and visit `http://localhost`. A text in the web browser stating "It Works!" should appear
+![image](https://github.com/user-attachments/assets/ab0daae0-e765-4e6e-807d-84c7b9ce6472)
+
+
 #### Enable OpenVAS on Docker in Kali Linux
 - List all the running containers: `docker ps -a`
 - Run `sudo gvm-check-setup`. Once you see a `It seems like your OpenVAS-9 installation is OK.`, If 
@@ -56,11 +68,18 @@ Chosen Vulnerability: SMBv1
 
 
 #### Screenshot of vulnerability scanning task for all 3 VMs:
-- Windows 7 VM IP address: 192.168.1.3
-- Windows 10 VM IP address: 192.168.1.18
+- Windows 7 VM IP address: 192.168.1.7
+- Windows 10 VM IP address: 192.168.1.10
 - Lubuntu VM IP address: 192.168.1.17
 
+![image](https://github.com/user-attachments/assets/51b65300-7281-44e5-9487-ecf19959ab59)
 
-![image](https://github.com/user-attachments/assets/eb551495-5d4b-42ca-9b51-4e79463b1b3b)
+<br/>
+
+Detected Apache vulnerabilities by OpenVAS:
+![image](https://github.com/user-attachments/assets/4482a3b6-88e2-40e9-b489-609bf920d59c)
+
+
+
 
   
