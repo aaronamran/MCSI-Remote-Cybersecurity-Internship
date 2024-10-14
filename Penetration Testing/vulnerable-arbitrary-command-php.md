@@ -25,32 +25,40 @@ An arbitrary command execution vulnerability occurs when a web application execu
 - Show that the three commands injected into the application provide information about the hosting server
 
 ## Solutions With Scripts
+- PHP script for the vulnerable web application:
+    ```
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Vulnerable Web Application</title>
+    </head>
+    <body>
+        <h1>Command Injection Demo</h1>
+        <form method="POST">
+            <label for="command">Enter a command to run on the server:</label><br>
+            <input type="text" id="command" name="command" placeholder="Enter command here"><br><br>
+            <input type="submit" value="Run Command">
+        </form>
+    
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Get user input from the form
+            $command = $_POST['command'];
+    
+            // Vulnerable line: This directly passes user input to system() without sanitization
+            echo "<pre>" . shell_exec($command) . "</pre>";
+        }
+        ?>
+    </body>
+    </html>
+    ```
+- Run the web app in XAMPP. Inject the commands below to gather information about the server:
+  - `ls -la`
+  - `hostname`
+  - `uname -a`
+  - `ifconfig`
+  - `ps aux`
+- Screenshot example of output from injected commands:
+  ![image](https://github.com/user-attachments/assets/8a242161-ff09-49a0-9319-aa6912cad64a)
 
 
-
-```
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vulnerable Web Application</title>
-</head>
-<body>
-    <h1>Command Injection Demo</h1>
-    <form method="POST">
-        <label for="command">Enter a command to run on the server:</label><br>
-        <input type="text" id="command" name="command" placeholder="Enter command here"><br><br>
-        <input type="submit" value="Run Command">
-    </form>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get user input from the form
-        $command = $_POST['command'];
-
-        // Vulnerable line: This directly passes user input to system() without sanitization
-        echo "<pre>" . shell_exec($command) . "</pre>";
-    }
-    ?>
-</body>
-</html>
-```
