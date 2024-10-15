@@ -21,7 +21,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 - RDP into the machine using the newly created local administrator account to prove successful exploitation
 
 ## Solutions With Scripts
-1. Download and install Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
+1. Download and install XAMPP, Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
 2. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
 3. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
    ```
@@ -40,5 +40,19 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ![image](https://github.com/user-attachments/assets/f6fc0fb6-44da-4d4b-9cb0-73c1ada05908)
 5. Add MSSQL Server service account to local administrators by running `lusrmgr.msc` to open Local Users and Groups Manager. Add `NT Service\MSSQLSERVER` to the Administrators group <br/>
    ![image](https://github.com/user-attachments/assets/7f1938de-c875-4359-b72f-212c133d3ac6)
-6. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version.
+6. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version. If the PHP version is 8.2.12, find the file named `php_sqlsrv_82_nts_x64.dll` and copy it to `C:\xampp\php\ext\`. Update the `php.ini` file to include `extension=php_sqlsrv_82_nts_x64.dll`. Restart Apache in XAMPP
+7. In SMSS, open a new query window and run the following SQL commands
+   ```
+   CREATE TABLE Users (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(50),
+    Password NVARCHAR(50)
+   );
+   
+   INSERT INTO Users (Username, Password) VALUES ('admin', 'password123');
+   INSERT INTO Users (Username, Password) VALUES ('user1', 'userpass');
+   ```
+   The data can be found by expanding the Tables Node located under the master node
+   ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
+8. 
 
