@@ -1,0 +1,44 @@
+# Execute Arbitrary Commands On A Server Via A SQL Injection Vulnerability
+Database applications like MySQL, MS SQL, and Oracle can execute system commands with root or admin privileges. A SQL injection vulnerability could allow arbitrary command execution. In MS SQL, the `xp_cmdshell` stored procedure enables OS command execution from within SQL Server, potentially leading to remote system exploitation
+
+## References
+- [Try SQL Server on-premises or in the cloud](https://www.microsoft.com/en-my/sql-server/sql-server-downloads)
+- [Download SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+- [MSSQL Injection Cheat Sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet)
+
+## Tasks
+- Install Microsoft SQL Server in a virtual machine
+- Check if the xp_cmdshell stored procedure is enabled. If disabled, re-enable it
+- Add the "nt system\mssqlserver" service account to the local administrator group on the server
+- Develop a web application that connects to the MSSQL server and is vulnerable to SQL injection
+- Implement user input fields without proper validation that can be exploited for SQL injection
+- Use SQL injection techniques to execute arbitrary SQL queries and commands via the vulnerable input fields
+- Execute "whoami" on the server using the xp_cmdshell stored procedure
+- Use SQL injection to execute commands that create a new local administrator account on the server
+
+## Benchmarks
+- Demonstrate that a valid output is received when executing "whoami" on the server using the xp_cmdshell stored procedure
+- RDP into the machine using the newly created local administrator account to prove successful exploitation
+
+## Solutions With Scripts
+1. Download and install Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
+2. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
+3. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
+   ```
+   -- Check if xp_cmdshell is enabled
+   EXEC sp_configure 'show advanced options', 1;
+   RECONFIGURE;
+   EXEC sp_configure 'xp_cmdshell';
+   GO
+   
+   -- Enable xp_cmdshell if disabled
+   EXEC sp_configure 'xp_cmdshell', 1;
+   RECONFIGURE;
+   GO
+   ```
+4. Verify that `xp_cmdshell` is enabled by running the command `EXEC xp_cmdshell 'whoami';` in the same query window. The output should look like this:
+   ![image](https://github.com/user-attachments/assets/f6fc0fb6-44da-4d4b-9cb0-73c1ada05908)
+5. Add MSSQL Server service account to local administrators by running `lusrmgr.msc` to open Local Users and Groups Manager. Add `NT Service\MSSQLSERVER` to the Administrators group
+   ![image](https://github.com/user-attachments/assets/7f1938de-c875-4359-b72f-212c133d3ac6)
+6. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version.
+
