@@ -4,7 +4,9 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 ## References
 - [Try SQL Server on-premises or in the cloud](https://www.microsoft.com/en-my/sql-server/sql-server-downloads)
 - [Download SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+- [Download ODBC Driver for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16)
 - [MSSQL Injection Cheat Sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet)
+
 
 ## Tasks
 - Install Microsoft SQL Server in a virtual machine
@@ -54,5 +56,11 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ```
    The data can be found by expanding the Tables Node located under the master node
    ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
-8. 
+8. Download and install Microsoft ODBC Driver for SQL Server (x64) in the reference link above. After installation, test the web app in localhost. If it does not work, repair the ODBC Driver by reinstalling and choose repair
+9. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
+10. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
+    ```
+    http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
+    ```
+11. 
 
