@@ -12,4 +12,36 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - Execute the PowerShell script to enable the AlwaysInstallElevated registry key on the target system
 - Exploit the AlwaysInstallElevated vulnerability using PowerUp.ps1
 
-## 
+## Solutions With Scripts
+1. The `AlwaysInstallElevated` registry key exists in two locations: `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer` and `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer`
+2. Save and run the following PowerShell script with administrator privileges to enable `AlwaysInstallElevated`
+   ```
+   # PowerShell script to enable the AlwaysInstallElevated registry key
+
+   # Enable AlwaysInstallElevated for Local Machine
+   $regPathLM = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer"
+   Set-ItemProperty -Path $regPathLM -Name "AlwaysInstallElevated" -Value 1 -Force
+
+   # Enable AlwaysInstallElevated for Current User
+   $regPathCU = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer"
+   Set-ItemProperty -Path $regPathCU -Name "AlwaysInstallElevated" -Value 1 -Force
+
+   Write-Host "AlwaysInstallElevated has been enabled for both HKLM and HKCU."
+   ```
+3. To execute the script, open PowerShell with administrator privileges and navigate to the folder where the script is stored. Run the script using `./Enable-AlwaysInstallElevated.ps1`
+4. To exploit the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
+   ```
+   Import-Module .\PowerUp.ps1
+   Invoke-AllChecks
+   ```
+5. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
+   ```
+   # Disable AlwaysInstallElevated for Local Machine
+   Set-ItemProperty -Path $regPathLM -Name "AlwaysInstallElevated" -Value 0 -Force
+   
+   # Disable AlwaysInstallElevated for Current User
+   Set-ItemProperty -Path $regPathCU -Name "AlwaysInstallElevated" -Value 0 -Force
+   ```
+
+
+
