@@ -18,8 +18,7 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 - Create a vulnerable Windows Service that any user, regardless of their permission levels, can modify
 - Use PowerUp.ps1 to exploit the vulnerable Windows Service and obtain unauthorised SYSTEM privileges on the machine
 
-## PowerShell Scripts
-
+## Solutions With Scripts
 #### Standard PowerShell Script
 ```
 # Define parameters for the new Windows service
@@ -48,21 +47,31 @@ Write-Host "Insecure Windows service '$serviceName' created with insecure permis
 
 #### PowerShell v1.0 Compatible Script
 ```
-# Define service parameters
-$serviceName = "InsecureService"
-$displayName = "Insecure Test Service"
-$binaryPath = "C:\Path\To\InsecureService.exe" # Path to the executable of the service
+# Set variables
+$serviceName = "InsecureServiceXP"
+$binaryPath = "C:\Windows\System32\cmd.exe /c calc.exe"
+$displayName = "Insecure Service for XP"
 
-# Create the Windows service
-sc.exe create $serviceName binPath= $binaryPath DisplayName= $displayName start= demand
+# Create the service using sc.exe command (PowerShell v1.0 lacks New-Service cmdlet)
+sc.exe create $serviceName binPath= "$binaryPath" DisplayName= "$displayName" start= demand
 
-# Grant everyone permissions to modify the service using SUBINACL
-# Ensure SUBINACL is installed and available in the PATH
-$subinaclPath = "C:\Path\To\subinacl.exe" # Update with the correct path to SUBINACL
-& $subinaclPath /service $serviceName /grant=everyone=f
+# Use subinacl.exe to set weak permissions (must be installed on XP)
+# Set permissions to Everyone:FullControl on service registry key
+cmd /c "subinacl.exe /keyreg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\$serviceName /grant=Everyone=F"
 
-# Output the result
-Write-Host "Insecure Windows service '$serviceName' created with insecure permissions."
+Write-Host "Insecure service created for XP: $serviceName"
 ```
 
-
+- Download and run PowerUp.ps1 on the system where the insecure service was installed. Use the following commands
+  ```
+  # Import PowerUp.ps1
+  Import-Module .\PowerUp.ps1
+  
+  # Run a full analysis of vulnerable services
+  Invoke-AllChecks
+  
+  # Alternatively, you can check specific vulnerable services
+  Get-ServiceUnquoted -Verbose
+  Get-ServicePerms -Verbose
+  ```
+- 
