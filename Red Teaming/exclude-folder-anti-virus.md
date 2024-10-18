@@ -22,5 +22,5 @@ Malware evades detection by running from excluded folders, helping it avoid anti
 8. Under Current threats, click on Allowed threats
 9. Click on Protection history and search for the Mimikatz threat listed. Click on Actions and allow Mimikatz 
 
-Screenshot of Mimikatz running after being configured to be allowed
+Screenshot of Mimikatz running after configured to be allowed
 ![image](https://github.com/user-attachments/assets/b57935fd-ce52-44d3-8874-17c29c605905)
