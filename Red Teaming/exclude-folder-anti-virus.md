@@ -12,4 +12,15 @@ Malware evades detection by running from excluded folders, helping it avoid anti
 - Execute mimikatz from within the excluded location
 
 ## Solutions With Scripts
-1. 
+1. In Windows 10 VM, create a folder named 'Excluded Folder'
+2. Search and open Windows Security. Disable 'Virus & threat protection' and 'Firewall & network protection' temporarily
+3. Download Mimikatz and move it into the excluded folder
+4. In 'Virus & threat protection', under 'Virus & threat protection settings', click Manage settings
+5. Under Exclusions, click Add or remove exclusions
+6. Click '+ Add an exclusion' select Folder and choose the Excluded Folder created earlier
+7. Run Mimikatz in the excluded folder. If Mimikatz is still blocked by Windows Defender, navigate to Windows Security and open Virus & threat protection
+8. Under Current threats, click on Allowed threats
+9. Click on Protection history and search for the Mimikatz threat listed. Click on Actions and allow Mimikatz 
+
+Screenshot of Mimikatz running after being configured to be allowed
+![image](https://github.com/user-attachments/assets/b57935fd-ce52-44d3-8874-17c29c605905)
