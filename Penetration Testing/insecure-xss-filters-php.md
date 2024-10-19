@@ -15,7 +15,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
 1. Create a new PHP file named `vulnerable_xss.php` in the htdocs folder in XAMPP 
 2. PHP for vulnerable web application:
    ```
-    <?php
+   <?php
    // XSS Blacklist - 30 dangerous XSS keywords
    $blacklist = [
        '<script>', '</script>', 'onload=', 'onclick=', 'onmouseover=', 'onfocus=', 'onerror=', 
@@ -65,7 +65,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
        </form>
    </body>
    </html>
-    ```
+   ```
 3. Despite the blacklist, the following XSS techniques could bypass the filtering
    - HTML encoding: Some browsers might interpret encoded characters that resemble dangerous inputs. For instance:
      Using `&#x3C;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;` instead of `<script>`
