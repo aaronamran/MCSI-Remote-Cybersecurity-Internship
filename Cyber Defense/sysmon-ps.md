@@ -21,4 +21,43 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - Verifies that the configuration file correctly captures the required events mentioned in the specifications
 
 ## Solutions With Scripts
-1. 
+1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events
+   ```
+   # Variables
+   $remoteMachine = "RemoteMachineNameOrIP"   # Replace with the IP or hostname of the Windows 10 VM
+   $sysmonExecutable = "C:\Path\To\Sysmon64.exe"   # Local path to Sysmon executable
+   $configFile = "C:\Path\To\sysmon-config.xml"   # Local path to the Sysmon configuration file
+   $remoteSysmonPath = "\\$remoteMachine\C$\Sysmon64.exe"
+   $remoteConfigPath = "\\$remoteMachine\C$\sysmon-config.xml"
+   $credential = Get-Credential   # Prompt for credentials to access the remote machine
+   
+   # Step 1: Copy Sysmon executable to remote machine
+   Copy-Item -Path $sysmonExecutable -Destination $remoteSysmonPath -Credential $credential
+   
+   # Step 2: Copy Sysmon configuration file to remote machine
+   Copy-Item -Path $configFile -Destination $remoteConfigPath -Credential $credential
+   
+   # Step 3: Install Sysmon on the remote machine with the configuration file
+   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
+       $sysmonPath = "C:\Sysmon64.exe"
+       $configPath = "C:\sysmon-config.xml"
+       Start-Process -FilePath $sysmonPath -ArgumentList "/accepteula -i $configPath" -Wait
+   }
+  
+   # Step 4: Verify Sysmon installation
+   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
+       Get-Process -Name sysmon
+       Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 5
+   }
+   
+   # Step 5: Validate configuration
+   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
+       $configPath = "C:\sysmon-config.xml"
+       if (Test-Path $configPath) {
+           Write-Host "Sysmon configuration file exists on the remote machine."
+       } else {
+           Write-Host "Sysmon configuration file is missing!"
+       }
+   }
+   ```
+2. 
