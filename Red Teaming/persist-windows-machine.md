@@ -46,3 +46,8 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    del C:\Windows\Temp\dummymaliciousfile.txt
    ```
 11. Close the RDP connection by logging out of the RDP session from Kali Linux by pressing Ctrl+C to end the xfreerdp session
+12. To remove the created account in Windows 10 VM, run the command in PowerShell opened with administrator privileges
+    ```
+    Remove-LocalUser -Name "username"
+    ```
+
