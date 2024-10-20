@@ -21,6 +21,11 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    To confirm that `svc_network` user has been added into "Remote Desktop Users" group, go to Control Panel > System and Security. Under System, click Allow remote access. A System Properties window will appear. Click Select Users... and confirm that svc_network is in the allowed list <br/>
    ![image](https://github.com/user-attachments/assets/82b445d6-d9ca-4ccb-91cd-0af5450bb15d)
+   However, to simulate a security breach, the created user must have admin privileges. To add `svc_network` to the Administrators groups, run both commands in Windows 10 VM
+   ```
+   Add-LocalGroupMember -Group "Administrators" -Member "svc_network"
+   Get-LocalGroupMember -Group "Administrators"
+   ```
 5. To enable RDP (Remote Desktop Protocol) on Windows 10 VM, go to Settings > System > Remote Desktop (left panel). Turn on Enable Remote Desktop. In the Advanced settings,  uncheck the Network Level Authentication as shown below
    ![image](https://github.com/user-attachments/assets/2775be67-8ec5-46b1-842a-2b6fefe6dc84)
 6. Allow RDP through Windows Firewall and ensure that Remote Desktop is checked for both private and public networks
@@ -40,14 +45,7 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
-10. To simulate a security breach, create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. Run the following command
-   ```
-   echo "Sensitive data" > C:\Windows\Temp\dummymaliciousfile.txt
-   ```
-11. To cover up the tracks, delete the dummy file
-   ```
-   del C:\Windows\Temp\dummymaliciousfile.txt
-   ```
+10. Create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. To cover up the tracks, delete the dummy file
 11. Close the RDP connection by logging out of the RDP session from Kali Linux by pressing Ctrl+C to end the xfreerdp session
 12. To remove the created account in Windows 10 VM, run the command in PowerShell opened with administrator privileges
     ```
