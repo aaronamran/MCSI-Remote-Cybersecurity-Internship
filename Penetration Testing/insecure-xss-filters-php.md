@@ -18,13 +18,13 @@ An insecure XSS filter occurs when an application fails to properly validate use
    <?php
    // XSS Blacklist - 30 dangerous XSS keywords
    $blacklist = [
-        "<script>", "</script>", "<img>", "<svg>", "onload", "onerror",
+        "<script>", "</script>", "<img>", "<svg>", "onload=", "onerror=",
         "alert(", "prompt(", "confirm(", "javascript:", "document.cookie",
         "window.location", "eval(", "setTimeout(", "setInterval(",
-        "innerHTML", "outerHTML", "src=", "href=", "iframe", "<iframe>",
-        "expression(", "vbscript:", "style=", "onmouseover", "onfocus",
-        "onblur", "onclick", "onkeypress", "onkeyup", "onkeydown"
-    ];
+        "innerHTML", "outerHTML", "src=", "href=", "<iframe>", "</iframe>",
+        "expression(", "vbscript:", "style=", "onmouseover=", "onfocus=",
+        "onblur=", "onclick=", "onkeypress=", "onkeyup=", "onkeydown="
+   ];
    
    // Function to check for blacklisted words
    function is_blacklisted($input, $blacklist) {
