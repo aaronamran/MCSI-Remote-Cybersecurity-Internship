@@ -45,9 +45,16 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
-10. Create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. To cover up the tracks, delete the dummy file
-11. Close the RDP connection by logging out of the RDP session from Kali Linux by pressing Ctrl+C to end the xfreerdp session
-12. To remove the created account in Windows 10 VM, run the command in PowerShell opened with administrator privileges
+10. Create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp
+    ```
+    New-Item -Path "C:\Program Files\dummyfile.txt" -ItemType File
+    ```
+11. To cover up the tracks, delete the dummy file
+    ```
+    Remove-Item -Path "C:\Program Files\dummyfile.txt"
+    ```
+12. Close the RDP connection by logging out of the RDP session from Kali Linux by pressing Ctrl+C to end the xfreerdp session
+13. To remove the created account in Windows 10 VM, run the command in PowerShell opened with administrator privileges
     ```
     Remove-LocalUser -Name "username"
     ```
