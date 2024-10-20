@@ -27,7 +27,7 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
 7. Use the malicious account credentials (`svc_network`) to connect to Windows 7 VM via RDP
    ```
-   xfreerdp /u:svc_network /p:password123 /v:<Target_VM_IP_address>
+   sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
 8. To simulate a security breach, create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. Run the following command
    ```
