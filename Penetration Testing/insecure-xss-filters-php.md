@@ -16,7 +16,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
 2. PHP for vulnerable web application:
    ```
    <?php
-   // XSS Blacklist - 30 dangerous XSS keywords
+   // XSS Blacklist - 30 dangerous XSS keywords (with some intentionally weakened or ineffective)
    $blacklist = [
         "<script>", "</script>", "<img>", "<svg>", "onload=", "onerror=",
         "alert(", "prompt(", "confirm(", "javascript:", "document.cookie",
@@ -28,7 +28,9 @@ An insecure XSS filter occurs when an application fails to properly validate use
    
    // Function to check for blacklisted words
    function is_blacklisted($input, $blacklist) {
+       // Weak blacklisting mechanism (case insensitive, doesn't account for encoded strings or obfuscation)
        foreach ($blacklist as $word) {
+           // Intentionally use stripos (partial match, ignoring encoding techniques)
            if (stripos($input, $word) !== false) {
                return true;
            }
@@ -44,7 +46,8 @@ An insecure XSS filter occurs when an application fails to properly validate use
        if (is_blacklisted($user_input, $blacklist)) {
            echo "Input rejected: contains blacklisted content.";
        } else {
-           // Display the user's input directly (vulnerable to XSS)
+           // Display the user's input directly (vulnerable to XSS due to ineffective blacklist)
+           // htmlspecialchars function can still be bypassed using encoding techniques
            echo "User Input: " . htmlspecialchars($user_input);
        }
    }
