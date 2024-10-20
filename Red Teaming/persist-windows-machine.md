@@ -19,30 +19,32 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    net localgroup Users svc_network add
    net localgroup "Remote Desktop Users" svc_network /add
    ```
-4. To enable RDP (Remote Desktop Protocol) on Windows 10 VM, go to Settings > System > Remote Desktop (left panel). Turn on Enable Remote Desktop. In the Advanced settings,  uncheck the Network Level Authentication as shown below
+   To confirm that `svc_network` user has been added into "Remote Desktop Users" group, go to Control Panel > System and Security. Under System, click Allow remote access. A System Properties window will appear. Click Select Users... and confirm that svc_network is in the allowed list
+   ![image](https://github.com/user-attachments/assets/82b445d6-d9ca-4ccb-91cd-0af5450bb15d)
+5. To enable RDP (Remote Desktop Protocol) on Windows 10 VM, go to Settings > System > Remote Desktop (left panel). Turn on Enable Remote Desktop. In the Advanced settings,  uncheck the Network Level Authentication as shown below
    ![image](https://github.com/user-attachments/assets/2775be67-8ec5-46b1-842a-2b6fefe6dc84)
-5. Allow RDP through Windows Firewall and ensure that Remote Desktop is checked for both private and public networks
-6. To initiate an RDP connection from Kali Linux, install `xfreerdp` using the following commands
+6. Allow RDP through Windows Firewall and ensure that Remote Desktop is checked for both private and public networks
+7. To initiate an RDP connection from Kali Linux, install `xfreerdp` using the following commands
    ```
    sudo apt update
    sudo apt install freerdp2-x11
-   ```
-7. Enable the default port for RDP (3389) in Kali Linux using the each of the commands below
+   ``` 
+8. Enable the default port for RDP (3389) in Kali Linux using the each of the commands below
    ```
    sudo ufw status
    sudo ufw allow 3389/tcp
    sudo ufw reload
    sudo ufw status
    ```
-8. Use the malicious account credentials (`svc_network`) to connect to Windows 10 VM via RDP
+9. Use the malicious account credentials (`svc_network`) to connect to Windows 10 VM via RDP
    ```
    sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
-9. To simulate a security breach, create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. Run the following command
+10. To simulate a security breach, create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp. Run the following command
    ```
    echo "Sensitive data" > C:\Windows\Temp\dummymaliciousfile.txt
    ```
-10. To cover up the tracks, delete the dummy file
+11. To cover up the tracks, delete the dummy file
    ```
    del C:\Windows\Temp\dummymaliciousfile.txt
    ```
