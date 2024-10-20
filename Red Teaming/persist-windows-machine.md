@@ -45,6 +45,8 @@ Creating a malicious local account is a simple way to install a backdoor, often 
    ```
    sudo xfreerdp /u:svc_network /p:password123 /v:192.168.1.21 /dynamic-resolution /cert:ignore /sec:tls
    ```
+   The RDP connection would begin as shown below
+   ![image](https://github.com/user-attachments/assets/4a37a8e3-438a-49dc-830e-201743dfa613)
 10. Create a dummy file in a sensitive directory like C:\Program Files or C:\Windows\Temp
     ```
     New-Item -Path "C:\Program Files\dummyfile.txt" -ItemType File
