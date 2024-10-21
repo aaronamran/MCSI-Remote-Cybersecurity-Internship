@@ -6,6 +6,7 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 - [module - sekurlsa](https://github.com/gentilkiwi/mimikatz/wiki/module-~-sekurlsa) by Benjamin Delpy
 - [module - lsadump](https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump) by Benjamin Delpy
 - [Performing Pass-the-Hash with Mimikatz](https://blog.stealthbits.com/passing-the-hash-with-mimikatz) by Jeff Warren
+- [Pass the Hash With Mimikatz: Complete Guide](https://www.stationx.net/pass-the-hash-with-mimikatz/) by Richard Deszo on StationX
 
 
 ## Tasks
