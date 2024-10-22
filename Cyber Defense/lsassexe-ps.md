@@ -24,7 +24,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 
 
 ## Solutions With Scripts
-1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection
+1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection, and set to `0` to disable it
 2. PowerShell script
    ```
    # Function to enable LSA protection for LSASS
@@ -73,4 +73,10 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1 -ComputerNames "Server1", "192.168.1.50", "Server3"
    ```
-5. Once LSA protection is enabled, try dumping cached credentials with Mimikatz
+5. Once LSA protection is enabled, try dumping cached credentials with Mimikatz. Run Mimikatz as admin, and the following commands
+   ```
+   privilege::debug
+   sekurlsa::logonpasswords
+   ```
+6. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
+
