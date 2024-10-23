@@ -61,4 +61,32 @@ Windows Sysmon logs system activity, including processes, network connections, a
        }
    }
    ```
-2. 
+2. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
+   ```
+   <Sysmon schemaversion="4.60">
+    <EventFiltering>
+  
+      <!-- Log unauthorized read/write access to lsass.exe -->
+      <FileAccess onmatch="exclude">
+        <Image condition="is">C:\Windows\System32\lsass.exe</Image>
+      </FileAccess>
+  
+      <!-- Capture command line arguments -->
+      <ProcessCreate onmatch="include">
+        <CommandLine condition="contains">*</CommandLine>
+      </ProcessCreate>
+  
+      <!-- Log drivers loaded -->
+      <DriverLoad onmatch="include">
+        <ImageLoaded condition="contains">C:\Windows\System32\Drivers\*.sys</ImageLoaded>
+      </DriverLoad>
+  
+      <!-- Log DLLs loaded -->
+      <ImageLoad onmatch="include">
+        <Image condition="contains">C:\Windows\System32\*.dll</Image>
+      </ImageLoad>
+  
+    </EventFiltering>
+   </Sysmon>
+   ```
+
