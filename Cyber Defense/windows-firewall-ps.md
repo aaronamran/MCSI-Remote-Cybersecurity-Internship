@@ -32,4 +32,54 @@ The Windows firewall is software that protects a network by blocking ports and p
 - The remote hosts list scan enables the Windows firewall on the vulnerable machine
 
 
-
+## Solutions With Scripts
+1. Save the following PowerShell script as `check-firewall.ps1`
+   ```
+   # Function to check and enable Windows Firewall
+    function Enable-Firewall {
+        param (
+            [string[]]$RemoteComputers = @()  # Array of remote computer names or IP addresses
+        )
+    
+        # Local computer check
+        Write-Host "Checking Windows Firewall status on local machine..."
+        $localStatus = Get-NetFirewallProfile -Profile Domain,Public,Private | Select-Object -ExpandProperty Enabled
+    
+        if ($localStatus -contains 1) {
+            Write-Host "Windows Firewall is already enabled on the local machine."
+        } else {
+            Write-Host "Windows Firewall is disabled on the local machine. Enabling..."
+            Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+            Write-Host "Windows Firewall has been enabled on the local machine."
+        }
+    
+        # Remote computer check
+        foreach ($remote in $RemoteComputers) {
+            Write-Host "`nChecking Windows Firewall status on remote machine: $remote"
+            try {
+                $remoteStatus = Invoke-Command -ComputerName $remote -ScriptBlock {
+                    Get-NetFirewallProfile -Profile Domain,Public,Private | Select-Object -ExpandProperty Enabled
+                }
+    
+                if ($remoteStatus -contains 1) {
+                    Write-Host "Windows Firewall is already enabled on $remote."
+                } else {
+                    Write-Host "Windows Firewall is disabled on $remote. Enabling..."
+                    Invoke-Command -ComputerName $remote -ScriptBlock {
+                        Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+                    }
+                    Write-Host "Windows Firewall has been enabled on $remote."
+                }
+            } catch {
+                Write-Host "Failed to connect to $remote. Please check the network connection or credentials."
+            }
+        }
+    }
+    
+    # Define a list of remote computers (use IP addresses or hostnames)
+    $remoteMachines = @("192.168.1.101", "192.168.1.102")
+    
+    # Call the function for both local and remote checks
+    Enable-Firewall -RemoteComputers $remoteMachines
+   ```
+2.  
