@@ -5,6 +5,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 - [LSASS - Local Security Authority Subsystem Service](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service) by Wikipedia
 - [Configure added LSA protection](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection) by Microsoft
 - [Mimikatz](https://github.com/gentilkiwi/mimikatz) by gentilkiwi
+- [Do You Really Know About LSA Protection (RunAsPPL)?](https://itm4n.github.io/lsass-runasppl/) by itm4n
 
 
 ## Tasks
