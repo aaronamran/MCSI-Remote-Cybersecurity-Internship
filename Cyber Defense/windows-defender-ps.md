@@ -40,6 +40,64 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 
 
 ## Solutions With Scripts
-1. 
+1. Save and run the following PowerShell script as `enable-defender.ps1`
+   ```
+    # Function to check Windows Defender status
+    function Check-WindowsDefenderStatus {
+        param ($ComputerName)
+    
+        $status = Get-MpComputerStatus -CimSession $ComputerName
+        if ($status.AntivirusEnabled) {
+            Write-Host "Windows Defender is already enabled on $ComputerName."
+            return $true
+        } else {
+            Write-Host "Windows Defender is disabled on $ComputerName. Enabling it now..."
+            return $false
+        }
+    }
+    
+    # Function to enable Windows Defender and update it
+    function Enable-WindowsDefender {
+        param ($ComputerName)
+    
+        # Enable Windows Defender (Real-Time Protection)
+        Invoke-CimMethod -Namespace "root/Microsoft/Windows/Defender" -ClassName "MSFT_MpPreference" -MethodName "Enable" -CimSession $ComputerName
+        Write-Host "Windows Defender has been enabled on $ComputerName."
+    
+        # Update Windows Defender
+        Update-MpSignature -CimSession $ComputerName
+        Write-Host "Windows Defender has been updated on $ComputerName."
+    }
+    
+    # Main script logic to handle local and remote machines
+    function Main {
+        param (
+            [string[]]$ComputerNames = @('localhost')  # Default to localhost if no remote machines are provided
+        )
+    
+        foreach ($Computer in $ComputerNames) {
+            try {
+                # Check if Windows Defender is enabled
+                $isEnabled = Check-WindowsDefenderStatus -ComputerName $Computer
+    
+                # If Defender is not enabled, enable it and update
+                if (-not $isEnabled) {
+                    Enable-WindowsDefender -ComputerName $Computer
+                }
+            }
+            catch {
+                Write-Host "Error: Unable to check or enable Windows Defender on $Computer. Error details: $_"
+            }
+        }
+    
+        Write-Host "Task completed."
+    }
+    
+    # Example: Call the main function with a list of computer names
+    # Replace with your remote machine names or IP addresses
+    $computers = @('localhost', 'RemoteMachine1', 'RemoteMachine2')
+    Main -ComputerNames $computers
+   ```
+2. 
 
 
