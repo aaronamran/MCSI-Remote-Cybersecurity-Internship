@@ -70,7 +70,23 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1
    ```
-4. To run the script remotely on a list of remote machines, run the following sample command
+4. To run the script remotely on a list of remote machines, first enable PowerShell remoting
+   ```
+   Enable-PSRemoting -Force
+   ```
+   Windows 7 requires extra configurations to trust remote connections. Open PowerShell as Administrator and run the following command on both VMs to allow incoming WinRM traffic on all profiles
+   ```
+   Set-NetFirewallRule -Name 'WINRM-HTTP-In-TCP-PUBLIC' -RemoteAddress Any -Action Allow
+   ```
+   If both Windows VMs are not in the same domain, trusted hosts need to be configured on both VMs to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   ```
+   To test the remote connection from Windows 10 to Windows 7, run the command
+   ```
+   Enter-PSSession -ComputerName Windows7_IP_Address -Credential (Get-Credential)
+   ```
+   The script to enable LSA can be run using the following sample command
    ```
    .\Enable-LsaProtection.ps1 -ComputerNames "Server1", "192.168.1.50", "Server3"
    ```
