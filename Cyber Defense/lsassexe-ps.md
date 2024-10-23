@@ -2,7 +2,7 @@
 In Windows Vista and later, processes running in Protected Mode are isolated from the system and other processes, reducing the risk of malware causing harm or accessing unauthorized data. The `lsass.exe` process handles security tasks like authentication and authorization in the Windows OS.
 
 ## References
-- LSASS - [Local Security Authority Subsystem Service](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service)
+- [LSASS - Local Security Authority Subsystem Service](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service) by Wikipedia
 - [Configure added LSA protection](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection) by Microsoft
 - [Mimikatz](https://github.com/gentilkiwi/mimikatz) by gentilkiwi
 
