@@ -4,6 +4,8 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 ## References
 - [PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc) by HarmJ0y
 - [How to Set Permission on a Service Using Subinacl](http://www.waynezim.com/2010/02/how-to-set-permission-on-a-service-using-subinacl/) by Wayne Zimmerman
+- [Privilege Escalation with Insecure Windows Service Permissions](https://medium.com/r3d-buck3t/privilege-escalation-with-insecure-windows-service-permissions-5d97312db107) by Nairuz Abulhul on Medium
+- [Digging Deeper into Vulnerable Windows Services](https://www.blackhillsinfosec.com/digging-deeper-vulnerable-windows-services/) by Brian Fehrman on BlackHillsInfoSec
 
 ## Tasks
 - Research how to set up a Windows service with insecure configurations, such as weak permissions or allowing modifications by EVERYONE
@@ -19,7 +21,7 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 - Use PowerUp.ps1 to exploit the vulnerable Windows Service and obtain unauthorised SYSTEM privileges on the machine
 
 ## Solutions With Scripts
-#### Standard PowerShell Script
+1. Save the following PowerShell script as `insecure-service.ps1`
 ```
 # Define parameters for the new Windows service
 $serviceName = "InsecureService"
