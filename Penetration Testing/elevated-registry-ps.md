@@ -50,7 +50,7 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
    Import-Module .\PowerUp.ps1
    Get-RegistryAlwaysInstallElevated
    ```
-   ![image](https://github.com/user-attachments/assets/a262111e-99d9-4463-9fe6-a4c153d4cca8)
+   ![image](https://github.com/user-attachments/assets/e8a8450e-323a-450b-96dc-02376af54343)
 7. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
    ```
    # Disable AlwaysInstallElevated for Local Machine
