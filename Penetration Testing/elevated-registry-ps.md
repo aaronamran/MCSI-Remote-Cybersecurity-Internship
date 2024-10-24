@@ -39,7 +39,11 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 
    Write-Host "AlwaysInstallElevated has been enabled for both HKLM and HKCU."
    ```
-5. To execute the script, open PowerShell with administrator privileges and navigate to the folder where the script is stored. Run the script using `./Enable-AlwaysInstallElevated.ps1`
+5. To execute the script, open PowerShell with administrator privileges and navigate to the folder where the script is stored. Run the following command to bypass execution policy restrictions
+   ```
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+   ```
+   Then run the script using `./Enable-AlwaysInstallElevated.ps1`
 6. To exploit the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
    ```
    Import-Module .\PowerUp.ps1
