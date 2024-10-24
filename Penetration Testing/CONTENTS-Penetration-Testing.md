@@ -8,7 +8,7 @@
 
 ## [Write A PS Script That Installs An Insecure Windows Service](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/insecure-service-ps.md)
 
-## [Write A PS Script That Enables The AlwaysInstallElevated Registry Key](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/elevated-registry-ps.md)
+## [Write A PS Script That Enables The AlwaysInstallElevated Registry Key](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/alwaysinstallelevated.md)
 
 ## [Write An Application Vulnerable To Arbitrary Command Execution](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/vulnerable-arbitrary-command-php.md)
 
