@@ -11,6 +11,7 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - [Get-RegistryAlwaysInstallElevated](https://powersploit.readthedocs.io/en/latest/Privesc/Get-RegistryAlwaysInstallElevated/) by PowerSploit
 - [AlwaysInstallElevated - Windows Privilege Escalation](https://juggernaut-sec.com/alwaysinstallelevated/#Exploiting_AlwaysInstallElevated_with_PowerUp_GUI) by Juggernaut Pentesting Academy
 - [Windows Powershell policy execution bypass](https://stackoverflow.com/questions/67270197/windows-powershell-policy-execution-bypass) on stackoverflow
+- [Write-UserAddMSI](https://powersploit.readthedocs.io/en/latest/Privesc/Write-UserAddMSI/) by PowerSploit
 
 ## Tasks
 - Create a PowerShell script that modifies the Windows registry to enable the AlwaysInstallElevated registry key
