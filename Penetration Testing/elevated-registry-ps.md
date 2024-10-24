@@ -8,6 +8,7 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - [PowerSploit / PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc) by PowerShellMafia on GitHub
 - [Detecting AlwaysInstallElevated Policy Abuse - Windows PrivEsc](https://bherunda.medium.com/windows-privesc-detecting-alwaysinstallelevated-policy-abuse-f3ffa7a734bd) by Ankith Bharadwaj on Medium
 - [PowerUp Cheatsheet](https://blog.certcube.com/powerup-cheatsheet/) by MR X on CertCube Labs
+- [Get-RegistryAlwaysInstallElevated](https://powersploit.readthedocs.io/en/latest/Privesc/Get-RegistryAlwaysInstallElevated/) by PowerSploit
 
 ## Tasks
 - Create a PowerShell script that modifies the Windows registry to enable the AlwaysInstallElevated registry key
@@ -15,28 +16,29 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - Exploit the AlwaysInstallElevated vulnerability using PowerUp.ps1
 
 ## Solutions With Scripts
-1. The `AlwaysInstallElevated` registry key exists in two locations: `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer` and `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer`
-2. Save and run the following PowerShell script with administrator privileges to enable `AlwaysInstallElevated`
+1. The `AlwaysInstallElevated` registry key exists in two locations: `HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer` and `HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer`
+2. If the registry key does not exist or if the Installer key containing the registry does not exist, head to the closest existing key and manually create a new `Installer` key and the `AlwaysInstallElevated` registry key
+3. Save and run the following PowerShell script with administrator privileges to enable `AlwaysInstallElevated`
    ```
    # PowerShell script to enable the AlwaysInstallElevated registry key
 
    # Enable AlwaysInstallElevated for Local Machine
-   $regPathLM = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer"
+   $regPathLM = "HKLM:SOFTWARE\Policies\Microsoft\Windows\Installer"
    Set-ItemProperty -Path $regPathLM -Name "AlwaysInstallElevated" -Value 1 -Force
 
    # Enable AlwaysInstallElevated for Current User
-   $regPathCU = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer"
+   $regPathCU = "HKCU:SOFTWARE\Policies\Microsoft\Windows\Installer"
    Set-ItemProperty -Path $regPathCU -Name "AlwaysInstallElevated" -Value 1 -Force
 
    Write-Host "AlwaysInstallElevated has been enabled for both HKLM and HKCU."
    ```
-3. To execute the script, open PowerShell with administrator privileges and navigate to the folder where the script is stored. Run the script using `./Enable-AlwaysInstallElevated.ps1`
-4. To exploit the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
+4. To execute the script, open PowerShell with administrator privileges and navigate to the folder where the script is stored. Run the script using `./Enable-AlwaysInstallElevated.ps1`
+5. To exploit the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
    ```
    Import-Module .\PowerUp.ps1
-   Invoke-AllChecks
+   Get-RegistryAlwaysInstallElevated
    ```
-5. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
+6. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
    ```
    # Disable AlwaysInstallElevated for Local Machine
    Set-ItemProperty -Path $regPathLM -Name "AlwaysInstallElevated" -Value 0 -Force
