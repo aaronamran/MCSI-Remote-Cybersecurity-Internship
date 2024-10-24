@@ -7,6 +7,7 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - [AlwaysInstallElevated](https://learn.microsoft.com/en-us/windows/win32/msi/alwaysinstallelevated) by Microsoft
 - [PowerSploit / PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc) by PowerShellMafia on GitHub
 - [Detecting AlwaysInstallElevated Policy Abuse - Windows PrivEsc](https://bherunda.medium.com/windows-privesc-detecting-alwaysinstallelevated-policy-abuse-f3ffa7a734bd) by Ankith Bharadwaj on Medium
+- [PowerUp Cheatsheet](https://blog.certcube.com/powerup-cheatsheet/) by MR X on CertCube Labs
 
 ## Tasks
 - Create a PowerShell script that modifies the Windows registry to enable the AlwaysInstallElevated registry key
