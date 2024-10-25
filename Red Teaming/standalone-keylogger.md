@@ -5,6 +5,7 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
 ## References
 - [Keystroke Logging](https://en.wikipedia.org/wiki/Keystroke_logging) by Wikipedia
 - [GetAsyncKeyState](https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-getasynckeystate) by Microsoft
+- [Keylogger](https://github.com/shubhangi-singh21/Keylogger) by shubhangi-singh21 on GitHub
 
 
 ## Tasks
