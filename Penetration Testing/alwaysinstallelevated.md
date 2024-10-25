@@ -60,14 +60,14 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
    ```
    .\UserAdd.msi
    ```
-   The GUI below will appear, allowing you to change the Username, Password and Group
+   The GUI below will appear, allowing you to change the Username, Password and Group <br/>
    ![image](https://github.com/user-attachments/assets/dd274af5-ba62-4799-be18-7ab867cae391)
 9. To check if the user exists and has administrative rights, run
    ```
    net user
    net localgroup administrators
    ```
-   Screenshot of commands used and output:
+   Screenshot of commands used and output: <br/>
    ![image](https://github.com/user-attachments/assets/acf82501-f172-45d9-a3c0-5b5b318a5adf)
 10. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
    ```
