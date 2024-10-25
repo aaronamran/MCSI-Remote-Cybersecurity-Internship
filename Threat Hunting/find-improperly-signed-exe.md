@@ -48,4 +48,10 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
            )       
    }
    ```
-
+3. To scan for improperly signed executables in a target directory, open Command Prompt with administrator privileges and run the following
+   ```
+   cd C:\YARA
+   yara64.exe -r "C:\YARA\rules\improperly_signed_executables.yar" "C:\Windows\System32"
+   ```
+4. The sample output will resemble the following:
+   
