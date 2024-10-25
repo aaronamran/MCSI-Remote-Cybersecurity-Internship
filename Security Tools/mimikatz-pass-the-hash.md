@@ -7,6 +7,8 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 - [module - lsadump](https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump) by Benjamin Delpy
 - [Performing Pass-the-Hash with Mimikatz](https://blog.stealthbits.com/passing-the-hash-with-mimikatz) by Jeff Warren
 - [Pass the Hash With Mimikatz: Complete Guide](https://www.stationx.net/pass-the-hash-with-mimikatz/) by Richard Deszo on StationX
+- [Resolve "Access is Denied" using PSExec with a Local Admin Account](https://www.brandonmartinez.com/2013/04/24/resolve-access-is-denied-using-psexec-with-a-local-admin-account/) by Brandon Martinez
+- [Fixed: Couldn't Install PsExec Service Access Is Denied on Windows](https://www.anyviewer.com/how-to/couldnt-install-psexec-service-access-is-denied-2578.html) by Ellie on AnyViewer
 
 
 ## Tasks
