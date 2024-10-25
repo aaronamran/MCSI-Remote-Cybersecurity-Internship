@@ -149,4 +149,11 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
            any of ($s*)
    }
    ```
-6. 
+6. To compile all the YARA rules in one file, use `yarac`
+   ```
+   yarac uncompiled_rules.yar sus_windows_apis.yara
+   ```
+7. To run the compiled YARA rule to scan a directory, use the command
+   ```
+   yara sus_windows_apis.yara C:\malware_samples
+   ```
