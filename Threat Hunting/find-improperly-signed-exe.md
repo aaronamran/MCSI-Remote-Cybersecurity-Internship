@@ -44,7 +44,7 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
            tags contains "revoked-cert' or
            for any i in (0 .. pe.number_of_signatures - 1) : (
               (pe.signatures[i].issuer contains "Microsoft Corporation" and pe.signatures[i].verified == false) or
-              not pe.signatures[i].valid_on(1729839632)
+              not pe.signatures[i].valid_on(1729839632)   // Current timestamp in Unix epoch format
            )       
    }
    ```
