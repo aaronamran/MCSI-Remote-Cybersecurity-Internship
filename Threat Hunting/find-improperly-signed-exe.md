@@ -43,7 +43,7 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
            not pe.is_signed or
            for any i in (0 .. pe.number_of_signatures) : (
            pe.signatures[i].issuer contains "Microsoft Corporation" and 
-	        not pe.signatures[i].verified or
+	   not pe.signatures[i].verified or
            not pe.signatures[i].valid_on(1729839632)   // Current timestamp in Unix epoch format
         )        
    }
