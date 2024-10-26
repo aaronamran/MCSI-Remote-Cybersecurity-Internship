@@ -54,8 +54,11 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
    cd C:\YARA
    yara64.exe -r "C:\YARA\rules\improperly_signed_executables.yar" "C:\Windows\System32"
    ```
-4. The sample output will resemble the following:
+4. The sample output will resemble the following <br/>
+   A random executable (zipfldr.dll) is chosen <br/>
    ![image](https://github.com/user-attachments/assets/b466a0ba-07c1-42ea-8d41-7368acfcce26)
+
+   When the executable is opened in PeStudio, there is no certificate available
    ![image](https://github.com/user-attachments/assets/9b9323b6-0a63-467e-b2b2-250ce2a8440b)
 
    
