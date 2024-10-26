@@ -7,6 +7,7 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
 - [PE module](https://yara.readthedocs.io/en/stable/modules/pe.html#reference) by VirusTotal
 - [PlugX USB worm](https://www.linkedin.com/posts/mgopikrish_iocsdllsideloading-plugx-usbworm-2023-03-activity-7189578122810273792-haZh/) by Gopalakrishnan Manisekaran on LinkedIn
 - [Short Tutorial: How to Create a YARA Rule for a Compromised Certificate](https://www.nextron-systems.com/2018/11/01/short-tutorial-how-to-create-a-yara-rule-for-a-compromised-certificate/) by Florian Roth on Nextron Systems
+- [PeStudio Standard](https://medium.com/@aubsec/pestudio-standard-f2ada4e8564) by Matthew Aubert on Medium
 
 ## Tasks
 1. Complete the following prerequisites first:
