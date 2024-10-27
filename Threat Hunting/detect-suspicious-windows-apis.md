@@ -7,6 +7,7 @@ Analyzing Windows APIs used by malware helps identify its capabilities. PE Studi
 - [antidebug.yar](https://github.com/DarkenCode/yara-rules/blob/master/antidebug.yar) by DarkenCode on GitHub
 - [AntiDebugging.yara](https://github.com/naxonez/yaraRules/blob/master/AntiDebugging.yara) by naxonez on GitHub
 - [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/) by Microsoft
+- [How to Install the YARA Malware Analysis Tool On Windows](https://www.petergirnus.com/blog/how-to-install-yara-malware-analysis-tool-on-windows) by Peter Girnus
 
 
 ## Tasks
