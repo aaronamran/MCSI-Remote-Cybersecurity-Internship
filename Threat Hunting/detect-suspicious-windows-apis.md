@@ -150,11 +150,86 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
            any of ($s*)
    }
    ```
-6. To compile all the YARA rules in one file, use `yarac`
+6. Merged YARA rule called
+   ```
+   rule Detects_Suspicious_Windows_APIs
+   {
+       meta:
+           description = "Detects various suspicious Windows APIs often used by malware"
+           author = "Aaron Amran"
+           date = "2024-10-25"
+       strings:
+           // Anti-debugging techniques
+           $anti_debug1 = "IsDebuggerPresent" nocase
+           $anti_debug2 = "NtQueryInformationProcess" nocase
+           $anti_debug3 = "CheckRemoteDebuggerPresent" nocase
+           $anti_debug4 = "DebugActiveProcess" nocase
+           $anti_debug5 = "OutputDebugStringA" nocase
+           $anti_debug6 = "CreateToolhelp32Snapshot" nocase
+           $anti_debug7 = "GetThreadContext" nocase
+           $anti_debug8 = "SetThreadContext" nocase
+           $anti_debug9 = "VirtualProtect" nocase
+           $anti_debug10 = "TerminateProcess" nocase
+   
+           // Local and network enumeration
+           $enum1 = "EnumProcesses" nocase
+           $enum2 = "NetShareEnum" nocase
+           $enum3 = "NetUserEnum" nocase
+           $enum4 = "GetUserName" nocase
+           $enum5 = "GetComputerName" nocase
+           $enum6 = "OpenProcess" nocase
+           $enum7 = "Process32First" nocase
+           $enum8 = "Process32Next" nocase
+           $enum9 = "NetLocalGroupEnum" nocase
+   
+           // Code injection techniques
+           $inject1 = "CreateRemoteThread" nocase
+           $inject2 = "VirtualAllocEx" nocase
+           $inject3 = "WriteProcessMemory" nocase
+           $inject4 = "SetWindowsHookEx" nocase
+           $inject5 = "CreateProcess" nocase
+           $inject6 = "LoadLibrary" nocase
+           $inject7 = "GetProcAddress" nocase
+           $inject8 = "NtCreateThreadEx" nocase
+           $inject9 = "RtlCreateUserThread" nocase
+   
+           // Spyware activities
+           $spy1 = "GetAsyncKeyState" nocase
+           $spy2 = "GetKeyState" nocase
+           $spy3 = "RecordSound" nocase
+           $spy4 = "CreateFile" nocase
+           $spy5 = "OpenSoundDevice" nocase
+           $spy6 = "WaveInOpen" nocase
+           $spy7 = "WaveInStart" nocase
+           $spy8 = "WaveInGetNumDevs" nocase
+           $spy9 = "GetForegroundWindow" nocase
+           $spy10 = "ReadFile" nocase
+   
+           // Ransomware indicators
+           $ransom1 = "Encrypt" nocase
+           $ransom2 = "Ransom" nocase
+           $ransom3 = "LockFiles" nocase
+           $ransom4 = "Decrypt" nocase
+           $ransom5 = "Crypto" nocase
+           $ransom6 = "Key" nocase
+           $ransom7 = "AES" nocase
+           $ransom8 = "RSA" nocase
+           $ransom9 = ".locked" nocase
+           $ransom10 = "pay" nocase
+   
+       condition:
+           any of ($anti_debug*, $enum*, $inject*, $spy*, $ransom*)
+   }
+   ```
+   
+
+
+   
+   To compile all the YARA rules in one file, use `yarac`
    ```
    yarac uncompiled_rules.yar sus_windows_apis.yara
    ```
-7. To run the compiled YARA rule to scan a directory, use the command
+8. To run the compiled YARA rule to scan a directory, use the command
    ```
    yara sus_windows_apis.yara C:\malware_samples
    ```
