@@ -150,7 +150,7 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
            any of ($s*)
    }
    ```
-6. Merged YARA rule called
+6. Merged YARA rule
    ```
    rule Detects_Suspicious_Windows_APIs
    {
@@ -221,15 +221,10 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
            any of ($anti_debug*, $enum*, $inject*, $spy*, $ransom*)
    }
    ```
-   
 
-
-   
-   To compile all the YARA rules in one file, use `yarac`
+7. To run the compiled YARA rule to scan a directory, use the command
    ```
-   yarac uncompiled_rules.yar sus_windows_apis.yara
+   yara64.exe -r .\windows_api.yar ".\MalwareDataset"
    ```
-8. To run the compiled YARA rule to scan a directory, use the command
-   ```
-   yara sus_windows_apis.yara C:\malware_samples
-   ```
+   Output of files detected when Malware Dataset folder is scannned using the merged YARA rule <br/>
+   ![image](https://github.com/user-attachments/assets/6d6a6c64-17ab-452e-9a20-2156fe589539)
