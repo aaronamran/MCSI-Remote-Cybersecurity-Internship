@@ -157,7 +157,7 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
        meta:
            description = "Detects various suspicious Windows APIs often used by malware"
            author = "Aaron Amran"
-           date = "2024-10-25"
+           date = "2024-10-26"
        strings:
            // Anti-debugging techniques
            $anti_debug1 = "IsDebuggerPresent" nocase
