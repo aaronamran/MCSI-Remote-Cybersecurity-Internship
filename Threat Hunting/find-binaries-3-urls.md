@@ -51,6 +51,7 @@ YARA rules are powerful tools for threat hunting, enabling the detection of malw
    yara64.exe -r "C:\Users\bboyz\OneDrive\Desktop\MCSI Remote Cybersecurity Internship\Threat Hunting\more_than_3_urls.yar" "C:\Windows\System32"
    ```
 4. The sample output will look like this:
-![image](https://github.com/user-attachments/assets/36009b68-74ad-4389-9217-72eced8480d9)
+   ![image](https://github.com/user-attachments/assets/87aa219a-87c7-4057-bdc0-c1da9ea2860c)
+
 
      
