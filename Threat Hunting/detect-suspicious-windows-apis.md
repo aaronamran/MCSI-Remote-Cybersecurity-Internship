@@ -274,4 +274,4 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
    yara64.exe -t Local_Network_Enumeration .\windows_api.yar  -r ".\MalwareDataset"
    ```
    Output of files detected when Malware Dataset folder is scannned using the merged YARA rule <br/>
-   ![image](https://github.com/user-attachments/assets/6d6a6c64-17ab-452e-9a20-2156fe589539)
+   
