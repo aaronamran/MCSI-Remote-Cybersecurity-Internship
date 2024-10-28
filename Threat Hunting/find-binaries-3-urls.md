@@ -52,6 +52,8 @@ YARA rules are powerful tools for threat hunting, enabling the detection of malw
    ```
 4. The sample output will look like this:
    ![image](https://github.com/user-attachments/assets/87aa219a-87c7-4057-bdc0-c1da9ea2860c)
+   ![image](https://github.com/user-attachments/assets/8e10282e-371a-428a-b136-4007fb400afe)
+
 
 
      
