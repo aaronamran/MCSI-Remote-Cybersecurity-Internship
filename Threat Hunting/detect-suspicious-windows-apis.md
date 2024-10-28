@@ -150,7 +150,7 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
            any of ($s*)
    }
    ```
-6. Merged YARA rule in one `.yar` file
+6. Merged YARA rule in one `.yar` file called `windows_api.yar`
    ```
    rule Anti_Debugging_Malware
    {
