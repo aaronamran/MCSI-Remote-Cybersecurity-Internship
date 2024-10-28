@@ -269,7 +269,7 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
    }
    ```
 
-7. To run a specific YARA rule to scan a directory, use the command
+7. To use the YARA rule to scan a directory recursively (`-r`) and only report the specifically tagged rule(s) (`-t`), use the command
    ```
    yara64.exe -t Local_Network_Enumeration .\windows_api.yar  -r ".\MalwareDataset"
    ```
