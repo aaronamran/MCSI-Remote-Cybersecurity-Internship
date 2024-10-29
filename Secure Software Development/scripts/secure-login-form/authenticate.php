@@ -22,6 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Set session and redirect to secure area
             $_SESSION['username'] = $username;
+
+             // Set secure cookie with Secure and HttpOnly flags
+            setcookie(session_name(), session_id(), [
+                'expires' => time() + 3600, // 1-hour expiration
+                'path' => '/',
+                'domain' => '', // Use domain if hosted publicly
+                'secure' => true, // Ensure cookie is sent over HTTPS only
+                'httponly' => true, // Prevent JavaScript access to the cookie
+                'samesite' => 'Strict' // Optional: Prevent cross-site requests
+            ]);
+            
             header("Location: secure_area.php");
             exit();
         } else {
