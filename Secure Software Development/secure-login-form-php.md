@@ -33,7 +33,6 @@ A website's login form is crucial for account access and must be secure to prote
 
 ## Solutions With Scripts
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/secure-login-form)
-<br/>
 - If a self-signed SSL certificate is not yet created, follow the steps in [this task](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/secure-cookie-flag-php.md)
 <br/>
 1. Start XAMPP and ensure that Apache and MySQL services are running. In phpMyAdmin, go to the Databases tab. Enter the name 'secure_login' in the Create database field and click Create.
