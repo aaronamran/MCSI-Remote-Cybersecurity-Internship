@@ -3,8 +3,8 @@ include 'functions.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['localhoster'];
+    $password = $_POST['Str0ng!Passw0rd@1'];
     $hashedPassword = hashPassword($password);
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
