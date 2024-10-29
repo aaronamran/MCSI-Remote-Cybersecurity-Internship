@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
-    if ($user && $user['lock_time'] && strtotime($user['lock_time']) > strtotime('-15 minutes')) {
+    if ($user && $user['lock_time'] && strtotime($user['lock_time']) > strtotime('-30 seconds')) {
         echo "Account is locked. Try again later.";
         exit;
     }
