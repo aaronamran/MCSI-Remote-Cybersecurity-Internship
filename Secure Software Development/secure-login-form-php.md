@@ -4,6 +4,7 @@ A website's login form is crucial for account access and must be secure to prote
 
 ## References
 - [OWASP - Authentication Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Authentication_Cheat_Sheet.md) by OWASP
+- [10,000 most common passwords](https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords) by Wikipedia
 
 ## Web Application Requirements
 - Employ SHA256 encryption for password storage to enhance security
@@ -27,4 +28,8 @@ A website's login form is crucial for account access and must be secure to prote
 - Utilize browser tools to validate the presence of 'Secure' and 'HttpOnly' flags on session cookies
 - Showcase the enforcement of the comprehensive password policy during registration
 - Exhibit the prevention of using common passwords due to the blacklist
-Emphasize the secure deployment over HTTPS for data protection
+- Emphasize the secure deployment over HTTPS for data protection
+
+
+## Solutions With Scripts
+1. 
