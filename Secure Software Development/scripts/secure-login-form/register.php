@@ -41,12 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Hash the password
-    $hashedPassword = hashPassword($password);
+    // $hashedPassword = hashPassword($password);
 
     // Insert user into database
     try {
         $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        $stmt->execute([$username, $hashedPassword]);
+        // $stmt->execute([$username, $hashedPassword]);
+        $stmt->execute([$username, $password]);
         echo "Registration successful. <a href='login.php'>Click here to login</a>";
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
