@@ -14,5 +14,7 @@
         <input type="password" id="password" name="password" required><br>
         <button type="submit">Login</button>
     </form>
+    <br>
+    <button onclick="window.location.href='createacc.php'">Go to Register</button>
 </body>
 </html>
