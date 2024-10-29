@@ -16,5 +16,7 @@
         <br>
         <button type="submit">Register</button>
     </form>
+    <br>
+    <button onclick="window.location.href='login.php'">Go to Login</button>
 </body>
 </html>
