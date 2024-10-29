@@ -52,7 +52,11 @@ A website's login form is crucial for account access and must be secure to prote
    - Username: `notalien` | Password: `G@laxyTw1st#89!`
 5. Emphasize the secure deployment over HTTPS for data protection
 6. Use the browser tools to show 'Secure' and 'HttpOnly' flags on the session cookies
+   ![image](https://github.com/user-attachments/assets/7514e3ad-9d1a-42cf-8848-ddc36a7949c2)
 7. After logging out, create a new account and showcase the strong password policy by using common (top 100) passwords
+   ![image](https://github.com/user-attachments/assets/1a5cd48d-f934-42fd-af23-8c77a9808750)
 8. Trigger the account lockout mechanism by attempting 5 failed logins, by intentionally using the wrong password
-9. 
+   ![image](https://github.com/user-attachments/assets/ac5ca9dd-93a5-4be2-aa67-59750dee92e9) <br/>
+   ![image](https://github.com/user-attachments/assets/5e40daaa-f357-40db-9d1c-cfa78970dd19)
+
 
