@@ -48,7 +48,7 @@ function isAccountLocked($username) {
     $user = $stmt->fetch();
 
     if ($user && $user['lock_time'] !== null) {
-        $lockDuration = 30; // Lockout duration in seconds (30 seconds)
+        $lockDuration = 15; // Lockout duration in seconds (15 seconds)
         $lockEndTime = strtotime($user['lock_time']) + $lockDuration;
         if (time() < $lockEndTime) {
             return true; // Account is still locked
