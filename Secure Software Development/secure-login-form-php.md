@@ -32,4 +32,18 @@ A website's login form is crucial for account access and must be secure to prote
 
 
 ## Solutions With Scripts
-1. 
+[Link to folder of scripts]()
+1. Start XAMPP and ensure that Apache and MySQL services are running. In phpMyAdmin, go to the Databases tab. Enter the name 'secure_login' in the Create database field and click Create.
+2. Set up the database by creating a `users` table with columns `id`, `username`, `password`, `failed_attempts` and `lock_time` by pasting the following SQL query into the query editor
+   ```
+   CREATE TABLE users (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     username VARCHAR(50) NOT NULL UNIQUE,
+     password CHAR(64) NOT NULL,
+     failed_attempts INT DEFAULT 0,
+     lock_time TIMESTAMP NULL DEFAULT NULL
+   );
+   ```
+3. In the XAMPP htdocs directory, create a folder called 'secure_login' and add the following files: register.php, login.php, logout.php, config.php, functions.php
+4. 
+
