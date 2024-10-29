@@ -41,9 +41,34 @@ function lockAccount($username) {
     $stmt->execute([$username]);
 }
 
+function isAccountLocked($username) {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT lock_time FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
+
+    if ($user && $user['lock_time'] !== null) {
+        $lockDuration = 30; // Lockout duration in seconds (30 seconds)
+        $lockEndTime = strtotime($user['lock_time']) + $lockDuration;
+        if (time() < $lockEndTime) {
+            return true; // Account is still locked
+        } else {
+            resetFailedAttempts($username); // Reset lock if duration has passed
+            return false;
+        }
+    }
+    return false;
+}
+
 function incrementFailedAttempts($username) {
     global $pdo;
     $stmt = $pdo->prepare("UPDATE users SET failed_attempts = failed_attempts + 1 WHERE username = ?");
+    $stmt->execute([$username]);
+}
+
+function resetFailedAttempts($username) {
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE users SET failed_attempts = 0, lock_time = NULL WHERE username = ?");
     $stmt->execute([$username]);
 }
 ?>
