@@ -44,6 +44,11 @@ A website's login form is crucial for account access and must be secure to prote
      lock_time TIMESTAMP NULL DEFAULT NULL
    );
    ```
-3. In the XAMPP htdocs directory, create a folder called 'secure_login' and add the following files: register.php, login.php, logout.php, config.php, functions.php
-4. 
+3. In the XAMPP htdocs directory, create a folder called 'secure_login' and add the following files: `register.php`, `login.php`, `logout.php`, `config.php`, `functions.php`
+4. Open a web browser and navigate to localhost. Access the web application and login with the correct credentials (username: localhoster, password: Str0ng!Passw0rd@1)
+5. Emphasize the secure deployment over HTTPS for data protection
+6. Use the browser tools to show 'Secure' and 'HttpOnly' flags on the session cookies
+7. After logging out, create a new account and showcase the strong password policy by using common (top 100) passwords
+8. Trigger the account lockout mechanism by attempting 5 failed logins, by intentionally using the wrong password
+9. 
 
