@@ -2,15 +2,23 @@
 include 'config.php';
 include 'functions.php';
 
-// Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $errors = [];
 
-    // Validate username
+    // Validate username format
     if (!isUsernameValid($username)) {
         $errors[] = "Username must contain only alphanumeric characters.";
+    } else {
+        // Check if username already exists in the database
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        $userExists = $stmt->fetchColumn();
+
+        if ($userExists) {
+            $errors[] = "Username already exists. Please choose a different one.";
+        }
     }
 
     // Check if password is blacklisted
@@ -28,9 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($errors as $error) {
             echo $error . "<br>";
         }
+        echo "<br><button onclick=\"window.location.href='register_form.php'\">Back to Registration</button>";
         exit;
     }
-    
+
     // Hash the password
     $hashedPassword = hashPassword($password);
 
@@ -40,11 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $hashedPassword]);
         echo "Registration successful. <a href='login.php'>Click here to login</a>";
     } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Duplicate entry error
-            echo "Username already exists. Please choose a different one.";
-        } else {
-            echo "Error: " . $e->getMessage();
-        }
+        echo "Error: " . $e->getMessage();
     }
 } else {
     echo "Invalid request.";
