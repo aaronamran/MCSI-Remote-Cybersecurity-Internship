@@ -4,8 +4,8 @@ include 'config.php';
 include 'functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['localhoster'];
-    $password = $_POST['Str0ng!Passw0rd@1'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     // Check if account is locked
     if (isAccountLocked($username)) {
@@ -29,12 +29,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             incrementFailedAttempts($username);
 
             // Lock account if failed attempts reach 5
-            if ($user['failed_attempts'] >= 4) {
+            if ($user && $user['failed_attempts'] >= 4) {
                 lockAccount($username);
                 echo "Account locked due to too many failed attempts. Please wait 30 seconds before trying again.";
             } else {
-                echo "Invalid username or password. Attempts remaining: " . (4 - $user['failed_attempts']);
+                $attemptsRemaining = $user ? (4 - $user['failed_attempts']) : 4;
+                echo "Invalid username or password. Attempts remaining: " . $attemptsRemaining;
             }
+
+            // Button to navigate back to login page
+            echo "<br><button onclick=\"window.location.href='login.php'\">Go back to Login</button>";
         }
     }
 }
