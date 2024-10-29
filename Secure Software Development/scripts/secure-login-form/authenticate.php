@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Lock account if failed attempts reach 5
             if ($user && $user['failed_attempts'] >= 4) {
                 lockAccount($username);
-                echo "Account locked due to too many failed attempts. Please wait 30 seconds before trying again.";
+                echo "Account locked due to too many failed attempts. Please wait 15 seconds before trying again.";
             } else {
                 $attemptsRemaining = $user ? (4 - $user['failed_attempts']) : 4;
                 echo "Invalid username or password. Attempts remaining: " . $attemptsRemaining;
