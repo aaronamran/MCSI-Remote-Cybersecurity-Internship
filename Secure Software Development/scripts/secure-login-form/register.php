@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($errors as $error) {
             echo $error . "<br>";
         }
-        echo "<br><button onclick=\"window.location.href='register_form.php'\">Back to Registration</button>";
+        echo "<br><button onclick=\"window.location.href='createacc.php'\">Back to Registration</button>";
         exit;
     }
 
