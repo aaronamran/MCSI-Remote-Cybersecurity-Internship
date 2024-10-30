@@ -17,3 +17,11 @@ A password strength meter helps ensure secure passwords by indicating their stre
 - Observe how the password strength meter accurately assesses the strength of the passwords
 - Verify that the application enforces the password policy of a minimum of 10 characters
 - Note the estimated time provided for an adversary to crack each password
+
+
+## Solutions With Scripts
+- [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/password-strength-meter)
+1. Start XAMPP and ensure that Apache and MySQL services are running. Since the main goal of this task is to showcase password strength policy, using a database to store user credentials is not needed
+2. In the XAMPP htdocs directory, create a folder called 'passwordstrength' and add the following file: `index.php`, `password_strength.js`, `process_registration.php`, `register.php` and `style.css`
+3. Open a web browser and navigate to localhost. Access the web application and register a new account with a username and password of any strength
+4. 
