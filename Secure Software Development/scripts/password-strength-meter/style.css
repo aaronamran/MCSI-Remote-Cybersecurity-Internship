@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.strength-meter {
+    font-weight: bold;
+    color: green;
+}
+
+#crack-time {
+    margin-top: 5px;
+    color: #333;
+}
