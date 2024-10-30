@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = passwordInput.value;
         const strength = getPasswordStrength(password);
         strengthMeter.textContent = `Strength: ${strength}`;
+
+        if (strength === 'Weak') {
+            strengthMeter.style.color = 'red';
+        } else if (strength === 'Moderate') {
+            strengthMeter.style.color = 'orange';
+        } else if (strength === 'Strong') {
+            strengthMeter.style.color = 'green';
+        }
         
         const crackTime = estimateCrackTime(password);
         crackTimeDisplay.textContent = `Estimated Crack Time: ${crackTime}`;
