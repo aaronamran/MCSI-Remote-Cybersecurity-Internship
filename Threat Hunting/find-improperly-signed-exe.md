@@ -21,6 +21,8 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
 6. Open one of the samples detected by the YARA rule in [PE Studio](https://www.winitor.com/download) and verify that the signature is indeed invalid
 
 ## Solutions With Scripts
+[The YARA rule can be found here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/improperly_signed_executables.yar)
+
 1. An executable could be improperly signed based on the following conditions:
    - Are there binaries pretending to be signed by Microsoft but are not?
    - Are there binaries that are signed but the signature is invalid?
