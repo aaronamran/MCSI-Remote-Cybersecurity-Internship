@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "brute_force_demo";
+$dbname = "brute_auth_pages";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
