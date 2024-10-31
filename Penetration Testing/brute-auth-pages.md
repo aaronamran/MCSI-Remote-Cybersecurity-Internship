@@ -26,5 +26,6 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 
 
 ## Solutions With Scripts
-[Link to the folder of scripts]
+[Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Penetration%20Testing/scripts/brute-auth-pages) 
+<br/>
 1. 
