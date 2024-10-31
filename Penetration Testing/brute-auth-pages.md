@@ -36,7 +36,7 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 4. Create a python file named `bruteforce.py` to brute force the logins
 5. To confirm a random CSRF token is generated and submitted with each login request, inspect the login html page and look for the hidden CSRF token value. Refreshing the page should change the value as shown in the following images
    ![image](https://github.com/user-attachments/assets/9c4de8f4-b674-429a-9df9-dd1e7264b16c)
-   ![image](https://github.com/user-attachments/assets/a39e103a-3231-4c4e-81bf-f72c5fa0effa)
+   ![image](https://github.com/user-attachments/assets/8532a3c0-6c52-4dcb-b8fd-0597677ca66e)
 6. 
 
    
