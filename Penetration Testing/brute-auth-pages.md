@@ -26,6 +26,17 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 
 
 ## Solutions With Scripts
-[Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Penetration%20Testing/scripts/brute-auth-pages) 
+- [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Penetration%20Testing/scripts/brute-auth-pages) 
 <br/>
-1. 
+1. Start XAMPP and ensure that Apache and MySQL services are running. In the XAMPP htdocs directory, create a folder called 'bruteauth' and add the following files: `setup.php`, `login.php`, `authenticate.php`
+2. Open a web browser and navigate to localhost. Access the web application first access `setup.php`. This will automatically generate 1000 user accounts with sequential usernames (1, 2, 3, etc.) and passwords each
+3. In localhost, navigate to phpMyAdmin. Refresh the page if needed to ensure that the database `brute_auth_pages` with the table `Users` are created <br/>
+   ![image](https://github.com/user-attachments/assets/291adb04-d8b8-4aed-a8ef-8cde94357808)
+4. Create a python file named `bruteforce.py` to brute force the logins
+5. To confirm a random CSRF token is generated and submitted with each login request, inspect the login html page and look for the hidden CSRF token value. Refreshing the page should change the value as shown in the following images
+   ![image](https://github.com/user-attachments/assets/9c4de8f4-b674-429a-9df9-dd1e7264b16c)
+   ![image](https://github.com/user-attachments/assets/a39e103a-3231-4c4e-81bf-f72c5fa0effa)
+6. 
+
+   
+
