@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import time
 
 # URL of the login form
-LOGIN_URL = 'http://localhost/login.php'
+LOGIN_URL = 'http://localhost/bruteauth/login.php'
 
 # Load username and password lists
 try:
