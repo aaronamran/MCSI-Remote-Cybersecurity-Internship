@@ -28,7 +28,6 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 ## Solutions With Scripts
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Penetration%20Testing/scripts/brute-auth-pages) 
 <br/>
-
 1. Start XAMPP and ensure that Apache and MySQL services are running. In the XAMPP htdocs directory, create a folder called 'bruteauth' and add the following files: `setup.php`, `login.php`, `authenticate.php`
 2. Open a web browser and navigate to localhost. Access the web application first access `setup.php`. This will automatically generate 1000 user accounts with sequential usernames (1, 2, 3, etc.) and passwords each
 3. In localhost, navigate to phpMyAdmin. Refresh the page if needed to ensure that the database `brute_auth_pages` with the table `Users` are created <br/>
