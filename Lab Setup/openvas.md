@@ -105,10 +105,11 @@
 - Goal: OpenVAS loads over 40000 NVTs and 100000 CVEs
 - Screenshot results of the scan:
   - Scan Results
-    ![Scan Results](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/images/scan-results.png) <br/>
+    ![image](https://github.com/user-attachments/assets/1285619a-ff03-4140-839d-a3de9a11da97)<br/>
     
   - SecInfo / NVTs
-    ![NVTs](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/images/total-nvts.png) <br/>
+    ![image](https://github.com/user-attachments/assets/2d789f1e-1c29-4346-8237-41c68d2359e0)<br/>
     
   - SecInfo / CVEs
-    ![CVEs](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/images/total-cves.png) 
+    ![image](https://github.com/user-attachments/assets/c4015949-ba4c-46eb-9c89-547f3e48040b)
+ 
