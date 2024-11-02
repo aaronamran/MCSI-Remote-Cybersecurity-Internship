@@ -22,6 +22,6 @@ A cross-site request forgery (CSRF) vulnerability allows attackers to perform un
 
 
 ## Solutions With Scripts
-- [Link to the folder of scripts](
+- [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/block-csrf)
 
 1. 
