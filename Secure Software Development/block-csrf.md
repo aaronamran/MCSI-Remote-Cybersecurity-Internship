@@ -25,7 +25,7 @@ A cross-site request forgery (CSRF) vulnerability allows attackers to perform un
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/block-csrf)
 
 1. Start XAMPP and navigate to the XAMPP folder
-2. In the XAMPP htdocs directory, create a folder called 'pwdstrength' and add the following files: `index.php`, `password_update.php`, `process_update.php`, `csrf_token.php` and `csrf_exploit.html`
+2. In the XAMPP htdocs directory, create a folder called 'blockcsrf' and add the following files: `index.php`, `password_update.php`, `process_update.php`, `csrf_token.php` and `csrf_exploit.html`
 3. Open a web browser and navigate to localhost. Access the web application at `index.php` and login
 4. Navigate to `password_update.php` to see the CSRF token in the form
 5. Open the browser developer tools, inspect the form to confirm that the CSRF token is included as a hidden input
