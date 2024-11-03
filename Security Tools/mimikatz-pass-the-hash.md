@@ -43,13 +43,15 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
    privilege::debug
    token::elevate
    lsadump:sam
-   sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash> /run:cmd.exe
+   sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash>
    ```
    - `privilege::debug` is used for getting debug rights (this or Local System rights is required for many Mimikatz commands). By default, the Administrators group has Debug rights. Debug still has to be “activated” by running “privilege::debug”
    - `token::elevate` is used for impersonating a token. Used to elevate permissions to SYSTEM (default) or find a domain admin token on the box using the Windows API
    - `lsadump::sam` is used for getting the SysKey to decrypt SAM entries (from registry or hive). The SAM option connects to the local Security Account Manager (SAM) database and dumps credentials for local accounts. It requires System or Debug rights. Note that the domain name nad the NTLM hash will appear here
-   - `sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash> /run:cmd.exe` is used to pass the hash. This will spawn a command prompt
-6. 
+   - `sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash>` is used to pass the hash. By default, this will spawn a command prompt
+   ![image](https://github.com/user-attachments/assets/60fb6a56-30a6-4c92-a2c8-090f6db18742)
+6. In the spawned command prompt, enter `ipconfig` to confirm it is still on Target 1 (local VM). Then navigate to the PsExec folder. Use `psexec64 \\<IP_address_of_target_2> cmd` to spawn another command prompt
+7. In this new spawned command prompt, type `ipconfig` and `hostname` to confirm the IP address and hostname belongs to Target 2
 
 
 
