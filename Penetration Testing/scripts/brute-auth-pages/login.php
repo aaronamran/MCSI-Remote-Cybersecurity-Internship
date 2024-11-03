@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// Check if the CSRF token is already set; if not, create one
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <form method="POST" action="authenticate.php">
