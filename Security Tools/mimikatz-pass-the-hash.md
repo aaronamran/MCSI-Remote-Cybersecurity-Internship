@@ -9,6 +9,7 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 - [Pass the Hash With Mimikatz: Complete Guide](https://www.stationx.net/pass-the-hash-with-mimikatz/) by Richard Deszo on StationX
 - [Resolve "Access is Denied" using PSExec with a Local Admin Account](https://www.brandonmartinez.com/2013/04/24/resolve-access-is-denied-using-psexec-with-a-local-admin-account/) by Brandon Martinez
 - [Fixed: Couldn't Install PsExec Service Access Is Denied on Windows](https://www.anyviewer.com/how-to/couldnt-install-psexec-service-access-is-denied-2578.html) by Ellie on AnyViewer
+- [Unofficial Guide to Mimikatz & Command Reference](https://adsecurity.org/?page_id=1821) by Active Directory Security
 
 
 ## Tasks
@@ -33,8 +34,12 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 
 ## Solutions
 1. In both Target 1 and 2, open a Command Prompt with administrator privileges, and create a new local user with the same username and password on each machine. To create a new local user with password, use `net user adminuser adminpassword /add`. To add the user to the administrator group, use `net localgroup administrators adminuser /add`. To verify the user was created, use `net localgroup administrators`.
-2. Download Mimikatz on Target 1 from [this link](https://github.com/gentilkiwi/mimikatz/archive/master.zip)
-3. 
+2. Download Mimikatz on Target 1 from [this link](https://github.com/gentilkiwi/mimikatz/archive/master.zip) and download PsExec from [this link](https://learn.microsoft.com/en-us/sysinternals/downloads/psexec)
+3. If PsExec cannot be launched and used between different version of Windows, just clone the Windows 7 VM used to standardise all the settings
+4. To test PsExec, navigate to its folder and launch it in the command prompt with administrator privileges. Since the Windows 7 VM used in this task is 64-bit, use `psexec64 \\<IP_address_of_target_2> ipconfig` and see if it works. The screenshot below shows a working PsExec:
+   ![image](https://github.com/user-attachments/assets/3b16df83-f00f-45ff-bda9-802d32967918)
+5. 
+
 
 
 
