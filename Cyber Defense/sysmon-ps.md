@@ -25,44 +25,49 @@ Windows Sysmon logs system activity, including processes, network connections, a
 
 ## Solutions With Scripts
 1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events
-   ```
-   # Variables
-   $remoteMachine = "192.168.1.14"   # Replace with the IP or hostname of the Windows VM
-   $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"   # Local path to Sysmon executable
-   $configFile = "C:\Sysmon\sysmon-config.xml"   # Local path to the Sysmon configuration file
-   $remoteSysmonPath = "\\$remoteMachine\C$\Sysmon64.exe"
-   $remoteConfigPath = "\\$remoteMachine\C$\sysmon-config.xml"
-   $credential = Get-Credential   # Prompt for credentials to access the remote machine
-   
-   # Step 1: Copy Sysmon executable to remote machine
-   Copy-Item -Path $sysmonExecutable -Destination $remoteSysmonPath -Credential $credential
-   
-   # Step 2: Copy Sysmon configuration file to remote machine
-   Copy-Item -Path $configFile -Destination $remoteConfigPath -Credential $credential
-   
-   # Step 3: Install Sysmon on the remote machine with the configuration file
-   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
-       $sysmonPath = "C:\Sysmon64.exe"
-       $configPath = "C:\sysmon-config.xml"
-       Start-Process -FilePath $sysmonPath -ArgumentList "/accepteula -i $configPath" -Wait
-   }
-  
-   # Step 4: Verify Sysmon installation
-   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
-       Get-Process -Name sysmon
-       Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 5
-   }
-   
-   # Step 5: Validate configuration
-   Invoke-Command -ComputerName $remoteMachine -Credential $credential -ScriptBlock {
-       $configPath = "C:\sysmon-config.xml"
-       if (Test-Path $configPath) {
-           Write-Host "Sysmon configuration file exists on the remote machine."
-       } else {
-           Write-Host "Sysmon configuration file is missing!"
-       }
-   }
-   ```
+    ```
+    # Variables
+    $remoteMachine = "192.168.1.10"   # Replace with the IP or hostname of the remote Windows 7 VM
+    $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"   # Local path to Sysmon executable
+    $configFile = "C:\Sysmon\sysmon-config.xml"   # Local path to the Sysmon configuration file
+    $remoteSharePath = "\\$remoteMachine\Sysmon"  # Use the existing shared folder path
+    
+    # Step 1: Copy Sysmon executable and configuration file to the shared folder
+    Copy-Item -Path $sysmonExecutable -Destination $remoteSharePath
+    Copy-Item -Path $configFile -Destination $remoteSharePath
+    
+    # Step 2: Install Sysmon on the remote machine
+    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
+        param($remoteSharePath)
+        $sysmonPath = "$remoteSharePath\Sysmon64.exe"
+        $configPath = "$remoteSharePath\sysmon-config.xml"
+        
+        # Start Sysmon installation
+        Start-Process -FilePath $sysmonPath -ArgumentList "/accepteula -i $configPath" -Wait
+    } -ArgumentList $remoteSharePath
+    
+    # Step 3: Verify Sysmon installation
+    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
+        # Check if Sysmon is running
+        if (Get-Process -Name sysmon -ErrorAction SilentlyContinue) {
+            Write-Host "Sysmon is running."
+        } else {
+            Write-Host "Sysmon is not running."
+        }
+        # Check recent Sysmon events
+        Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 5
+    }
+    
+    # Step 4: Validate configuration
+    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
+        $configPath = "C:\Sysmon\sysmon-config.xml"
+        if (Test-Path $configPath) {
+            Write-Host "Sysmon configuration file exists on the remote machine."
+        } else {
+            Write-Host "Sysmon configuration file is missing!"
+        }
+    }
+    ```
 2. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
    ```
    <Sysmon schemaversion="4.60">
