@@ -91,4 +91,14 @@ Windows Sysmon logs system activity, including processes, network connections, a
     </EventFiltering>
    </Sysmon>
    ```
-
+3. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
+4. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "<target_IP_address>"
+   ```
+   Or to simply allow connections to any IP address, replace the target IP address with an asterisk (*)
+5. To test the PowerShell remote access from the sender VM, use the following commands
+   ```
+   Enter-PSSession -ComputerName <target_IP_address> -Credential (Get-Credential)
+   ```
+6. 
