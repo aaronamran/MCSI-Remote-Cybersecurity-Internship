@@ -105,7 +105,8 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1
    ```
-4. To run the script remotely on a list of remote machines, first enable PowerShell remoting
+4. Open PowerShell with admin privileges, navigate to the folder where Mimikatz is stored and 
+5. To run the script remotely on a list of remote machines, first enable PowerShell remoting
    ```
    Enable-PSRemoting -Force
    ```
@@ -125,10 +126,10 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1 -ComputerNames "Server1", "192.168.1.50", "Server3"
    ```
-5. Once LSA protection is enabled, try dumping cached credentials with Mimikatz. Run Mimikatz as admin, and the following commands
+6. Once LSA protection is enabled, try dumping cached credentials with Mimikatz. Run Mimikatz as admin, and the following commands
    ```
    privilege::debug
    sekurlsa::logonpasswords
    ```
-6. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
+7. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
 
