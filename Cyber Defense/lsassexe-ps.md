@@ -28,43 +28,78 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection, and set to `0` to disable it
 2. PowerShell script
    ```
-   # Function to enable LSA protection for LSASS
-   function Enable-LsaProtection {
-       param (
-           [string]$ComputerName
-       )
-    
-       # Registry path and value to enable LSA protection
-       $regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
-       $regValueName = "RunAsPPL"
-        
-       # Check if the LSA protection is already enabled
-       try {
-           $lsaProtection = Get-ItemProperty -Path $regPath -Name $regValueName -ErrorAction Stop -ComputerName $ComputerName
-           if ($lsaProtection.$regValueName -eq 1) {
-              Write-Host "LSA protection is already enabled on $ComputerName."
-           } else {
-               Set-ItemProperty -Path $regPath -Name $regValueName -Value 1 -ComputerName $ComputerName
-               Write-Host "LSA protection enabled on $ComputerName."
-           }
-       } catch {
-           Write-Host "Enabling LSA protection on $ComputerName..."
-           New-ItemProperty -Path $regPath -Name $regValueName -Value 1 -PropertyType DWORD -Force -ComputerName $ComputerName
-           Write-Host "LSA protection successfully enabled on $ComputerName."
+   # PowerShell Script to Enable LSA Protection for lsass.exe
+   # Compatible with Windows Vista and later
+   
+   # Constants
+   $lsaKeyPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+   $lsaValueName = "RunAsPPL"
+   $enabledValue = 1
+   
+   # Function to enable LSA protection on the local machine
+   function Enable-LsaProtectionLocal {
+       # Check if LSA protection is already enabled
+       if ((Get-ItemProperty -Path $lsaKeyPath -Name $lsaValueName -ErrorAction SilentlyContinue).$lsaValueName -eq $enabledValue) {
+           Write-Output "LSA protection is already enabled on the local machine."
+       } else {
+           # Enable LSA protection
+           Set-ItemProperty -Path $lsaKeyPath -Name $lsaValueName -Value $enabledValue
+           Write-Output "LSA protection has been enabled for lsass.exe on the local machine."
        }
    }
    
-   # Main script to run on local or multiple remote machines
-   param (
-       [string[]]$ComputerNames = @("localhost")  # Default to localhost, or provide a list of remote machines
-   )
+   # Function to enable LSA protection on a remote machine
+   function Enable-LsaProtectionRemote {
+       param (
+           [string]$remoteComputer
+       )
    
-   foreach ($ComputerName in $ComputerNames) {
-       Write-Host "Processing $ComputerName..."
-       Enable-LsaProtection -ComputerName $ComputerName
+       # Check if the remote machine is accessible
+       if (Test-Connection -ComputerName $remoteComputer -Count 1 -Quiet) {
+           try {
+               # Check if LSA protection is already enabled on the remote machine
+               $remoteValue = Invoke-Command -ComputerName $remoteComputer -ScriptBlock {
+                   param ($lsaKeyPath, $lsaValueName)
+                   (Get-ItemProperty -Path $lsaKeyPath -Name $lsaValueName -ErrorAction SilentlyContinue).$lsaValueName
+               } -ArgumentList $lsaKeyPath, $lsaValueName
+   
+               if ($remoteValue -eq $enabledValue) {
+                   Write-Output "LSA protection is already enabled on $remoteComputer."
+               } else {
+                   # Enable LSA protection on the remote machine
+                   Invoke-Command -ComputerName $remoteComputer -ScriptBlock {
+                       param ($lsaKeyPath, $lsaValueName, $enabledValue)
+                       Set-ItemProperty -Path $lsaKeyPath -Name $lsaValueName -Value $enabledValue
+                   } -ArgumentList $lsaKeyPath, $lsaValueName, $enabledValue
+   
+                   Write-Output "LSA protection has been enabled for lsass.exe on $remoteComputer."
+               }
+           } catch {
+               Write-Output "An error occurred while trying to enable LSA protection on $remoteComputer: $_"
+           }
+       } else {
+           Write-Output "Cannot reach $remoteComputer. Please check the network connection or machine name."
+       }
    }
    
-   Write-Host "LSA protection task completed."
+   # Main script logic
+   Write-Output "Choose an option:"
+   Write-Output "1. Enable LSA protection on the local machine"
+   Write-Output "2. Enable LSA protection on a remote machine"
+   $choice = Read-Host "Enter your choice (1 or 2)"
+   
+   switch ($choice) {
+       1 {
+           Enable-LsaProtectionLocal
+       }
+       2 {
+           $remoteComputer = Read-Host "Enter the name or IP address of the remote machine"
+           Enable-LsaProtectionRemote -remoteComputer $remoteComputer
+       }
+       default {
+           Write-Output "Invalid input. Please restart the script and choose 1 or 2."
+       }
+   }
    ```
 3. To run the script locally to enable LSA protection on the local machine run the following command in PowerShell
    ```
