@@ -27,9 +27,9 @@ Windows Sysmon logs system activity, including processes, network connections, a
 1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events
    ```
    # Variables
-   $remoteMachine = "RemoteMachineNameOrIP"   # Replace with the IP or hostname of the Windows VM
-   $sysmonExecutable = "C:\Path\To\Sysmon64.exe"   # Local path to Sysmon executable
-   $configFile = "C:\Path\To\sysmon-config.xml"   # Local path to the Sysmon configuration file
+   $remoteMachine = "192.168.1.14"   # Replace with the IP or hostname of the Windows VM
+   $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"   # Local path to Sysmon executable
+   $configFile = "C:\Sysmon\sysmon-config.xml"   # Local path to the Sysmon configuration file
    $remoteSysmonPath = "\\$remoteMachine\C$\Sysmon64.exe"
    $remoteConfigPath = "\\$remoteMachine\C$\sysmon-config.xml"
    $credential = Get-Credential   # Prompt for credentials to access the remote machine
