@@ -35,51 +35,56 @@ The Windows firewall is software that protects a network by blocking ports and p
 ## Solutions With Scripts
 1. Save the following PowerShell script as `check-firewall.ps1`
    ```
-   # Function to check and enable Windows Firewall
-    function Enable-Firewall {
-        param (
-            [string[]]$RemoteComputers = @()  # Array of remote computer names or IP addresses
-        )
-    
-        # Local computer check
-        Write-Host "Checking Windows Firewall status on local machine..."
-        $localStatus = Get-NetFirewallProfile -Profile Domain,Public,Private | Select-Object -ExpandProperty Enabled
-    
-        if ($localStatus -contains 1) {
-            Write-Host "Windows Firewall is already enabled on the local machine."
-        } else {
-            Write-Host "Windows Firewall is disabled on the local machine. Enabling..."
-            Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
-            Write-Host "Windows Firewall has been enabled on the local machine."
-        }
-    
-        # Remote computer check
-        foreach ($remote in $RemoteComputers) {
-            Write-Host "`nChecking Windows Firewall status on remote machine: $remote"
-            try {
-                $remoteStatus = Invoke-Command -ComputerName $remote -ScriptBlock {
-                    Get-NetFirewallProfile -Profile Domain,Public,Private | Select-Object -ExpandProperty Enabled
-                }
-    
-                if ($remoteStatus -contains 1) {
-                    Write-Host "Windows Firewall is already enabled on $remote."
-                } else {
-                    Write-Host "Windows Firewall is disabled on $remote. Enabling..."
-                    Invoke-Command -ComputerName $remote -ScriptBlock {
-                        Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
-                    }
-                    Write-Host "Windows Firewall has been enabled on $remote."
-                }
-            } catch {
-                Write-Host "Failed to connect to $remote. Please check the network connection or credentials."
-            }
-        }
-    }
-    
-    # Define a list of remote computers (use IP addresses or hostnames)
-    $remoteMachines = @("192.168.1.101", "192.168.1.102")
-    
-    # Call the function for both local and remote checks
-    Enable-Firewall -RemoteComputers $remoteMachines
+   # Define a function to check and enable Windows Firewall
+   function Enable-WindowsFirewall {
+       param (
+           [string]$ComputerName = "localhost"  # Default to local machine
+       )
+   
+       # Check if the firewall is enabled on the target machine
+       $firewallStatus = Get-NetFirewallProfile -CimSession $ComputerName -ErrorAction SilentlyContinue | Where-Object { $_.Enabled -eq 'True' }
+   
+       if ($firewallStatus) {
+           Write-Output "Windows Firewall is already enabled on $ComputerName."
+       } else {
+           # Enable the firewall on the target machine
+           try {
+               Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+                   Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+               }
+               Write-Output "Windows Firewall has been enabled on $ComputerName."
+           } catch {
+               Write-Output "Failed to enable Windows Firewall on $ComputerName: $_"
+           }
+       }
+   }
+   
+   # Main script logic
+   Write-Output "Choose an option:"
+   Write-Output "1. Perform task on local machine"
+   Write-Output "2. Perform task on remote machines"
+   $choice = Read-Host "Enter your choice (1 or 2)"
+   
+   # Option handling
+   switch ($choice) {
+       "1" {
+           # Check and enable firewall on the local machine
+           Enable-WindowsFirewall
+       }
+       "2" {
+           # Get the list of remote machine names or IP addresses
+           $remoteMachines = Read-Host "Enter a comma-separated list of remote machine names or IP addresses"
+           $remoteMachinesArray = $remoteMachines -split ','
+   
+           # Loop through each remote machine
+           foreach ($machine in $remoteMachinesArray) {
+               $trimmedMachine = $machine.Trim()
+               Enable-WindowsFirewall -ComputerName $trimmedMachine
+           }
+       }
+       default {
+           Write-Output "Invalid choice. Please enter either 1 or 2."
+       }
+   }
    ```
 2.  
