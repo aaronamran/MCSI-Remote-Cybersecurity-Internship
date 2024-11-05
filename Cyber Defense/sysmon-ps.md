@@ -7,6 +7,7 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - [Autoruns](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns) by Microsoft
 - [Autorunsc Usage](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns#autorunsc-usage) by Microsoft
 - [sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config) by SwiftOnSecurity on GitHub
+- [Sysmon: How To Setup, Configure, and Analyze the System Monitor’s Events](https://syedhasan010.medium.com/sysmon-how-to-setup-configure-and-analyze-the-system-monitors-events-930e9add78d) by syed Hasan on Medium
 - [How To Easily Analyze Your Sysmon Logs](https://www.gigasheet.com/post/how-to-easily-analyze-your-sysmon-logs#:~:text=Start%20making%20some%20noise%20on,That's%20it.) by Syed Hasan on gigasheet
 
 
