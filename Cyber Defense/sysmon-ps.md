@@ -31,58 +31,69 @@ Windows Sysmon logs system activity, including processes, network connections, a
 1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events (Delete credentials where necessary)
     ```
     # Parameters
-    param
-    (
-      [Parameter(Mandatory=$true)] [string] $remoteMachine = $null
+    param (
+        [Parameter(Mandatory=$true)]
+        [string] $remoteMachine
     )
-      
+    
     # Variables
-    # $remoteMachine = "192.168.1.10"   # Replace with the IP or hostname of the remote Windows VM
-    $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"   # Local path to Sysmon executable
-    $configFile = "C:\Sysmon\sysmon-config.xml"   # Local path to the Sysmon configuration file
-    $remoteSharePath = "\\$remoteMachine\Sysmon"  # Use the existing shared folder path
+    $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"       # Local path to Sysmon executable
+    $configFile = "C:\Sysmon\sysmon-config.xml"        # Local path to Sysmon configuration file
+    $remoteWindowsPath = "\\$remoteMachine\C$\Windows" # Target directory for Sysmon on the remote machine
     
-    # Step 1: Copy Sysmon executable and configuration file to the shared folder
-    Write-Host "-> Copying Sysmon executable and configuration file to the shared folder"
-    Copy-Item -Path $sysmonExecutable -Destination $remoteSharePath
-    Copy-Item -Path $configFile -Destination $remoteSharePath
+    # Step 1: Establish a remote session
+    Write-Host "-> Establishing session with $remoteMachine"
+    try {
+        $remoteSession = New-PSSession -ComputerName $remoteMachine -ErrorAction Stop
+    } catch {
+        Write-Host "Failed to connect to $remoteMachine. Ensure the machine is reachable and PowerShell remoting is enabled."
+        return
+    }
     
-    # Step 2: Install Sysmon on the remote machine
-    Write-Host "-> Installing Sysmon on the remote machine"
-    # Uninstall Sysmon first if it already exists on remote machine
-    Invoke-Command -ScriptBlock { param($installer) cmd.exe /C "C:\$installer -u force 2>&1" | Out-Null } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1]
-
-    # Installs a new Sysmon copied to the remote machine
-    Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
-
-    Write-Host "-> Installation complete"
+    # Step 2: Copy Sysmon executable and configuration file to the C:\Windows directory on the remote machine
+    Write-Host "-> Copying Sysmon executable and configuration file to the remote machine's C:\Windows directory"
+    try {
+        # Copy files to the remote machine's C:\Windows directory
+        Copy-Item -Path $sysmonExecutable -Destination $remoteWindowsPath -Force
+        Copy-Item -Path $configFile -Destination $remoteWindowsPath -Force
+    } catch {
+        Write-Host "Failed to copy files to $remoteMachine. Check permissions and network access."
+        Remove-PSSession -Session $remoteSession
+        return
+    }
+    
+    # Step 3: Install or reinstall Sysmon on the remote machine
+    Write-Host "-> Installing Sysmon on $remoteMachine"
+    $sysmonExeName = [System.IO.Path]::GetFileName($sysmonExecutable)
+    $configFileName = [System.IO.Path]::GetFileName($configFile)
+    
+    try {
+        # Uninstall Sysmon if it exists
+        Invoke-Command -Session $remoteSession -ScriptBlock {
+            param($sysmonExe)
+            if (Test-Path "C:\Windows\$sysmonExe") {
+                Write-Host "Uninstalling existing Sysmon instance..."
+                cmd.exe /C "C:\Windows\$sysmonExe -u force" | Out-Null
+            }
+        } -ArgumentList $sysmonExeName
+    
+        # Install Sysmon with the new configuration in C:\Windows
+        Invoke-Command -Session $remoteSession -ScriptBlock {
+            param($sysmonExe, $configFile)
+            Write-Host "Installing Sysmon with new configuration..."
+            cmd.exe /C "C:\Windows\$sysmonExe -i C:\Windows\$configFile -accepteula" | Out-Null
+        } -ArgumentList $sysmonExeName, $configFileName
+        Write-Host "-> Sysmon installation complete on $remoteMachine"
+    } catch {
+        Write-Host "Failed to install Sysmon on $remoteMachine. Please check permissions and system requirements."
+    }
+    
+    # Step 4: Clean up
+    Remove-PSSession -Session $remoteSession
     ```
 
-    filler text
-   ```
-     # Step 3: Verify Sysmon installation
-    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
-        # Check if Sysmon is running
-        if (Get-Process -Name sysmon -ErrorAction SilentlyContinue) {
-            Write-Host "Sysmon is running."
-        } else {
-            Write-Host "Sysmon is not running."
-        }
-        # Check recent Sysmon events
-        Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 5
-    }
-    
-    # Step 4: Validate configuration
-    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
-        $configPath = "C:\Sysmon\sysmon-config.xml"
-        if (Test-Path $configPath) {
-            Write-Host "Sysmon configuration file exists on the remote machine."
-        } else {
-            Write-Host "Sysmon configuration file is missing!"
-        }
-    }
-   ```
-3. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
+
+2. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
    ```
    <Sysmon schemaversion="4.60">
      <!-- Capture all hashes -->
