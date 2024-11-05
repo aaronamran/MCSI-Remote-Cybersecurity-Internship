@@ -81,5 +81,10 @@ Best practice is to have only one local administrator per machine. Multiple admi
        }
    }
    ```
-2. 
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. 
+
    
