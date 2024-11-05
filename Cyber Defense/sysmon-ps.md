@@ -123,4 +123,6 @@ Windows Sysmon logs system activity, including processes, network connections, a
    ```
    Enter-PSSession -ComputerName <target_IP_address> -Credential (Get-Credential)
    ```
-8. 
+   Upon successful remote access, the PowerShell would look like this
+   
+9. 
