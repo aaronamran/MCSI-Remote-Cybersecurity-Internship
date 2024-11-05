@@ -54,7 +54,7 @@ Windows Sysmon logs system activity, including processes, network connections, a
     Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
     }
 
-    Write-Host "-> Installation complete'
+    Write-Host "-> Installation complete"
     ```
 
     filler text
