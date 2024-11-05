@@ -41,18 +41,20 @@ Windows Sysmon logs system activity, including processes, network connections, a
     $remoteSharePath = "\\$remoteMachine\Sysmon"  # Use the existing shared folder path
     
     # Step 1: Copy Sysmon executable and configuration file to the shared folder
-    Write-Host '-> Copying Sysmon executable and configuration file to the shared folder'
+    Write-Host "-> Copying Sysmon executable and configuration file to the shared folder"
     Copy-Item -Path $sysmonExecutable -Destination $remoteSharePath
     Copy-Item -Path $configFile -Destination $remoteSharePath
     
     # Step 2: Install Sysmon on the remote machine
-    Write-Host '-> Installing Sysmon on the remote machine'
+    Write-Host "-> Installing Sysmon on the remote machine"
     # Uninstalls first
     Invoke-Command -ScriptBlock { param($installer) cmd.exe /C "C:\$installer -u force 2>&1" | Out-Null } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1]
 
     # Then installs
     Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
-    } 
+    }
+
+    Write-Host "-> Installation complete'
     ```
 
     filler text
