@@ -80,39 +80,43 @@ Windows Sysmon logs system activity, including processes, network connections, a
 3. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
    ```
    <Sysmon schemaversion="4.60">
-    <EventFiltering>
+     <!-- Capture all hashes -->
+     <HashAlgorithms>*</HashAlgorithms>
+     <EventFiltering>
+   
+       <!-- Log unauthorized read/write access to lsass.exe -->
+       <ProcessAccess onmatch="include">
+        <TargetImage condition="image">lsass.exe</TargetImage>
+       </ProcessAccess>
   
-      <!-- Log unauthorized read/write access to lsass.exe -->
-      <FileAccess onmatch="exclude">
-        <Image condition="is">C:\Windows\System32\lsass.exe</Image>
-      </FileAccess>
-  
-      <!-- Capture command line arguments -->
-      <ProcessCreate onmatch="include">
+       <!-- Capture command line arguments -->
+       <ProcessCreate onmatch="exclude">
         <CommandLine condition="contains">*</CommandLine>
-      </ProcessCreate>
+       </ProcessCreate>
   
-      <!-- Log drivers loaded -->
-      <DriverLoad onmatch="include">
-        <ImageLoaded condition="contains">C:\Windows\System32\Drivers\*.sys</ImageLoaded>
-      </DriverLoad>
+       <!-- Log drivers loaded -->
+       <DriverLoad onmatch="exclude">
+       </DriverLoad>
   
-      <!-- Log DLLs loaded -->
-      <ImageLoad onmatch="include">
-        <Image condition="contains">C:\Windows\System32\*.dll</Image>
-      </ImageLoad>
+       <!-- Log DLLs loaded -->
+       <ImageLoad onmatch="include">
+        <ImageLoaded condition="end with">.dll</ImageLoaded>
+       </ImageLoad>
   
-    </EventFiltering>
+     </EventFiltering>
    </Sysmon>
    ```
-4. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
-5. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
+   filler text
+   ```
+   
+5. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
+6. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
    ```
    Set-Item WSMan:\localhost\Client\TrustedHosts -Value "<target_IP_address>"
    ```
    Or to simply allow connections to any IP address, replace the target IP address with an asterisk (*)
-6. To test the PowerShell remote access from the sender VM, use the following commands
+7. To test the PowerShell remote access from the sender VM, use the following commands
    ```
    Enter-PSSession -ComputerName <target_IP_address> -Credential (Get-Credential)
    ```
-7. 
+8. 
