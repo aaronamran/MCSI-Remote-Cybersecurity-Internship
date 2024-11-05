@@ -47,10 +47,10 @@ Windows Sysmon logs system activity, including processes, network connections, a
     
     # Step 2: Install Sysmon on the remote machine
     Write-Host "-> Installing Sysmon on the remote machine"
-    # Uninstalls first
+    # Uninstall Sysmon first if it already exists on remote machine
     Invoke-Command -ScriptBlock { param($installer) cmd.exe /C "C:\$installer -u force 2>&1" | Out-Null } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1]
 
-    # Then installs
+    # Installs a new Sysmon copied to the remote machine
     Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
     }
 
