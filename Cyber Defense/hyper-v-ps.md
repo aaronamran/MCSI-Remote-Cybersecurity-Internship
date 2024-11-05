@@ -13,7 +13,7 @@ Hyper-V, Microsoft's hypervisor, enables multiple operating systems to run on on
 - Provide an option in the script to force a reboot
 
 ## Solutions With Script
-Complete PowerShell script can be found [here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/scripts/controlhyperv.ps1)
+[Link to the complete PowerShell script](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/scripts/controlhyperv.ps1)
 
 ```
 # Write A PS Script To Turn On Hyper-V
