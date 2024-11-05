@@ -6,7 +6,7 @@
 
 ## [Write A PS Script That Edits Registry To Mark LSASS.exe As A Protected Process](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/lsassexe-ps.md)
 
-## [Write A PS Script To Turn On Automatic Sample Submission]
+## [Write A PS Script To Turn On Automatic Sample Submission](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/automatic-sample-submission.md)
 
 ## [Write A PS Script To Turn On Windows Defender](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/windows-defender-ps.md)
 
