@@ -24,10 +24,16 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - Verifies that the configuration file correctly captures the required events mentioned in the specifications
 
 ## Solutions With Scripts
-1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events
+1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events (Delete credentials where necessary)
     ```
+    # Parameters
+    param
+    (
+      [Parameter(Mandatory=$true)] [string] $remoteMachine = $null
+    )
+      
     # Variables
-    $remoteMachine = "192.168.1.10"   # Replace with the IP or hostname of the remote Windows 7 VM
+    # $remoteMachine = "192.168.1.10"   # Replace with the IP or hostname of the remote Windows VM
     $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"   # Local path to Sysmon executable
     $configFile = "C:\Sysmon\sysmon-config.xml"   # Local path to the Sysmon configuration file
     $remoteSharePath = "\\$remoteMachine\Sysmon"  # Use the existing shared folder path
@@ -37,16 +43,19 @@ Windows Sysmon logs system activity, including processes, network connections, a
     Copy-Item -Path $configFile -Destination $remoteSharePath
     
     # Step 2: Install Sysmon on the remote machine
-    Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
-        param($remoteSharePath)
-        $sysmonPath = "$remoteSharePath\Sysmon64.exe"
-        $configPath = "$remoteSharePath\sysmon-config.xml"
-        
-        # Start Sysmon installation
-        Start-Process -FilePath $sysmonPath -ArgumentList "/accepteula -i $configPath" -Wait
-    } -ArgumentList $remoteSharePath
+    # Uninstalls first
+    Invoke-Command -ScriptBlock { param($installer) cmd.exe /C "C:\$installer -u force 2>&1" | Out-Null } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1]
+
+    # Then installs
+    Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
+    } 
     
-    # Step 3: Verify Sysmon installation
+  
+    ```
+
+    filler text
+   ```
+     # Step 3: Verify Sysmon installation
     Invoke-Command -ComputerName $remoteMachine -ScriptBlock {
         # Check if Sysmon is running
         if (Get-Process -Name sysmon -ErrorAction SilentlyContinue) {
@@ -67,8 +76,8 @@ Windows Sysmon logs system activity, including processes, network connections, a
             Write-Host "Sysmon configuration file is missing!"
         }
     }
-    ```
-2. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
+   ```
+3. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
    ```
    <Sysmon schemaversion="4.60">
     <EventFiltering>
@@ -96,14 +105,14 @@ Windows Sysmon logs system activity, including processes, network connections, a
     </EventFiltering>
    </Sysmon>
    ```
-3. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
-4. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
+4. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
+5. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
    ```
    Set-Item WSMan:\localhost\Client\TrustedHosts -Value "<target_IP_address>"
    ```
    Or to simply allow connections to any IP address, replace the target IP address with an asterisk (*)
-5. To test the PowerShell remote access from the sender VM, use the following commands
+6. To test the PowerShell remote access from the sender VM, use the following commands
    ```
    Enter-PSSession -ComputerName <target_IP_address> -Credential (Get-Credential)
    ```
-6. 
+7. 
