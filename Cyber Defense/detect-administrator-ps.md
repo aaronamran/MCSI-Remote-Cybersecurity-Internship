@@ -21,79 +21,65 @@ Best practice is to have only one local administrator per machine. Multiple admi
 ## Solutions With Scripts
 1. Save the following PowerShell script as `check-admins.ps1`
    ```
-    # Function to get local administrators from a machine (local or remote)
-    function Get-LocalAdministrators {
-        param (
-            [string]$ComputerName = $env:COMPUTERNAME
-        )
-    
-        try {
-            # Get the Administrators group
-            $adminGroup = [ADSI]"WinNT://$ComputerName/Administrators,group"
-            $adminMembers = @()
-    
-            # Enumerate group members
-            foreach ($member in $adminGroup.Invoke("Members")) {
-                $memberObj = [ADSI]$member
-                $adminMembers += $memberObj.Name
-            }
-    
-            # Return the list of members
-            return $adminMembers
-        } catch {
-            Write-Host "Error retrieving administrators from $ComputerName: $_" -ForegroundColor Red
-            return $null
-        }
-    }
-    
-    # Function to count admin accounts including nested groups
-    function Count-LocalAdministrators {
-        param (
-            [string]$ComputerName = $env:COMPUTERNAME
-        )
-    
-        $adminAccounts = Get-LocalAdministrators -ComputerName $ComputerName
-    
-        if ($adminAccounts) {
-            Write-Host "Local Administrators on $ComputerName:" -ForegroundColor Cyan
-            $adminAccounts | ForEach-Object { Write-Host $_ }
-    
-            # Check if more than one admin exists
-            if ($adminAccounts.Count -gt 1) {
-                Write-Host "ALERT: More than one local administrator detected on $ComputerName!" -ForegroundColor Yellow
-            } else {
-                Write-Host "OK: Only one local administrator found on $ComputerName." -ForegroundColor Green
-            }
-    
-            # Return the count of local administrators
-            return $adminAccounts.Count
-        }
-        return 0
-    }
-    
-    # Function to check administrators on multiple remote machines
-    function Check-RemoteAdministrators {
-        param (
-            [string[]]$ComputerList
-        )
-    
-        foreach ($computer in $ComputerList) {
-            Write-Host "`nScanning $computer for local administrators..." -ForegroundColor Blue
-            Count-LocalAdministrators -ComputerName $computer
-        }
-    }
-    
-    # Main script
-    $localAdminCount = Count-LocalAdministrators -ComputerName $env:COMPUTERNAME
-    
-    if ($localAdminCount -gt 1) {
-        Write-Host "`nALERT: Multiple administrators on the local machine!" -ForegroundColor Yellow
-    }
-    
-    # Input list of remote machines (either names or IP addresses)
-    $remoteMachines = @("RemoteMachine1", "RemoteMachine2", "192.168.1.10")  # Modify this list
-    
-    Check-RemoteAdministrators -ComputerList $remoteMachines
+   # Function to check local administrators on a specified machine
+   function Get-LocalAdministrators {
+       param (
+           [string]$ComputerName
+       )
+       try {
+           # Get all members of the 'Administrators' group, including nested groups
+           $admins = Get-WmiObject -Class Win32_GroupUser -ComputerName $ComputerName |
+               Where-Object { $_.GroupComponent -like '*"Administrators"' } |
+               ForEach-Object { 
+                   [ADSI]::New($_.PartComponent) | 
+                   Select-Object -ExpandProperty Name 
+               }
+   
+           # Get unique list of administrator accounts
+           $uniqueAdmins = $admins | Sort-Object -Unique
+   
+           # Count the administrators
+           $adminCount = $uniqueAdmins.Count
+   
+           # Display results
+           if ($adminCount -gt 1) {
+               Write-Host "ALERT: $ComputerName has $adminCount local administrator accounts!"
+               $uniqueAdmins | ForEach-Object { Write-Host "- $_" }
+           } else {
+               Write-Host "$ComputerName has only one local administrator account."
+           }
+       }
+       catch {
+           Write-Host "Error: Unable to connect to $ComputerName."
+       }
+   }
+   
+   # Main Script Logic
+   Write-Host "Choose an option:"
+   Write-Host "1. Check local machine for multiple local administrator accounts"
+   Write-Host "2. Check remote machines for multiple local administrator accounts"
+   $choice = Read-Host "Enter your choice (1 or 2)"
+   
+   switch ($choice) {
+       "1" {
+           # Option 1: Local Machine Check
+           Write-Host "Checking local machine for multiple administrator accounts..."
+           Get-LocalAdministrators -ComputerName $env:COMPUTERNAME
+       }
+       "2" {
+           # Option 2: Remote Machines Check
+           $remoteMachines = Read-Host "Enter remote machine names or IP addresses separated by commas"
+           $remoteMachineList = $remoteMachines -split ',' | ForEach-Object { $_.Trim() }
+   
+           foreach ($remoteMachine in $remoteMachineList) {
+               Write-Host "Checking $remoteMachine for multiple administrator accounts..."
+               Get-LocalAdministrators -ComputerName $remoteMachine
+           }
+       }
+       default {
+           Write-Host "Invalid input. Please enter 1 or 2."
+       }
+   }
    ```
 2. 
    
