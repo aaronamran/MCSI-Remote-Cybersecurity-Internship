@@ -10,6 +10,8 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - [Sysmon: How To Setup, Configure, and Analyze the System Monitor’s Events](https://syedhasan010.medium.com/sysmon-how-to-setup-configure-and-analyze-the-system-monitors-events-930e9add78d) by syed Hasan on Medium
 - [How To Easily Analyze Your Sysmon Logs](https://www.gigasheet.com/post/how-to-easily-analyze-your-sysmon-logs#:~:text=Start%20making%20some%20noise%20on,That's%20it.) by Syed Hasan on gigasheet
 - [Powershell: Remote install software](https://powershellexplained.com/2017-04-22-Powershell-installing-remote-software/) by Kevin Marquette on PowerShell Explained
+- [Installation Error of Sysmon on Windows 7 VM - Sysmondrv Driver and StartService Issue](https://superuser.com/questions/1482486/installation-error-of-sysmon-on-windows-7-vm-sysmondrv-driver-and-startservice) by superuser
+- [Security Update for Windows 7 for x64-based Systems (KB3033929)](https://www.microsoft.com/en-us/download/details.aspx?id=46148)
 
 
 ## Tasks
