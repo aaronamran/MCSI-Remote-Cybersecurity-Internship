@@ -87,4 +87,8 @@ The Windows firewall is software that protects a network by blocking ports and p
        }
    }
    ```
-2.  
+2. Open PowerShell as administrator. If necessary, set Execution Policy if you encounter a script execution error. Use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. 
