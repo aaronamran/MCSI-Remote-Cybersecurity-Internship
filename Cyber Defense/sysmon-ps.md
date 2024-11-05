@@ -52,7 +52,6 @@ Windows Sysmon logs system activity, including processes, network connections, a
 
     # Installs a new Sysmon copied to the remote machine
     Invoke-Command -ScriptBlock { param($installer, $config) cmd.exe /C "C:\$installer -i C:\$config -accepteula 2>&1" } -Session $remote_session -ArgumentList $sysmonExecutable.split('\')[-1], $configFile.split('\')[-1]
-    }
 
     Write-Host "-> Installation complete"
     ```
@@ -94,12 +93,12 @@ Windows Sysmon logs system activity, including processes, network connections, a
        </ProcessAccess>
   
        <!-- Capture command line arguments -->
-       <ProcessCreate onmatch="exclude">
+       <ProcessCreate onmatch="include">
         <CommandLine condition="contains">*</CommandLine>
        </ProcessCreate>
   
        <!-- Log drivers loaded -->
-       <DriverLoad onmatch="exclude">
+       <DriverLoad onmatch="include">
        </DriverLoad>
   
        <!-- Log DLLs loaded -->
@@ -110,9 +109,6 @@ Windows Sysmon logs system activity, including processes, network connections, a
      </EventFiltering>
    </Sysmon>
    ```
-   filler text
-   ```
-   
 5. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
 6. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
    ```
