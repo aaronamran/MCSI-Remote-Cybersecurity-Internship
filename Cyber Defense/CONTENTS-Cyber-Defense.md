@@ -16,6 +16,6 @@
 
 ## [Write A PS Script To List Missing Security Patches](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/security-patch-ps.md)
 
-## [Write A PS Script To Disable LLMNR]
+## [Write A PS Script To Disable LLMNR](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/disable-llmnr.md)
 
 ## [Write A PS Script That Detects Installed Anti-Virus Software](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/detect-antivirus-ps.md)
