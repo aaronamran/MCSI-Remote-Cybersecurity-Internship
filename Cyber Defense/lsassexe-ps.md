@@ -102,7 +102,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
        }
    }
    ```
-3. To run the script locally to enable LSA protection on the local machine run the following command in PowerShell
+3. Run the script locally to enable LSA protection on the local machine in PowerShell with admin privileges, then restart the machine
    ```
    .\Enable-LsaProtection.ps1
    ```
