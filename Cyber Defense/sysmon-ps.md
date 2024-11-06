@@ -16,6 +16,7 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - [Powershell: Remote install software](https://powershellexplained.com/2017-04-22-Powershell-installing-remote-software/) by Kevin Marquette on PowerShell Explained
 - [Installation Error of Sysmon on Windows 7 VM - Sysmondrv Driver and StartService Issue](https://superuser.com/questions/1482486/installation-error-of-sysmon-on-windows-7-vm-sysmondrv-driver-and-startservice) by superuser
 - [Security Update for Windows 7 for x64-based Systems (KB3033929)](https://www.microsoft.com/en-us/download/details.aspx?id=46148)
+- [Detecting DLL hijacking with Sysmon logs](https://medium.com/@polygonben/detecting-dll-hijacking-with-sysmon-logs-410051d4173f) by Ben Folland on Medium
 
 
 ## Tasks
