@@ -26,7 +26,8 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 
 ## Solutions With Scripts
 1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection, and set to `0` to disable it
-2. PowerShell script
+   ![image](https://github.com/user-attachments/assets/9f4a548f-a9ed-4a15-969b-454c373d9da5)
+2. Save the PowerShell script below as `Enable-LsaProtection.ps1`
    ```
    # PowerShell Script to Enable LSA Protection for lsass.exe
    # Compatible with Windows Vista and later
@@ -105,8 +106,13 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1
    ```
-4. Open PowerShell with admin privileges, navigate to the folder where Mimikatz is stored and 
-5. To run the script remotely on a list of remote machines, first enable PowerShell remoting
+4. Open PowerShell with admin privileges, navigate to the folder where Mimikatz is stored and try dumping cached credentials by using Mimikatz. Run the following commands
+   ```
+   privilege::debug
+   sekurlsa::logonpasswords
+   ```
+5. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
+6. Disable the LSA protection on a remote machine too. To run the script remotely on a list of remote machines, first enable PowerShell remoting
    ```
    Enable-PSRemoting -Force
    ```
@@ -126,10 +132,6 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    .\Enable-LsaProtection.ps1 -ComputerNames "Server1", "192.168.1.50", "Server3"
    ```
-6. Once LSA protection is enabled, try dumping cached credentials with Mimikatz. Run Mimikatz as admin, and the following commands
-   ```
-   privilege::debug
-   sekurlsa::logonpasswords
-   ```
-7. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
+7.
+ 
 
