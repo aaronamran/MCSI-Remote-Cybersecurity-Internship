@@ -114,6 +114,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 5. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
 6. Disable the LSA protection on a remote machine too. To run the script remotely on a list of remote machines, first enable PowerShell remoting
    ```
+   winrm quickconfig
    Enable-PSRemoting -Force
    ```
    Windows 7 requires extra configurations to trust remote connections. Open PowerShell as Administrator and run the following command on both VMs to allow incoming WinRM traffic on all profiles
