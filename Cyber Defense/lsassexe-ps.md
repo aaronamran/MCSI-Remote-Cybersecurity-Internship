@@ -112,27 +112,26 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    sekurlsa::logonpasswords
    ```
 5. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected`.
-6. Disable the LSA protection on a remote machine too. To run the script remotely on a list of remote machines, first enable PowerShell remoting
+   ![image](https://github.com/user-attachments/assets/68b511cf-e4e4-458c-8f57-00c801b9011a)
+6. Get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   ```
+   ![image](https://github.com/user-attachments/assets/bd96b4a4-45b2-4b19-835d-ec988b734340)
+7. Disable the LSA protection on a remote machine too. On the remote machine, execute the following commands
    ```
    winrm quickconfig
    Enable-PSRemoting -Force
    ```
-   Windows 7 requires extra configurations to trust remote connections. Open PowerShell as Administrator and run the following command on both VMs to allow incoming WinRM traffic on all profiles
+   ![image](https://github.com/user-attachments/assets/42de2020-7539-4238-8ff9-a4b76edfee84)
+8. If FireWall is enabled, run the following command on both VMs to allow incoming WinRM traffic on all profiles
    ```
    Set-NetFirewallRule -Name 'WINRM-HTTP-In-TCP-PUBLIC' -RemoteAddress Any -Action Allow
-   ```
-   If both Windows VMs are not in the same domain, trusted hosts need to be configured on both VMs to allow remote connections
-   ```
-   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
    ```
    To test the remote connection from Windows 10 to Windows 7, run the command
    ```
    Enter-PSSession -ComputerName Windows7_IP_Address -Credential (Get-Credential)
    ```
-   The script to enable LSA can be run using the following sample command
-   ```
-   .\Enable-LsaProtection.ps1 -ComputerNames "Server1", "192.168.1.50", "Server3"
-   ```
-7.
+9.
  
 
