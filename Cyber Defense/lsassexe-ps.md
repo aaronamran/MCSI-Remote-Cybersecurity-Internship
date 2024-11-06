@@ -109,10 +109,10 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 4. Open PowerShell with admin privileges, navigate to the folder where Mimikatz is stored and try dumping cached credentials by using Mimikatz. Run the following commands
    ```
    privilege::debug
-   sekurlsa::logonpasswords
+   lsadump::cache
    ```
 5. Since LSASS is now protected, the password hashes should not be accessible. Mimikatz will either fail to retrieve the hashes or throw errors like `ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)` or `ERROR kuhl_m_sekurlsa_acquireLSA ; LSA process is protected` <br/>
-   ![image](https://github.com/user-attachments/assets/68b511cf-e4e4-458c-8f57-00c801b9011a)
+   ![image](https://github.com/user-attachments/assets/287ca268-1f79-4218-91c7-f5db30c991ed)
 6. Get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
    Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
