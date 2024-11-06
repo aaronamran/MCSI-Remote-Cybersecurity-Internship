@@ -132,7 +132,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    Enter-PSSession -ComputerName Windows7_IP_Address -Credential (Get-Credential)
    ```
-9. Run `Enable-LsaProtection.ps1` and choose option no. 2 and input the remote machine's IP address. LSA protection will be enabled on that machine
+9. Run `Enable-LsaProtection.ps1` and choose option no. 2 and input the remote machine's IP address. LSA protection will be enabled on that machine <br/> 
    ![image](https://github.com/user-attachments/assets/b936cfc5-3f9e-4659-84cd-d6a21b10e3bc)
 
  
