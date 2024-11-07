@@ -120,7 +120,13 @@ The Windows firewall is software that protects a network by blocking ports and p
    ![image](https://github.com/user-attachments/assets/6f73a5b2-f6ab-411c-8ce2-f3b8352f8da8)
 9. Run the `check-firewall.ps1` script and choose the second option for remote machines. Pass the IP address of both machines separated with comma and without spaces
     ![image](https://github.com/user-attachments/assets/fba212ad-f532-46f0-bac6-4ac40034299a)
-10. 
+10. When the prompt for target VMs user credentials appear, key in the correct credentials. If the firewall is disabled, it will now be enabled and the statuses are retrieved
+    ![image](https://github.com/user-attachments/assets/055e7985-bd8a-4c54-8193-ad1f8b666fa5)
+    <br/>
+    ![image](https://github.com/user-attachments/assets/0de5b19b-c39d-49fc-8740-556ed243178e)
+
+
+    
 
 
 
