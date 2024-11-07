@@ -33,7 +33,7 @@ The Windows firewall is software that protects a network by blocking ports and p
 
 
 ## Solutions With Scripts
-1. Save the following PowerShell script as `check-turnon-firewall.ps1`
+1. Save the following PowerShell script as `check-firewall.ps1`
    ```
    # Define a function to check and enable Windows Firewall
    function Enable-WindowsFirewall {
