@@ -38,23 +38,35 @@ The Windows firewall is software that protects a network by blocking ports and p
    # Define a function to check and enable Windows Firewall
    function Enable-WindowsFirewall {
        param (
-           [string]$ComputerName = "localhost"  # Default to local machine
+           [string]$ComputerName = "localhost",
+           [pscredential]$Credential = $null
        )
    
-       # Check if the firewall is enabled on the target machine
-       $firewallStatus = Get-NetFirewallProfile -CimSession $ComputerName -ErrorAction SilentlyContinue | Where-Object { $_.Enabled -eq 'True' }
-   
-       if ($firewallStatus) {
-           Write-Output "Windows Firewall is already enabled on $ComputerName."
+       if ($ComputerName -eq "localhost") {
+           # Run locally without Invoke-Command
+           if (Get-Command Set-NetFirewallProfile -ErrorAction SilentlyContinue) {
+               Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+               Write-Output "Windows Firewall has been enabled on $ComputerName."
+           } else {
+               # Fallback for older systems
+               netsh advfirewall set allprofiles state on
+               Write-Output "Windows Firewall has been enabled on $ComputerName using netsh."
+           }
        } else {
-           # Enable the firewall on the target machine
+           # Use remoting for remote machines with credentials
            try {
-               Invoke-Command -ComputerName $ComputerName -ScriptBlock {
-                   Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+               Invoke-Command -ComputerName $ComputerName -Credential $Credential -ScriptBlock {
+                   if (Get-Command Set-NetFirewallProfile -ErrorAction SilentlyContinue) {
+                       # Enable firewall using PowerShell cmdlet if available
+                       Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+                   } else {
+                       # Use netsh for compatibility with older versions (e.g., Windows 7)
+                       netsh advfirewall set allprofiles state on
+                   }
                }
                Write-Output "Windows Firewall has been enabled on $ComputerName."
            } catch {
-               Write-Output "Failed to enable Windows Firewall on $ComputerName: $_"
+               Write-Output "Failed to enable Windows Firewall on $ComputerName."
            }
        }
    }
@@ -76,10 +88,13 @@ The Windows firewall is software that protects a network by blocking ports and p
            $remoteMachines = Read-Host "Enter a comma-separated list of remote machine names or IP addresses"
            $remoteMachinesArray = $remoteMachines -split ','
    
+           # Prompt for credentials once to use for all remote machines
+           $credential = Get-Credential
+   
            # Loop through each remote machine
            foreach ($machine in $remoteMachinesArray) {
                $trimmedMachine = $machine.Trim()
-               Enable-WindowsFirewall -ComputerName $trimmedMachine
+               Enable-WindowsFirewall -ComputerName $trimmedMachine -Credential $credential
            }
        }
        default {
