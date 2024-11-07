@@ -106,4 +106,22 @@ The Windows firewall is software that protects a network by blocking ports and p
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-3. 
+3. To enable PowerShell remoting between local and target VMs, run each of the commands below
+   ```
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. Enable firewall on the local machine and run the script. The output should be the following
+   ![image](https://github.com/user-attachments/assets/fd26b77d-6b0a-4533-b760-57bd730b4ccd)
+5. Disable the firewall and run the script again. It should enable the firewall automatically too
+6. Start up two Windows VM. In this task, to ensure script backwards compatibility for older Windows versions (and latest versions), `netsh advfirewall` will be used instead of `Set-NetFirewallProfile`, and Windows 7 VMs will be used
+7. For each Windows 7 VM, enable PowerShell remoting and get their IP address
+8. Enable firewall on one machine, and disable firewall on the other machine
+   ![image](https://github.com/user-attachments/assets/6f73a5b2-f6ab-411c-8ce2-f3b8352f8da8)
+9. Run the `check-firewall.ps1` script and choose the second option for remote machines. Pass the IP address of both machines separated with comma and without spaces
+    ![image](https://github.com/user-attachments/assets/fba212ad-f532-46f0-bac6-4ac40034299a)
+10. 
+
+
+
+
