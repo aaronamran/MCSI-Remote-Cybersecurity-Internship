@@ -86,4 +86,9 @@ Automatic Sample Submission is a valuable feature in Windows Defender Antivirus 
         }
     }
     ```
-2. 
+2. Disable Automatic Sample Submission on a local machine
+3. Open PowerShell with admin privileges and run the `autoSampleSubmission.ps1` script
+4. Disable Automatic Sample Submission on a target remote machine
+5. Run the PowerShell script and choose the second option. Enter the target machine's IP address to enable Automatic Sample Submission
+6. 
+   
