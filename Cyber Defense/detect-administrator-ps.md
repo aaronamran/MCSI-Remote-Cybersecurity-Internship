@@ -103,6 +103,10 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup Administrators tempadmin3 /add
    ```
 6. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
-7. Delete the temporary admin accounts after task completion
-
+7. Open command prompt with admin privileges and delete the temporary admin accounts after task completion
+   ```
+   net user tempadmin1 /delete
+   net user tempadmin2 /delete
+   net user tempadmin3 /delete
+   ```
    
