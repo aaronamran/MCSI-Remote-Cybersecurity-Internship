@@ -93,8 +93,8 @@ Best practice is to have only one local administrator per machine. Multiple admi
 4. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
 5. Create multiple local administrator accounts on a remote machine
    ```
-   net user tempadmin1 Password123! /add
-   net user tempadmin2 Password123! /add
+   net user tempadmin1 pw123 /add
+   net user tempadmin2 pw123 /add
    net localgroup Administrators tempadmin1 /add
    net localgroup Administrators tempadmin2 /add
    ```
