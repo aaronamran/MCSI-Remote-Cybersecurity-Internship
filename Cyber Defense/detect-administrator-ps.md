@@ -102,6 +102,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup Administrators tempadmin2 /add
    net localgroup Administrators tempadmin3 /add
    ```
-7. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
+6. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
+7. Delete the temporary admin accounts after task completion
 
    
