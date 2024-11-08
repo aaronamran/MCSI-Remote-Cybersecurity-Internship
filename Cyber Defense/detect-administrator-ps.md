@@ -85,8 +85,9 @@ Best practice is to have only one local administrator per machine. Multiple admi
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-3. To enable PowerShell remoting between local and target VMs, run each of the commands below
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
