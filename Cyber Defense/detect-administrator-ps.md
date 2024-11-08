@@ -97,8 +97,10 @@ Best practice is to have only one local administrator per machine. Multiple admi
    ```
    net user tempadmin1 pw123 /add
    net user tempadmin2 pw123 /add
+   net user tempadmin3 pw123 /add
    net localgroup Administrators tempadmin1 /add
    net localgroup Administrators tempadmin2 /add
+   net localgroup Administrators tempadmin3 /add
    ```
 7. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
 
