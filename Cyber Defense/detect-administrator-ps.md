@@ -92,6 +92,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    Enable-PSRemoting -Force
    ```
 4. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
+   ![image](https://github.com/user-attachments/assets/64cb6d6e-78f4-482f-9ea9-6d380c3fd232)
 5. Create multiple local administrator accounts on a remote machine
    ```
    net user tempadmin1 pw123 /add
@@ -99,6 +100,6 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup Administrators tempadmin1 /add
    net localgroup Administrators tempadmin2 /add
    ```
-6. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
+7. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
 
    
