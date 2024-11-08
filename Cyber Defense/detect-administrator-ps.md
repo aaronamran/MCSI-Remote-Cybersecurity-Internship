@@ -85,14 +85,19 @@ Best practice is to have only one local administrator per machine. Multiple admi
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-3. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
-4. Create multiple local administrator accounts on a remote machine
+3. To enable PowerShell remoting between local and target VMs, run each of the commands below
+   ```
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
+5. Create multiple local administrator accounts on a remote machine
    ```
    net user tempadmin1 Password123! /add
    net user tempadmin2 Password123! /add
    net localgroup Administrators tempadmin1 /add
    net localgroup Administrators tempadmin2 /add
    ```
-5. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
+6. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
 
    
