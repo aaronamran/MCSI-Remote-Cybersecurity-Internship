@@ -147,7 +147,7 @@ if ($choice -eq 'L') {
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
-4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches. If the script returns the following error, install the [Windows 7 for x64-based Systems (KB3138612) here](https://www.microsoft.com/en-us/download/details.aspx?id=51212) and restart the VM
+4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches. If the script returns the error 0x80072EFE, install the [Windows 7 for x64-based Systems (KB3138612) here](https://www.microsoft.com/en-us/download/details.aspx?id=51212) and restart the VM
    ![image](https://github.com/user-attachments/assets/7f5680eb-cad3-48ef-abb9-3a2af163d7a1)
    Run the script again. If the response takes a long time due to large number of updates, press Ctrl+C or Enter
    ![image](https://github.com/user-attachments/assets/2d9813f3-e9c7-4f21-99cd-58b3433ad388)
