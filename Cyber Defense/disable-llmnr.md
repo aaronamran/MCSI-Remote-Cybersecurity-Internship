@@ -133,6 +133,7 @@ For a service like SMB, if a host is configured to automatically authenticate ov
    ```
 4. Enable LLMNR on a local machine by pressing going to the Registry Editor and navigate to `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient`. Look for or create a DWORD value called `EnableMulticast` and set it to 1 to enable LLMNR, or 0 to disable it. If DNSClient does not exist under Windows NT, it can be created manually be right-clicking on Windows NT, select New > Key and name it DNSClient. Then create the DWORD valze by right-clicking on DNSClient select New > DWORD (32-bit) Value and name it EnableMulticast and set the values accordingly
    ![image](https://github.com/user-attachments/assets/6b08c4bf-b0aa-4dae-983a-758442b12bf9)
-5. Run the script and demonstrate that it correctly detects and disables LLMNR on the local machine
+   The (Default) entry with the REG_SZ type can be ignored; as it’s a standard placeholder that appears by default when a new registry key is created. It doesn't impact the configuration for LLMNR.
+6. Run the script and demonstrate that it correctly detects and disables LLMNR on the local machine
 7. To enable LLMNR on a remote machine, do the same steps as in step 4 above
 8. Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
