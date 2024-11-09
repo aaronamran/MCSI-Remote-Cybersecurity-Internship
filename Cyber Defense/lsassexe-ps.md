@@ -27,7 +27,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 ## Solutions With Scripts
 1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection, and set to `0` to disable it
    ![image](https://github.com/user-attachments/assets/9f4a548f-a9ed-4a15-969b-454c373d9da5)
-2. Save the PowerShell script below as `Enable-LsaProtection.ps1`
+2. Save the PowerShell script below as `Enable-LsaProtection.ps1` in Windows 7
    ```
    # PowerShell Script to Enable LSA Protection for lsass.exe
    # Compatible with Windows Vista and later
@@ -128,7 +128,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
    ```
    Set-NetFirewallRule -Name 'WINRM-HTTP-In-TCP-PUBLIC' -RemoteAddress Any -Action Allow
    ```
-   To test the remote connection from Windows 10 to Windows 7, run the command
+   To test the remote connection between Windows 7, run the command
    ```
    Enter-PSSession -ComputerName Windows7_IP_Address -Credential (Get-Credential)
    ```
