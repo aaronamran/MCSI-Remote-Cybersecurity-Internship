@@ -19,7 +19,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
 
 
 ## Solutions With Scripts
-1. Save the following PowerShell script as `check-admins.ps1`
+1. Save the following PowerShell script as `check-admins.ps1` in a Windows 7 VM
    ```
    # Function to check local administrators on a specified machine
    function Get-LocalAdministrators {
