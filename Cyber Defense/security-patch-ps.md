@@ -23,120 +23,116 @@ Keeping your software up to date is crucial for security. Security patches fix k
 
 ## Solutions With Scripts
 1. Save the following PowerShell script as `check-missingpatches.ps1` in a Windows 7 VM
-```
-# Function to check for missing updates on a local machine
-function Get-MissingUpdates {
-    Write-Host "Checking for missing security updates on the local machine..." -ForegroundColor Yellow
-    $updateSession = New-Object -ComObject Microsoft.Update.Session
-    $updateSearcher = $updateSession.CreateUpdateSearcher()
-    $searchResult = $updateSearcher.Search("IsInstalled=0 and Type='Software' and IsHidden=0")
-
-    if ($searchResult.Updates.Count -eq 0) {
-        Write-Host "No missing security updates found." -ForegroundColor Green
-    } else {
-        Write-Host "Missing security patches:" -ForegroundColor Red
-        foreach ($update in $searchResult.Updates) {
-            [PSCustomObject]@{
-                KBNumber    = $update.KBArticleIDs
-                Title       = $update.Title
-                Description = $update.Description
-                Severity    = $update.MsrcSeverity
-            } | Format-Table -AutoSize
-        }
-    }
-}
-
-# Function to check installed updates on a local machine
-function Get-InstalledUpdates {
-    Write-Host "Listing installed security patches on the local machine..." -ForegroundColor Yellow
-    $updateSession = New-Object -ComObject Microsoft.Update.Session
-    $updateSearcher = $updateSession.CreateUpdateSearcher()
-    $searchResult = $updateSearcher.Search("IsInstalled=1 and Type='Software' and IsHidden=0")
-
-    if ($searchResult.Updates.Count -eq 0) {
-        Write-Host "No installed security updates found." -ForegroundColor Red
-    } else {
-        Write-Host "Installed security patches:" -ForegroundColor Green
-        foreach ($update in $searchResult.Updates) {
-            [PSCustomObject]@{
-                KBNumber    = $update.KBArticleIDs
-                Title       = $update.Title
-                Description = $update.Description
-                Severity    = $update.MsrcSeverity
-            } | Format-Table -AutoSize
-        }
-    }
-}
-
-# Function to scan remote machines for missing updates
-function Get-RemoteMissingUpdates {
-    param (
-        [string]$ComputerName
-    )
-
-    Write-Host "Checking for missing security updates on remote machine: $ComputerName..." -ForegroundColor Yellow
-    Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+    ```
+    # Function to check for missing updates on a local machine
+    function Get-MissingUpdates {
+        Write-Host "Checking for missing security updates on the local machine..." -ForegroundColor Yellow
         $updateSession = New-Object -ComObject Microsoft.Update.Session
         $updateSearcher = $updateSession.CreateUpdateSearcher()
         $searchResult = $updateSearcher.Search("IsInstalled=0 and Type='Software' and IsHidden=0")
-
+    
+        $output = @()
         if ($searchResult.Updates.Count -eq 0) {
-            Write-Host "No missing security updates found on $env:COMPUTERNAME." -ForegroundColor Green
+            $output += "No missing security updates found."
         } else {
-            Write-Host "Missing security patches on $env:COMPUTERNAME:" -ForegroundColor Red
+            $output += "Missing security patches:"
             foreach ($update in $searchResult.Updates) {
-                [PSCustomObject]@{
-                    KBNumber    = $update.KBArticleIDs
-                    Title       = $update.Title
-                    Description = $update.Description
-                    Severity    = $update.MsrcSeverity
-                } | Format-Table -AutoSize
+                $output += "KB: $($update.KBArticleIDs) - Title: $($update.Title) - Severity: $($update.MsrcSeverity)"
             }
         }
+        # Output all collected information at once
+        $output | ForEach-Object { Write-Output $_ }
     }
-}
-
-# Function to scan remote machines for installed updates
-function Get-RemoteInstalledUpdates {
-    param (
-        [string]$ComputerName
-    )
-
-    Write-Host "Listing installed security patches on remote machine: $ComputerName..." -ForegroundColor Yellow
-    Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+    
+    # Function to check installed updates on a local machine
+    function Get-InstalledUpdates {
+        Write-Host "Listing installed security patches on the local machine..." -ForegroundColor Yellow
         $updateSession = New-Object -ComObject Microsoft.Update.Session
         $updateSearcher = $updateSession.CreateUpdateSearcher()
         $searchResult = $updateSearcher.Search("IsInstalled=1 and Type='Software' and IsHidden=0")
-
+    
+        $output = @()
         if ($searchResult.Updates.Count -eq 0) {
-            Write-Host "No installed security updates found on $env:COMPUTERNAME." -ForegroundColor Red
+            $output += "No installed security updates found."
         } else {
-            Write-Host "Installed security patches on $env:COMPUTERNAME:" -ForegroundColor Green
+            $output += "Installed security patches:"
             foreach ($update in $searchResult.Updates) {
-                [PSCustomObject]@{
-                    KBNumber    = $update.KBArticleIDs
-                    Title       = $update.Title
-                    Description = $update.Description
-                    Severity    = $update.MsrcSeverity
-                } | Format-Table -AutoSize
+                $output += "KB: $($update.KBArticleIDs) - Title: $($update.Title) - Severity: $($update.MsrcSeverity)"
             }
         }
+        # Output all collected information at once
+        $output | ForEach-Object { Write-Output $_ }
     }
-}
-
-# Main menu for local or remote machine scan
-$choice = Read-Host "Do you want to scan a [L]ocal or [R]emote machine for missing patches? (L/R)"
-if ($choice -eq 'L') {
-    Get-MissingUpdates
-    Get-InstalledUpdates
-} elseif ($choice -eq 'R') {
-    $remoteComputer = Read-Host "Enter the remote machine's name or IP address"
-    Get-RemoteMissingUpdates -ComputerName $remoteComputer
-    Get-RemoteInstalledUpdates -ComputerName $remoteComputer
-} else {
-    Write-Host "Invalid choice, please run the script again and select either 'L' or 'R'." -ForegroundColor Red
-}
-```
+    
+    # Function to scan remote machines for missing updates with simplified output
+    function Get-RemoteMissingUpdates {
+        param (
+            [string]$ComputerName
+        )
+    
+        Write-Host "Checking for missing security updates on remote machine: $ComputerName..." -ForegroundColor Yellow
+        $results = Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+            $updateSession = New-Object -ComObject Microsoft.Update.Session
+            $updateSearcher = $updateSession.CreateUpdateSearcher()
+            $searchResult = $updateSearcher.Search("IsInstalled=0 and Type='Software' and IsHidden=0")
+    
+            $output = @()
+            if ($searchResult.Updates.Count -eq 0) {
+                $output += "No missing security updates found on $env:COMPUTERNAME."
+            } else {
+                $output += "Missing security patches on $env:COMPUTERNAME:"
+                foreach ($update in $searchResult.Updates) {
+                    $output += "KB: $($update.KBArticleIDs) - Title: $($update.Title) - Severity: $($update.MsrcSeverity)"
+                }
+            }
+            return $output
+        }
+    
+        # Output all results once the command completes
+        $results | ForEach-Object { Write-Output $_ }
+    }
+    
+    # Function to scan remote machines for installed updates with simplified output
+    function Get-RemoteInstalledUpdates {
+        param (
+            [string]$ComputerName
+        )
+    
+        Write-Host "Listing installed security patches on remote machine: $ComputerName..." -ForegroundColor Yellow
+        $results = Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+            $updateSession = New-Object -ComObject Microsoft.Update.Session
+            $updateSearcher = $updateSession.CreateUpdateSearcher()
+            $searchResult = $updateSearcher.Search("IsInstalled=1 and Type='Software' and IsHidden=0")
+    
+            $output = @()
+            if ($searchResult.Updates.Count -eq 0) {
+                $output += "No installed security updates found on $env:COMPUTERNAME."
+            } else {
+                $output += "Installed security patches on $env:COMPUTERNAME:"
+                foreach ($update in $searchResult.Updates) {
+                    $output += "KB: $($update.KBArticleIDs) - Title: $($update.Title) - Severity: $($update.MsrcSeverity)"
+                }
+            }
+            return $output
+        }
+    
+        # Output all results once the command completes
+        $results | ForEach-Object { Write-Output $_ }
+    }
+    
+    # Main menu for local or remote machine scan
+    $choice = Read-Host "Do you want to scan a [L]ocal or [R]emote machine for missing patches? (L/R)"
+    if ($choice -eq 'L') {
+        Get-MissingUpdates
+        Get-InstalledUpdates
+    } elseif ($choice -eq 'R') {
+        $remoteComputer = Read-Host "Enter the remote machine's name or IP address"
+        Get-RemoteMissingUpdates -ComputerName $remoteComputer
+        Get-RemoteInstalledUpdates -ComputerName $remoteComputer
+    } else {
+        Write-Host "Invalid choice, please run the script again and select either 'L' or 'R'." -ForegroundColor Red
+    }
+    ```
 2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -148,7 +144,7 @@ if ($choice -eq 'L') {
    Enable-PSRemoting -Force
    ```
 4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches. If the script returns the error 0x80072EFE, install the [Windows 7 for x64-based Systems (KB3138612) here](https://www.microsoft.com/en-us/download/details.aspx?id=51212) and restart the VM
-   ![image](https://github.com/user-attachments/assets/7f5680eb-cad3-48ef-abb9-3a2af163d7a1)
+   ![image](https://github.com/user-attachments/assets/5abf65c4-da12-493b-a4a9-944226ef9cb7)
    Run the script again. If the response takes a long time due to large number of updates, press Ctrl+C or Enter
    ![image](https://github.com/user-attachments/assets/7ac51d46-001f-4214-9af0-dd9b985f1f92)
    ![image](https://github.com/user-attachments/assets/cfe1fb54-9f90-4021-9e4d-1a0ba448a0d4)
