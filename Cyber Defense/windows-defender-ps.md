@@ -98,6 +98,16 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
     $computers = @('localhost', 'RemoteMachine1', 'RemoteMachine2')
     Main -ComputerNames $computers
    ```
-2. 
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. ![image](https://github.com/user-attachments/assets/68906fde-25ee-49e9-9cef-1e11a115f56d)
 
 
