@@ -139,7 +139,7 @@ For a service like SMB, if a host is configured to automatically authenticate ov
    ![image](https://github.com/user-attachments/assets/59991b91-5483-4899-a7df-8af563e627fe)
 6. To enable LLMNR on a remote machine, do the same steps as in step 4 above
 7. Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
-   ![image](https://github.com/user-attachments/assets/50c12b2c-5cfc-44e4-a15e-574f12108954)
+   ![image](https://github.com/user-attachments/assets/dac47cf7-5228-4b91-85e7-1a2d5cc59b2b)
    <br/>
    ![image](https://github.com/user-attachments/assets/96e5e573-30cb-4927-82bd-db7c197cf52a)
 
