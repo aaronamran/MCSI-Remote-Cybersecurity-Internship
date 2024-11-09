@@ -135,6 +135,12 @@ For a service like SMB, if a host is configured to automatically authenticate ov
    ![image](https://github.com/user-attachments/assets/6b08c4bf-b0aa-4dae-983a-758442b12bf9)
    <br/>
    The (Default) entry with the REG_SZ type can be ignored; as it’s a standard placeholder that appears by default when a new registry key is created. It doesn't impact the configuration for LLMNR.
-6. Run the script and demonstrate that it correctly detects and disables LLMNR on the local machine
-7. To enable LLMNR on a remote machine, do the same steps as in step 4 above
-8. Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
+5. Run the script and demonstrate that it correctly detects and disables LLMNR on the local machine
+   ![image](https://github.com/user-attachments/assets/59991b91-5483-4899-a7df-8af563e627fe)
+6. To enable LLMNR on a remote machine, do the same steps as in step 4 above
+7. Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
+   ![image](https://github.com/user-attachments/assets/50c12b2c-5cfc-44e4-a15e-574f12108954)
+   <br/>
+   ![image](https://github.com/user-attachments/assets/96e5e573-30cb-4927-82bd-db7c197cf52a)
+
+
