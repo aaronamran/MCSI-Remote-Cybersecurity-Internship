@@ -19,7 +19,7 @@ Keeping your software up to date is crucial for security. Security patches fix k
 
 
 ## Solutions With Scripts
-- Save the following PowerShell script as `check-missingpatches.ps1`
+1. Save the following PowerShell script as `check-missingpatches.ps1`
 ```
 # Function to check for missing updates on a local machine
 function Get-MissingUpdates {
@@ -134,6 +134,15 @@ if ($choice -eq 'L') {
     Write-Host "Invalid choice, please run the script again and select either 'L' or 'R'." -ForegroundColor Red
 }
 ```
-
-
-
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches
+5. Run the script against a remote machine and demonstrate that it correctly identifies installed and\or missing patches
