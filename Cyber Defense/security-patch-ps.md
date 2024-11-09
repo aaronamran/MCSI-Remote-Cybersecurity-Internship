@@ -148,5 +148,11 @@ Keeping your software up to date is crucial for security. Security patches fix k
    <br/>
    Run the script again. If the response takes a long time due to large number of updates, press Ctrl+C or Enter
    ![image](https://github.com/user-attachments/assets/7ac51d46-001f-4214-9af0-dd9b985f1f92)
+   <br/>
    ![image](https://github.com/user-attachments/assets/cfe1fb54-9f90-4021-9e4d-1a0ba448a0d4)
 6. Run the script against a remote machine and demonstrate that it correctly identifies installed and\or missing patches
+   ![image](https://github.com/user-attachments/assets/9bdd0a94-2bee-4964-8bcf-7eb4314b2ab3)
+   <br/>
+   ![image](https://github.com/user-attachments/assets/ebc21c51-a8d2-452e-9d4f-96727af60fc8)
+
+
