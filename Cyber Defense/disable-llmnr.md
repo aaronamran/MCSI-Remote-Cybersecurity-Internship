@@ -25,7 +25,7 @@ For a service like SMB, if a host is configured to automatically authenticate ov
 
 
 ## Solutions With Scripts
-- Save the following PowerShell script as 'disableLLMNR.ps1'
+- Save the following PowerShell script as `disableLLMNR.ps1` in a Windows 7 VM
   ```
   # PowerShell script to detect and disable LLMNR on local or remote machines
   
@@ -121,4 +121,17 @@ For a service like SMB, if a host is configured to automatically authenticate ov
       Write-Output "Invalid input. Please enter 1 or 2."
   }
   ```
-2. 
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. Enable LLMNR on a local machine
+5. Run the script and demonstrate that it correctly detects and disables LLMNR on the local machine
+6. Enable LLMNR on a remote machine
+7. Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
