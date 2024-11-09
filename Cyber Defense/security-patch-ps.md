@@ -144,5 +144,7 @@ if ($choice -eq 'L') {
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
-4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches
+4. Run the script locally and demonstrate that it correctly identifies installed and\or missing patches. If the script response takes a long time due to large number of updates, press Ctrl+C or Enter
+   ![image](https://github.com/user-attachments/assets/2d9813f3-e9c7-4f21-99cd-58b3433ad388)
+   ![image](https://github.com/user-attachments/assets/a8ab8c01-8102-4d13-8ae0-5cc88e31b815)
 5. Run the script against a remote machine and demonstrate that it correctly identifies installed and\or missing patches
