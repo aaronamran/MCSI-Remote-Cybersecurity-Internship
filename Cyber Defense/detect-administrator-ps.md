@@ -107,7 +107,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup TestGroup2 tempadmin2 /add
    ```
 6. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
-   ![image](https://github.com/user-attachments/assets/64cb6d6e-78f4-482f-9ea9-6d380c3fd232)
+   ![image](https://github.com/user-attachments/assets/b532aad1-db0f-4838-97ec-062af04efc59)
 7. Repeat steps 4 and 5 on a remote machine
 8. Create multiple local administrator accounts on a remote machine
    ```
