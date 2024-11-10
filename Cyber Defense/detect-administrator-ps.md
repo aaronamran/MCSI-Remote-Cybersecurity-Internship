@@ -141,7 +141,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup TestGroup2 tempadmin2 /add
    ```
 6. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
-   ![image](https://github.com/user-attachments/assets/b532aad1-db0f-4838-97ec-062af04efc59)
+   ![image](https://github.com/user-attachments/assets/6b641fc6-d76d-4a63-a767-623983576c80)
 7. Repeat steps 4 and 5 on a remote machine
 8. Create multiple local administrator accounts on a remote machine
    ```
@@ -154,7 +154,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    <br/>
    ![image](https://github.com/user-attachments/assets/96496877-e39d-427a-bccf-7179e8af2436)
    <br/>
-   ![image](https://github.com/user-attachments/assets/be31ce80-5bd9-43f0-8f69-5c6ba97fa034)
+   ![image](https://github.com/user-attachments/assets/ed879cca-78eb-48ef-b499-7ebc3ca6a783)
 10. Open command prompt with admin privileges and delete the temporary groups and admin accounts after task completion
    ```
    net user tempadmin1 /delete
