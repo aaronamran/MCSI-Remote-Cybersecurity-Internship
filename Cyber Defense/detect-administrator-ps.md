@@ -96,7 +96,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup TestGroup /add
    net localgroup Administrators "TestGroup" /add
    net localgroup TestSub-group /add
-   net localgroup TestSub-group "TestGroup" /add
+   net localgroup TestGroup "TestSub-group" /add
    ```
 5. To create temporary admin accounts that are members of `TestGroup` and `TestSub-group`, run the commands below
    ```
