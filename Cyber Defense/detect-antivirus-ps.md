@@ -117,7 +117,7 @@ Detecting installed antivirus software on Windows is essential for security prof
 4. Download and install antivirus software for Windows 7 on both local and remote machines. In this task, AVG AntiVirus Free is installed on the local machine, while Avast Free AntiVirus is installed on the remote machine
 5. Run the PowerShell script and enter 1 for local machine. The script will retun the following output
    ![image](https://github.com/user-attachments/assets/ea6a3478-95bf-46fe-864b-2b925576e73f)
-6. Run the PowerShell script and choose 2 for remote machine and enter the remote machine's IP address. The script will retun the following output
+6. Run the PowerShell script and choose 2 for remote machine and enter the remote machine's IP address. The script will retun the following output <br/>
    ![image](https://github.com/user-attachments/assets/a7f15c2a-998f-4455-a74d-5062bb6670b6)
    
 
