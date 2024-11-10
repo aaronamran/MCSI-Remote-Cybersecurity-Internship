@@ -98,7 +98,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
    net localgroup TestGroup2 /add
    net localgroup Administrators "TestGroup2" /add
    ```
-   Note that the limitation on Windows 7 (and other non-domain, standalone Windows machines) is that local groups can contain users but cannot contain other local groups (subgroups). The `Administrators` group can contain other local groups, like `TestGroup1`, because it's a standard, built-in group that can hold both users and groups. However, a local group like TestGroup cannot contain another local group like `TestSub-group` directly. Only users can be added to `TestGroup1`, not other local groups.
+   Note that the limitation on Windows 7 (and other non-domain, standalone Windows machines) is that local groups can contain users but cannot contain other local groups (subgroups). The `Administrators` group can contain other local groups, like `TestGroup1`, because it's a standard, built-in group that can hold both users and groups. However, a local group like `TestGroup` cannot contain another local group like `TestSub-group` directly. Only users can be added to `TestGroup1`, not other local groups.
 5. To create temporary admin accounts that are members of `TestGroup1` and `TestGroup2`, run the commands below
    ```
    net user tempadmin1 pw123 /add
