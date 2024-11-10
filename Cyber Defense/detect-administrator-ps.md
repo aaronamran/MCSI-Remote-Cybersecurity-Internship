@@ -152,7 +152,8 @@ Best practice is to have only one local administrator per machine. Multiple admi
    ```
 9. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
    <br/>
-   ![image](https://github.com/user-attachments/assets/96496877-e39d-427a-bccf-7179e8af2436)
+   Checking for administrators on the remote machine: <br/>
+   ![image](https://github.com/user-attachments/assets/fc70eb9c-87bf-41c7-be4e-44ddb81a0c4b)
    <br/>
    ![image](https://github.com/user-attachments/assets/ed879cca-78eb-48ef-b499-7ebc3ca6a783)
 10. Open command prompt with admin privileges and delete the temporary groups and admin accounts after task completion
