@@ -91,31 +91,32 @@ Best practice is to have only one local administrator per machine. Multiple admi
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
-4. To create a temporary group that has admin privileges and contains a subgroup that has members, run each of the following commands on the local machine
+4. To create a temporary nested group that has admin privileges and contains members, run each of the following commands on the local machine
    ```
-   net localgroup TestGroup /add
-   net localgroup Administrators "TestGroup" /add
-   net localgroup TestSub-group /add
-   net localgroup TestGroup "TestSub-group" /add
+   net localgroup TestGroup1 /add
+   net localgroup Administrators "TestGroup1" /add
+   net localgroup TestGroup2 /add
+   net localgroup Administrators "TestGroup2" /add
    ```
-5. To create temporary admin accounts that are members of `TestGroup` and `TestSub-group`, run the commands below
+   Note that the limitation on Windows 7 (and other non-domain, standalone Windows machines) is that local groups can contain users but cannot contain other local groups (subgroups). The `Administrators` group can contain other local groups, like `TestGroup1`, because it's a standard, built-in group that can hold both users and groups. However, a local group like TestGroup cannot contain another local group like `TestSub-group` directly. Only users can be added to `TestGroup1`, not other local groups.
+5. To create temporary admin accounts that are members of `TestGroup1` and `TestGroup2`, run the commands below
    ```
-   net user AdminOfTestGroup pw123 /add
-   net localgroup TestGroup AdminOfTestGroup /add
-   net user AdminOfTestSub-Group pw123 /add
-   net localgroup TestSub-Group AdminOfTestSub-Group /add
+   net user tempadmin1 pw123 /add
+   net localgroup TestGroup1 tempadmin1 /add
+   net user tempadmin2 pw123 /add
+   net localgroup TestGroup2 tempadmin2 /add
    ```
 6. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
    ![image](https://github.com/user-attachments/assets/64cb6d6e-78f4-482f-9ea9-6d380c3fd232)
 7. Repeat steps 4 and 5 on a remote machine
 8. Create multiple local administrator accounts on a remote machine
    ```
+   net user tempadmin pw123 /add
    net user tempadmin1 pw123 /add
    net user tempadmin2 pw123 /add
-   net user tempadmin3 pw123 /add
-   net localgroup Administrators tempadmin1 /add
-   net localgroup TestGroup tempadmin2 /add
-   net localgroup TestSub-Group tempadmin3 /add
+   net localgroup Administrators tempadmin /add
+   net localgroup TestGroup1 tempadmin1 /add
+   net localgroup TestGroup2 tempadmin2 /add
    ```
 9. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
    <br/>
