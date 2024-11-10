@@ -91,23 +91,38 @@ Best practice is to have only one local administrator per machine. Multiple admi
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
-4. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
+4. To create a temporary group that has admin privileges and contains a subgroup that has members, run each of the following commands on the local machine
+   ```
+   net localgroup TestGroup /add
+   net localgroup Administrators "TestGroup" /add
+   net localgroup TestSub-group /add
+   net localgroup TestSub-group "TestGroup" /add
+   ```
+5. To create temporary admin accounts that are members of `TestGroup` and `TestSub-group`, run the commands below
+   ```
+   net user AdminOfTestGroup pw123 /add
+   net localgroup TestGroup AdminOfTestGroup /add
+   net user AdminOfTestSub-Group pw123 /add
+   net localgroup TestSub-Group AdminOfTestSub-Group /add
+   ```
+6. Run the script on a local machine and demonstrate it detects mulitple local administrator accounts and nested group members
    ![image](https://github.com/user-attachments/assets/64cb6d6e-78f4-482f-9ea9-6d380c3fd232)
-5. Create multiple local administrator accounts on a remote machine
+7. Repeat steps 4 and 5 on a remote machine
+8. Create multiple local administrator accounts on a remote machine
    ```
    net user tempadmin1 pw123 /add
    net user tempadmin2 pw123 /add
    net user tempadmin3 pw123 /add
    net localgroup Administrators tempadmin1 /add
-   net localgroup Administrators tempadmin2 /add
-   net localgroup Administrators tempadmin3 /add
+   net localgroup TestGroup tempadmin2 /add
+   net localgroup TestSub-Group tempadmin3 /add
    ```
-6. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
+9. Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
    <br/>
    ![image](https://github.com/user-attachments/assets/96496877-e39d-427a-bccf-7179e8af2436)
    <br/>
    ![image](https://github.com/user-attachments/assets/be31ce80-5bd9-43f0-8f69-5c6ba97fa034)
-7. Open command prompt with admin privileges and delete the temporary admin accounts after task completion
+10. Open command prompt with admin privileges and delete the temporary admin accounts after task completion
    ```
    net user tempadmin1 /delete
    net user tempadmin2 /delete
