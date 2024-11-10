@@ -21,64 +21,85 @@ Best practice is to have only one local administrator per machine. Multiple admi
 ## Solutions With Scripts
 1. Save the following PowerShell script as `check-admins.ps1` in a Windows 7 VM
    ```
-   # Function to check local administrators on a specified machine
-   function Get-LocalAdministrators {
+   # Define function to check local administrator accounts on a machine
+   function Check-LocalAdmin {
        param (
-           [string]$ComputerName
+           [string]$MachineName
        )
    
-       try {
-           # Run net localgroup Administrators command to retrieve local admins
-           if ($ComputerName -eq $env:COMPUTERNAME) {
-               $admins = net localgroup Administrators
-           } else {
-               $admins = Invoke-Command -ComputerName $ComputerName -ScriptBlock { net localgroup Administrators }
-           }
+       Write-Host "Checking local administrator accounts on $MachineName..."  # Debug line
    
-           # Parse the output to get the list of admin accounts
-           $adminList = ($admins -split "`n")[6..($admins.Length - 3)] | ForEach-Object { $_.Trim() }
+       # Get local group memberships via WMI
+       $adminsGroup = Get-WmiObject -Class Win32_Group -Filter "LocalAccount = TRUE AND Name = 'Administrators'" -ComputerName $MachineName
+       $adminMembers = Get-WmiObject -Class Win32_GroupUser -ComputerName $MachineName | Where-Object { $_.GroupComponent -like "*$($adminsGroup.Name)*" }
    
-           # Count the administrators
-           $adminCount = $adminList.Count
+       # Initialize an array to hold admin users
+       $adminUsers = @()
    
-           # Display results
-           if ($adminCount -gt 1) {
-               Write-Output "ALERT: $ComputerName has $adminCount local administrator accounts!"
-               $adminList | ForEach-Object { Write-Output "- $_" }
-           } else {
-               Write-Output "$ComputerName has only one local administrator account."
+       # Add users directly in the Administrators group
+       foreach ($admin in $adminMembers) {
+           $userName = $admin.PartComponent -replace '.*Domain="([^"]+)".*Name="([^"]+)".*', '$2'
+   
+           # Filter out groups (we only want actual user accounts)
+           $userObject = Get-WmiObject -Class Win32_UserAccount -ComputerName $MachineName | Where-Object { $_.Name -eq $userName }
+           if ($userObject) {
+               $adminUsers += $userName
            }
        }
-       catch {
-           Write-Output "Error: Unable to connect to $ComputerName."
+   
+       # Check for nested groups
+       foreach ($adminGroup in $adminMembers) {
+           $nestedGroupName = $adminGroup.PartComponent -replace '.*Domain="([^"]+)".*Name="([^"]+)".*', '$2'
+           $nestedGroupMembers = Get-WmiObject -Class Win32_GroupUser -ComputerName $MachineName | Where-Object { $_.GroupComponent -like "*$nestedGroupName*" }
+           
+           foreach ($nestedMember in $nestedGroupMembers) {
+               $nestedUser = $nestedMember.PartComponent -replace '.*Domain="([^"]+)".*Name="([^"]+)".*', '$2'
+               
+               # Filter out groups (we only want actual user accounts)
+               $nestedUserObject = Get-WmiObject -Class Win32_UserAccount -ComputerName $MachineName | Where-Object { $_.Name -eq $nestedUser }
+               if ($nestedUserObject) {
+                   $adminUsers += $nestedUser
+               }
+           }
        }
+   
+       # Remove duplicates from the list
+       $adminUsers = $adminUsers | Sort-Object -Unique
+   
+       # Count the total number of local administrator accounts
+       $adminCount = $adminUsers.Count
+   
+       # Alert if there is more than one local admin account
+       if ($adminCount -gt 1) {
+           Write-Warning "Alert: There are $adminCount local administrator accounts!"
+       } else {
+           Write-Host "There is $adminCount local administrator account."
+       }
+   
+       # Display all the local admin users with machine name
+       Write-Host "The Local Administrator Accounts on $MachineName are:"  # This line should display the machine name
+       $adminUsers
    }
    
-   # Main Script Logic
-   Write-Output "Choose an option:"
-   Write-Output "1. Check local machine for multiple local administrator accounts"
-   Write-Output "2. Check remote machines for multiple local administrator accounts"
-   $choice = Read-Host "Enter your choice (1 or 2)"
+   # Main script logic
+   $choice = Read-Host "Choose 1 for local machine or 2 for remote machine (Invalid input will be rejected)"
    
-   switch ($choice) {
-       "1" {
-           # Option 1: Local Machine Check
-           Write-Output "Checking local machine for multiple administrator accounts..."
-           Get-LocalAdministrators -ComputerName $env:COMPUTERNAME
-       }
-       "2" {
-           # Option 2: Remote Machines Check
-           $remoteMachines = Read-Host "Enter remote machine names or IP addresses separated by commas"
-           $remoteMachineList = $remoteMachines -split ',' | ForEach-Object { $_.Trim() }
+   # Ensure valid input for machine type
+   if ($choice -eq "1") {
+       # Check local machine
+       Check-LocalAdmin -MachineName $env:COMPUTERNAME
+   } elseif ($choice -eq "2") {
+       # Get list of remote machines (IP or hostnames)
+       $remoteMachines = Read-Host "Enter a comma-separated list of remote machine names or IP addresses" 
+       $remoteMachinesArray = $remoteMachines.Split(',')
    
-           foreach ($remoteMachine in $remoteMachineList) {
-               Write-Output "Checking $remoteMachine for multiple administrator accounts..."
-               Get-LocalAdministrators -ComputerName $remoteMachine
-           }
+       # Loop through the list of remote machines and check for local admins
+       foreach ($machine in $remoteMachinesArray) {
+           Write-Host "Checking local admins on $machine..."
+           Check-LocalAdmin -MachineName $machine.Trim()
        }
-       default {
-           Write-Output "Invalid input. Please enter 1 or 2."
-       }
+   } else {
+       Write-Host "Invalid choice. Please enter 1 for local or 2 for remote."
    }
    ```
 2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
