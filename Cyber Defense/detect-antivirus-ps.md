@@ -104,4 +104,19 @@ Detecting installed antivirus software on Windows is essential for security prof
       Write-Host "Invalid input. Please choose option 1 or 2." -ForegroundColor Red
     }
    ```
-2. 
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+   ```
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+   ```
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   ```
+4. Download and install antivirus software for Windows 7 on both local and remote machines. In this task, AVG AntiVirus Free is installed on the local machine, while Avast Free AntiVirus is installed on the remote machine
+5. Run the PowerShell script and enter 1 for local machine. The script will retun the following output
+   ![image](https://github.com/user-attachments/assets/ea6a3478-95bf-46fe-864b-2b925576e73f)
+6. Run the PowerShell script and choose 2 for remote machine and enter the remote machine's IP address. The script will retun the following output
+   
+
