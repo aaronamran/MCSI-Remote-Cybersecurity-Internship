@@ -123,10 +123,13 @@ Best practice is to have only one local administrator per machine. Multiple admi
    ![image](https://github.com/user-attachments/assets/96496877-e39d-427a-bccf-7179e8af2436)
    <br/>
    ![image](https://github.com/user-attachments/assets/be31ce80-5bd9-43f0-8f69-5c6ba97fa034)
-10. Open command prompt with admin privileges and delete the temporary admin accounts after task completion
+10. Open command prompt with admin privileges and delete the temporary groups and admin accounts after task completion
    ```
+   net user tempadmin /delete
    net user tempadmin1 /delete
    net user tempadmin2 /delete
    net user tempadmin3 /delete
+   net localgroup TestGroup1 /delete
+   net localgroup TestGroup2 /delete
    ```
    
