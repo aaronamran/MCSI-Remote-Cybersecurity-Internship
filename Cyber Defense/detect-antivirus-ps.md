@@ -118,5 +118,6 @@ Detecting installed antivirus software on Windows is essential for security prof
 5. Run the PowerShell script and enter 1 for local machine. The script will retun the following output
    ![image](https://github.com/user-attachments/assets/ea6a3478-95bf-46fe-864b-2b925576e73f)
 6. Run the PowerShell script and choose 2 for remote machine and enter the remote machine's IP address. The script will retun the following output
+   ![image](https://github.com/user-attachments/assets/a7f15c2a-998f-4455-a74d-5062bb6670b6)
    
 
