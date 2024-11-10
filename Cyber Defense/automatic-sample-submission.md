@@ -96,9 +96,18 @@ Automatic Sample Submission is a valuable feature in Windows Defender Antivirus 
    winrm quickconfig -Force
    Enable-PSRemoting -Force
    ```
-4. Disable Automatic Sample Submission on a local machine
-5. Open PowerShell with admin privileges and run the `autoSampleSubmission.ps1` script
-6. Disable Automatic Sample Submission on a target remote machine
-7. Run the PowerShell script and choose the second option. Enter the target machine's IP address to enable Automatic Sample Submission
-8. 
+4. Ensure that the 'Remote Management Users" group on the target remote machine contains members by running the command below
+   ```
+   Get-LocalGroupMember -Group "Remote Management Users"
+   ```
+   If there are no members, add `admin` and `Administrator` as members in the group
+   ```
+   Add-LocalGroupMember -Group "Remote Management Users" -Member "admin"
+   Add-LocalGroupMember -Group "Remote Management Users" -Member "Administrator"
+   ```
+6. Disable Automatic Sample Submission on a local machine
+7. Open PowerShell with admin privileges and run the `autoSampleSubmission.ps1` script
+8. Disable Automatic Sample Submission on a target remote machine
+9. Run the PowerShell script and choose the second option. Enter the target machine's IP address to enable Automatic Sample Submission
+10. 
    
