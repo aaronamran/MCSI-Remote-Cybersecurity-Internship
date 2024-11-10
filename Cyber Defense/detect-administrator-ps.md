@@ -111,10 +111,6 @@ Best practice is to have only one local administrator per machine. Multiple admi
 7. Repeat steps 4 and 5 on a remote machine
 8. Create multiple local administrator accounts on a remote machine
    ```
-   net user tempadmin1 pw123 /add
-   net user tempadmin2 pw123 /add
-   net localgroup TestGroup1 tempadmin1 /add
-   net localgroup TestGroup2 tempadmin2 /add
    net user tempadmin3 pw123 /add
    net user tempadmin4 pw123 /add
    net localgroup Administrators tempadmin3 /add
