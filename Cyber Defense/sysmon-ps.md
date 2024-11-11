@@ -116,7 +116,8 @@ Windows Sysmon logs system activity, including processes, network connections, a
        </ProcessCreate>
   
        <!-- Log drivers loaded -->
-       <DriverLoad onmatch="exclude">
+       <DriverLoad onmatch="include">
+        <Signature condition="contains">*</Signature>
        </DriverLoad>
   
        <!-- Log DLLs loaded -->
