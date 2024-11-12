@@ -112,12 +112,14 @@ Windows Sysmon logs system activity, including processes, network connections, a
   
        <!-- Capture command line arguments -->
        <ProcessCreate onmatch="include">
-        <CommandLine condition="contains">*</CommandLine>
+        <Image condition="end with">cmd.exe</Image>
+       </ProcessCreate>
+       <ProcessCreate onmatch="exclude">
+        <Image condition="end with">powershell.exe</Image>
        </ProcessCreate>
   
        <!-- Log drivers loaded -->
-       <DriverLoad onmatch="include">
-        <Signature condition="contains">*</Signature>
+       <DriverLoad onmatch="exclude">
        </DriverLoad>
   
        <!-- Log DLLs loaded -->
