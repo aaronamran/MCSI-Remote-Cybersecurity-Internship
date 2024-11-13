@@ -56,7 +56,7 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 4. To identify the insecure service with PowerUp.ps1, open PowerShell as Administrator, navigate to where PowerUp.ps1 is stored and run `Import-Module .\PowerUp.ps1`.
    To check for services with weak permissions, run
    ```
-   Get-ServiceUnquoted
+   Get-UnquotedService
    ```
    To check for services with writable executables, run
    ```
