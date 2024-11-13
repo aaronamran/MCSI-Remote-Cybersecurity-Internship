@@ -7,6 +7,7 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 - [Privilege Escalation with Insecure Windows Service Permissions](https://medium.com/r3d-buck3t/privilege-escalation-with-insecure-windows-service-permissions-5d97312db107) by Nairuz Abulhul on Medium
 - [Digging Deeper into Vulnerable Windows Services](https://www.blackhillsinfosec.com/digging-deeper-vulnerable-windows-services/) by Brian Fehrman on BlackHillsInfoSec
 - [Windows Privilege Escalation](https://github.com/0xJs/RedTeaming_CheatSheet/blob/main/infrastructure/privesc_windows.md#Insecure-Service-Executables) by 0xJs on GitHub
+- [Windows Privilege Escalation - Exploiting Insecure Service Permissions](https://www.youtube.com/watch?app=desktop&v=WCnuu9fF-pk) by HackerSploit on YouTube
 
 ## Tasks
 - Research how to set up a Windows service with insecure configurations, such as weak permissions or allowing modifications by EVERYONE
