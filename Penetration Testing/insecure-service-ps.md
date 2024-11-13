@@ -22,22 +22,15 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 - Use PowerUp.ps1 to exploit the vulnerable Windows Service and obtain unauthorised SYSTEM privileges on the machine
 
 ## Solutions With Scripts
-1. Create a dummy malware executable, save the following C# code as `dummymalware.cs` and compile it into an executable
+1. Create a dummy malware executable, save the following C++ code as `dummymalware.cpp` and compile it into an executable using compilers like Dev-C++
    ```
-    using System;
-    using System.Windows.Forms;
-    
-    class Program
-    {
-        static void Main()
-        {
-            MessageBox.Show("I'm a Dummy Malware", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-    }
-   ```
-   If Visual Studio is not available on the local machine, download it from [this link](https://visualstudio.microsoft.com/) and install it. To compile the script, open Visual Studio Developer Command Prompt, navigate to the folder where you saved the C# script and compile using
-   ```
-   csc /target:winexe /out:dummymalware.exe dummymalware.cs
+   #include <windows.h>
+   
+   int main()
+   {
+       MessageBox(NULL, "I'm a Dummy Malware", "Alert", MB_OK | MB_ICONEXCLAMATION);
+       return 0;
+   }
    ```
 2. Save the following PowerShell script as `insecureservice.ps1`. It will create a service called `InsecureService` that runs `dummymalware.exe`, and modifies service permissions so Everyone can modify the service, making it insecure
    ```
