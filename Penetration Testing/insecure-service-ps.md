@@ -70,4 +70,8 @@ An insecure Windows service is one that can be easily exploited by a Penetration
    ```
    Invoke-ServiceAbuse -Name "InsecureService" -Command "C:\Windows\System32\dummymalware.exe"
    ```
-6. 
+6. To delete the insecure service in PowerShell, use
+   ```
+   sc.exe delete InsecureService
+   ```
+7. 
