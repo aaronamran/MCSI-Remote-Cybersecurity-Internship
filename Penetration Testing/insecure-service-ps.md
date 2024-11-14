@@ -55,10 +55,9 @@ An insecure Windows service is one that can be easily exploited by a Penetration
    Write-Host "$serviceName has been created with insecure permissions!"
    ```
 3. Open PowerShell as Administrator, run `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted` and then navigate to the folder where insecure service is stored and run `.\insecureservice.ps1`
-4. To identify the insecure service with PowerUp.ps1, first deactivate Real-Time Protection in Windows Security. Then open PowerShell as Administrator, navigate to where PowerUp.ps1 is stored and run `Import-Module .\PowerUp.ps1`.
-   To check for services with weak permissions, run
+4. To identify the insecure service with PowerUp.ps1, first deactivate Real-Time Protection in Windows Security. Then open PowerShell as Administrator, navigate to where PowerUp.ps1 is stored and run 
    ```
-   Get-UnquotedService
+   Import-Module .\PowerUp.ps1
    ```
    To check for services with writable executables, run
    ```
