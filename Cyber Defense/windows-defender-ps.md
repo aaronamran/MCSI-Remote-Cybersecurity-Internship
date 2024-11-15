@@ -44,61 +44,71 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 ## Solutions With Scripts
 1. Save and run the following PowerShell script as `enable-defender.ps1` on Windows 11 machine. Note that this task can only be completed among Windows 10 and 11 machines
    ```
-    # Function to check Windows Defender status
-    function Check-WindowsDefenderStatus {
-        param ($ComputerName)
-    
-        $status = Get-MpComputerStatus -CimSession $ComputerName
-        if ($status.AntivirusEnabled) {
-            Write-Host "Windows Defender is already enabled on $ComputerName."
-            return $true
-        } else {
-            Write-Host "Windows Defender is disabled on $ComputerName. Enabling it now..."
-            return $false
-        }
-    }
-    
-    # Function to enable Windows Defender and update it
-    function Enable-WindowsDefender {
-        param ($ComputerName)
-    
-        # Enable Windows Defender (Real-Time Protection)
-        Invoke-CimMethod -Namespace "root/Microsoft/Windows/Defender" -ClassName "MSFT_MpPreference" -MethodName "Enable" -CimSession $ComputerName
-        Write-Host "Windows Defender has been enabled on $ComputerName."
-    
-        # Update Windows Defender
-        Update-MpSignature -CimSession $ComputerName
-        Write-Host "Windows Defender has been updated on $ComputerName."
-    }
-    
-    # Main script logic to handle local and remote machines
-    function Main {
+   # Script to check and enable Windows Defender with real-time protection, both locally and remotely
+
+    function Check-And-Enable-Defender {
         param (
-            [string[]]$ComputerNames = @('localhost')  # Default to localhost if no remote machines are provided
+            [string[]]$RemoteComputers
         )
     
-        foreach ($Computer in $ComputerNames) {
-            try {
-                # Check if Windows Defender is enabled
-                $isEnabled = Check-WindowsDefenderStatus -ComputerName $Computer
+        foreach ($computer in $RemoteComputers) {
+            Write-Host "Processing: $computer" -ForegroundColor Cyan
     
-                # If Defender is not enabled, enable it and update
-                if (-not $isEnabled) {
-                    Enable-WindowsDefender -ComputerName $Computer
+            try {
+                if ($computer -eq "localhost") {
+                    # Local machine
+                    $DefenderStatus = Get-MpPreference
+                } else {
+                    # Remote machine
+                    $session = New-PSSession -ComputerName $computer -ErrorAction Stop
+                    $DefenderStatus = Invoke-Command -Session $session -ScriptBlock { Get-MpPreference }
                 }
-            }
-            catch {
-                Write-Host "Error: Unable to check or enable Windows Defender on $Computer. Error details: $_"
+    
+                if ($DefenderStatus.DisableRealtimeMonitoring -eq $false) {
+                    Write-Host "Windows Defender is already enabled on $computer." -ForegroundColor Green
+                } else {
+                    Write-Host "Windows Defender is disabled on $computer. Enabling..." -ForegroundColor Yellow
+    
+                    if ($computer -eq "localhost") {
+                        # Enable Windows Defender locally
+                        Set-MpPreference -DisableRealtimeMonitoring $false
+                        Start-MpWDOScan -ScanType QuickScan
+                    } else {
+                        # Enable Windows Defender remotely
+                        Invoke-Command -Session $session -ScriptBlock { 
+                            Set-MpPreference -DisableRealtimeMonitoring $false
+                            Start-MpWDOScan -ScanType QuickScan
+                        }
+                    }
+    
+                    # Force update definitions
+                    if ($computer -eq "localhost") {
+                        Update-MpSignature
+                    } else {
+                        Invoke-Command -Session $session -ScriptBlock { Update-MpSignature }
+                    }
+    
+                    Write-Host "Windows Defender has been enabled and updated on $computer." -ForegroundColor Green
+                }
+    
+            } catch {
+                Write-Host "Error processing $computer: $_" -ForegroundColor Red
+            } finally {
+                if ($session) { Remove-PSSession -Session $session }
             }
         }
-    
-        Write-Host "Task completed."
     }
     
-    # Example: Call the main function with a list of computer names
-    # Replace with your remote machine names or IP addresses
-    $computers = @('localhost', 'RemoteMachine1', 'RemoteMachine2')
-    Main -ComputerNames $computers
+    # Main script logic
+    Write-Host "Windows Defender Management Script" -ForegroundColor Cyan
+    Write-Host "Enter a list of computer names or IP addresses (separated by commas):"
+    $inputComputers = Read-Host "Example: localhost, 192.168.1.10, RemotePC"
+    
+    # Parse input into array
+    $computerList = $inputComputers -split ',' | ForEach-Object { $_.Trim() }
+    
+    # Check and enable Defender
+    Check-And-Enable-Defender -RemoteComputers $computerList
    ```
 2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
    ```
