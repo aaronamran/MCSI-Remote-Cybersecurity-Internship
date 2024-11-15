@@ -92,7 +92,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
                 }
     
             } catch {
-                Write-Host "Error processing $computer: $_" -ForegroundColor Red
+                Write-Host "Error processing $computer" -ForegroundColor Red
             } finally {
                 if ($session) { Remove-PSSession -Session $session }
             }
