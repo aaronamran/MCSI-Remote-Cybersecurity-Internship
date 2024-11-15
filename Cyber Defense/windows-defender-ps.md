@@ -135,8 +135,12 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 6. To allow PowerShell scripts to change the state of the Real-time protection in Windows, Tamper Protection must be turned off first
    ![image](https://github.com/user-attachments/assets/c3797063-14f5-4a93-8830-8218c61e4f48)
 7. Enable Windows Defender on the local Windows 11 machine and run the script
-8. Disable Windows Defender on the local Windows 11 machine and run the script again
-9. Enable Windows Defender on the first remote Windows 10 VM and disable Windows Defender on the second remote Windows 10 VM
-10. Run the script to target both Windows 10 VMs
+   ![image](https://github.com/user-attachments/assets/52d5d513-3d92-4dc4-b815-365611acd3a0)
+
+9. Disable Windows Defender on the local Windows 11 machine and run the script again
+   ![image](https://github.com/user-attachments/assets/5e33a5ba-0515-4517-ab01-fc753ebe0078)
+
+11. Enable Windows Defender on the first remote Windows 10 VM and disable Windows Defender on the second remote Windows 10 VM
+12. Run the script to target both Windows 10 VMs
 
 
