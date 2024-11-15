@@ -43,9 +43,8 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 
 ## Solutions With Scripts
 1. Save and run the following PowerShell script as `enable-defender.ps1` on Windows 11 machine. Note that this task can only be completed among Windows 10 and 11 machines
-   ```
-   # Script to check and enable Windows Defender with real-time protection, both locally and remotely
-
+    ```
+    # Script to check and enable Windows Defender with real-time protection, both locally and remotely
     function Check-And-Enable-Defender {
         param (
             [string[]]$RemoteComputers
@@ -69,6 +68,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
                 } else {
                     Write-Host "Windows Defender is disabled on $computer. Enabling..." -ForegroundColor Yellow
     
+                    # Enable Windows Defender locally or remotely
                     if ($computer -eq "localhost") {
                         # Enable Windows Defender locally
                         Set-MpPreference -DisableRealtimeMonitoring $false
@@ -92,7 +92,10 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
                 }
     
             } catch {
-                Write-Host "Error processing $computer" -ForegroundColor Red
+                # Only report an error if it's not on localhost
+                if ($computer -ne "localhost") {
+                    Write-Host "Error processing $computer" -ForegroundColor Red
+                }
             } finally {
                 if ($session) { Remove-PSSession -Session $session }
             }
@@ -109,12 +112,13 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
     
     # Check and enable Defender
     Check-And-Enable-Defender -RemoteComputers $computerList
-   ```
-2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+    ``` 
+   
+3. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+4. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
    winrm quickconfig -Force
    Enable-PSRemoting -Force
@@ -124,11 +128,11 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
    Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
    Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
    ```
-4. To test the PowerShell remoting capability, use
+5. To test the PowerShell remoting capability, use
    ```
    Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
    ```
-5. To allow PowerShell scripts to change the state of the Real-time protection in Windows, Tamper Protection must be turned off first
+6. To allow PowerShell scripts to change the state of the Real-time protection in Windows, Tamper Protection must be turned off first
    ![image](https://github.com/user-attachments/assets/c3797063-14f5-4a93-8830-8218c61e4f48)
 7. Enable Windows Defender on the local Windows 11 machine and run the script
 8. Disable Windows Defender on the local Windows 11 machine and run the script again
