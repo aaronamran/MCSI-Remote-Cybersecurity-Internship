@@ -5,6 +5,8 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 ## References
 - [Manage Windows Defender using PowerShell](https://learn.microsoft.com/en-us/archive/technet-wiki/52251.manage-windows-defender-using-powershell) by Microsoft
 - [Running Remote Commands](https://learn.microsoft.com/en-us/powershell/scripting/security/remoting/running-remote-commands?view=powershell-7.4&viewFallbackFrom=powershell-7) by Microsoft
+- [Resolving "Access is Denied" Errors in Assets Discovery Tool with PowerShell patterns](https://confluence.atlassian.com/jirakb/resolving-access-is-denied-errors-in-assets-discovery-tool-with-powershell-patterns-1402421369.html) by Atlassian
+- [Enter-PSSession: receiving access denied on non domain remote server](https://serverfault.com/questions/1117959/enter-pssession-receiving-access-denied-on-non-domain-remote-server) by Abid on serverfault
   
 
 ## PowerShell Script Requirements
@@ -40,7 +42,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 
 
 ## Solutions With Scripts
-1. Save and run the following PowerShell script as `enable-defender.ps1`
+1. Save and run the following PowerShell script as `enable-defender.ps1` on Windows 11 machine. Note that this task can only be completed among Windows 10 and 11 machines
    ```
     # Function to check Windows Defender status
     function Check-WindowsDefenderStatus {
@@ -104,10 +106,18 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
    ```
 3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
-   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
    winrm quickconfig -Force
    Enable-PSRemoting -Force
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
+   Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
    ```
-4. ![image](https://github.com/user-attachments/assets/68906fde-25ee-49e9-9cef-1e11a115f56d)
+4. To test the PowerShell remoting capability, use
+   ```
+   Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
+   ```
+5. 
 
 
