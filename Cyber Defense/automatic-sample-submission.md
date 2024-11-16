@@ -22,7 +22,7 @@ Automatic Sample Submission is a valuable feature in Windows Defender Antivirus 
 
 
 ## Solutions With Scripts
-1. Save the PowerShell script below as `autoSampleSubmission.ps1`
+1. Save the PowerShell script below as `autosamplesubmission.ps1`
     ```
     # Enable Automatic Sample Submission on Windows Defender
 
@@ -92,22 +92,21 @@ Automatic Sample Submission is a valuable feature in Windows Defender Antivirus 
    ```
 3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
-   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
    winrm quickconfig -Force
    Enable-PSRemoting -Force
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
+   Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
+   Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
    ```
-4. Ensure that the 'Remote Management Users" group on the target remote machine contains members by running the command below
+4. To test the PowerShell remoting capability, use
    ```
-   Get-LocalGroupMember -Group "Remote Management Users"
+   Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
    ```
-   If there are no members, add `admin` and `Administrator` as members in the group
-   ```
-   Add-LocalGroupMember -Group "Remote Management Users" -Member "admin"
-   Add-LocalGroupMember -Group "Remote Management Users" -Member "Administrator"
-   ```
-6. Disable Automatic Sample Submission on a local machine
-7. Open PowerShell with admin privileges and run the `autoSampleSubmission.ps1` script
+5. Disable Automatic Sample Submission on a local machine
+   ![image](https://github.com/user-attachments/assets/ed5b1656-ab83-4d49-888b-65bd7cc08819)
+7. Open PowerShell with admin privileges and run the `autosamplesubmission.ps1` script
 8. Disable Automatic Sample Submission on a target remote machine
 9. Run the PowerShell script and choose the second option. Enter the target machine's IP address to enable Automatic Sample Submission
-10. 
    
