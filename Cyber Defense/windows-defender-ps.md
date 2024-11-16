@@ -163,7 +163,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
    ```
    winrm quickconfig -Force
    Enable-PSRemoting -Force
-   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address"
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
    Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
    Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
    Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
