@@ -182,6 +182,5 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 8. Enable Windows Defender on the first remote Windows 10 VM and disable Windows Defender on the second remote Windows 10 VM
 9. Run the script to target both machines. Input their IP addresses separated by a comma without including spaces
    ![image](https://github.com/user-attachments/assets/21f257e0-55e0-4eaf-92e3-6ff79f0daad4)
-10. 
 
 
