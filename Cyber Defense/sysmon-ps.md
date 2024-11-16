@@ -130,7 +130,7 @@ Windows Sysmon logs system activity, including processes, network connections, a
      </EventFiltering>
    </Sysmon>
    ```
-5. To understand how Sysmon XML configuration files work, let's take a look below
+3. To understand how Sysmon XML configuration files work, let's take a look below
    ```
     #Before change
     <RuleGroup name="" groupRelation="or">
@@ -152,17 +152,23 @@ Windows Sysmon logs system activity, including processes, network connections, a
     - Regarding the 'After change':
       - `onmatch="exclude"`: When set to "exclude", Sysmon will exclude ImageLoad events that match any specified rules inside this section
       - No Rules: With no rules present, all ImageLoad events are logged because nothing is excluded. By specifying "exclude" with no rules, the configuration effectively enables logging for every ImageLoad event
-6. In target Windows 7 VM, open PowerShell with admin privileges, and confirm the IP address with `ipconfig`. Enter `winrm quickconfig` and choose yes. To enable PowerShell remoting, enter `Enable-PSRemoting` and either choose yes or yes to all. To check the listener status, enter `winrm enumerate winrm/config/listener`
-7. On the sender Windows 7 VM, to add the target Windows 7 VM to the TrustedHosts list, use
+ Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
    ```
-   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "<target_IP_address>"
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-   Or to simply allow connections to any IP address, replace the target IP address with an asterisk (*)
-8. To test the PowerShell remote access from the sender VM, use the following commands
+4. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
-   Enter-PSSession -ComputerName <target_IP_address> -Credential (Get-Credential)
+   winrm quickconfig -Force
+   Enable-PSRemoting -Force
+   Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
+   Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
+   Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
+   Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
    ```
-   Upon successful remote access, the PowerShell would look like this
-   ![image](https://github.com/user-attachments/assets/2745445e-1719-4e77-87b0-0dc5af2afcaf)
-9. In Windows 7 VM, Sysmon and its XML configuration file has to be placed in the `C:\Windows` directory. This can be confirmed when checking properties of Sysmon in Windows Services
-10. 
+5. To test the PowerShell remoting capability, use
+   ```
+   Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
+   ```
+6. In Windows 10 VM, Sysmon and its XML configuration file has to be placed in the `C:\Windows` directory. This can be confirmed when checking properties of Sysmon in Windows Services
+7. 
