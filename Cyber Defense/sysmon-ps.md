@@ -44,30 +44,32 @@ Windows Sysmon logs system activity, including processes, network connections, a
     # Variables
     $sysmonExecutable = "C:\Sysmon\Sysmon64.exe"       # Local path to Sysmon executable
     $configFile = "C:\Sysmon\sysmon-config.xml"        # Local path to Sysmon configuration file
-    $remoteWindowsPath = "\\$remoteMachine\C$\Windows" # Target directory for Sysmon on the remote machine
     
-    # Step 1: Establish a remote session
+    # Step 1: Prompt for credentials
+    $credential = Get-Credential
+    
+    # Step 2: Establish a remote session with Basic Authentication
     Write-Host "-> Establishing session with $remoteMachine"
     try {
-        $remoteSession = New-PSSession -ComputerName $remoteMachine -ErrorAction Stop
+        $remoteSession = New-PSSession -ComputerName $remoteMachine -Credential $credential -Authentication Basic -ErrorAction Stop
     } catch {
         Write-Host "Failed to connect to $remoteMachine. Ensure the machine is reachable and PowerShell remoting is enabled."
         return
     }
     
-    # Step 2: Copy Sysmon executable and configuration file to the C:\Windows directory on the remote machine
+    # Step 3: Copy Sysmon executable and configuration file to the C:\Windows directory on the remote machine
     Write-Host "-> Copying Sysmon executable and configuration file to the remote machine's C:\Windows directory"
     try {
         # Copy files to the remote machine's C:\Windows directory
-        Copy-Item -Path $sysmonExecutable -Destination $remoteWindowsPath -Force
-        Copy-Item -Path $configFile -Destination $remoteWindowsPath -Force
+        Copy-Item -Path $sysmonExecutable -Destination "C:\Windows" -Force -ToSession $remoteSession
+        Copy-Item -Path $configFile -Destination "C:\Windows" -Force -ToSession $remoteSession
     } catch {
         Write-Host "Failed to copy files to $remoteMachine. Check permissions and network access."
         Remove-PSSession -Session $remoteSession
         return
     }
     
-    # Step 3: Install or reinstall Sysmon on the remote machine
+    # Step 4: Install or reinstall Sysmon on the remote machine
     Write-Host "-> Installing Sysmon on $remoteMachine"
     $sysmonExeName = [System.IO.Path]::GetFileName($sysmonExecutable)
     $configFileName = [System.IO.Path]::GetFileName($configFile)
@@ -86,21 +88,19 @@ Windows Sysmon logs system activity, including processes, network connections, a
         Invoke-Command -Session $remoteSession -ScriptBlock {
             param($sysmonExe, $configFile)
             Write-Host "Installing Sysmon with new configuration..."
-            cmd.exe /C "C:\Windows\$sysmonExe -i C:\Windows\$configFile -accepteula" | Out-Null
+            cmd.exe /C "C:\Windows\$sysmonExe -i C:\Windows\$configFile -accepteula -t" | Out-Null
         } -ArgumentList $sysmonExeName, $configFileName
         Write-Host "-> Sysmon installation complete on $remoteMachine"
     } catch {
         Write-Host "Failed to install Sysmon on $remoteMachine. Please check permissions and system requirements."
     }
     
-    # Step 4: Clean up
+    # Step 5: Clean up
     Remove-PSSession -Session $remoteSession
     ```
-
-
 2. XML configuration file that captures unauthorised READ/WRITE access to lsass.exe, process command line execution arguments, drivers that are loaded and DLL that processes load
    ```
-   <Sysmon schemaversion="4.60">
+   <Sysmon schemaversion="4.90">
      <!-- Capture all hashes -->
      <HashAlgorithms>*</HashAlgorithms>
      <EventFiltering>
@@ -171,4 +171,9 @@ Windows Sysmon logs system activity, including processes, network connections, a
    Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
    ```
 6. In Windows 10 VM, Sysmon and its XML configuration file has to be placed in the `C:\Windows` directory. This can be confirmed when checking properties of Sysmon in Windows Services
-7. 
+7. The script is run to copy and install Sysmon on the Windows 10 VM
+   ![image](https://github.com/user-attachments/assets/fba2532c-8e01-4a60-aa0f-7193530802ac)
+8. On the target remote machine, view the Event Viewer. The logs are stored in `Applications and Services Logs/Microsoft/Windows/Sysmon/Operational`
+   ![image](https://github.com/user-attachments/assets/6f344ab2-2352-4c22-9b65-7e389183febc)
+
+
