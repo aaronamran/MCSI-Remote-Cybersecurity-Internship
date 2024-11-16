@@ -7,6 +7,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 - [Running Remote Commands](https://learn.microsoft.com/en-us/powershell/scripting/security/remoting/running-remote-commands?view=powershell-7.4&viewFallbackFrom=powershell-7) by Microsoft
 - [Resolving "Access is Denied" Errors in Assets Discovery Tool with PowerShell patterns](https://confluence.atlassian.com/jirakb/resolving-access-is-denied-errors-in-assets-discovery-tool-with-powershell-patterns-1402421369.html) by Atlassian
 - [Enter-PSSession: receiving access denied on non domain remote server](https://serverfault.com/questions/1117959/enter-pssession-receiving-access-denied-on-non-domain-remote-server) by Abid on serverfault
+- [How to Disable, Enable, and Manage Microsoft Defender Using PowerShell?](https://theitbros.com/managing-windows-defender-using-powershell/) by Cyril Kardashevsky
   
 
 ## PowerShell Script Requirements
@@ -44,7 +45,12 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 ## Solutions With Scripts
 1. Save and run the following PowerShell script as `enable-defender.ps1` on Windows 11 machine. Note that this task can only be completed among Windows 10 and 11 machines
     ```
-    # Script to check and enable Windows Defender with real-time protection, both locally and remotely
+    # Ensure the script is running as administrator
+    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+        Write-Host "This script must be run as Administrator!" -ForegroundColor Red
+        exit
+    }
+    
     function Check-And-Enable-Defender {
         param (
             [string[]]$RemoteComputers
@@ -55,50 +61,86 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
     
             try {
                 if ($computer -eq "localhost") {
-                    # Local machine
-                    $DefenderStatus = Get-MpPreference
+                    # Check and enable Defender on the local machine
+                    Process-Local-Defender
                 } else {
-                    # Remote machine
-                    $session = New-PSSession -ComputerName $computer -ErrorAction Stop
-                    $DefenderStatus = Invoke-Command -Session $session -ScriptBlock { Get-MpPreference }
+                    # Check and enable Defender on a remote machine
+                    $credentials = Get-Credential
+                    Process-Remote-Defender -ComputerName $computer -Credential $credentials
                 }
-    
-                if ($DefenderStatus.DisableRealtimeMonitoring -eq $false) {
-                    Write-Host "Windows Defender is already enabled on $computer." -ForegroundColor Green
-                } else {
-                    Write-Host "Windows Defender is disabled on $computer. Enabling..." -ForegroundColor Yellow
-    
-                    # Enable Windows Defender locally or remotely
-                    if ($computer -eq "localhost") {
-                        # Enable Windows Defender locally
-                        Set-MpPreference -DisableRealtimeMonitoring $false
-                        Start-MpWDOScan -ScanType QuickScan
-                    } else {
-                        # Enable Windows Defender remotely
-                        Invoke-Command -Session $session -ScriptBlock { 
-                            Set-MpPreference -DisableRealtimeMonitoring $false
-                            Start-MpWDOScan -ScanType QuickScan
-                        }
-                    }
-    
-                    # Force update definitions
-                    if ($computer -eq "localhost") {
-                        Update-MpSignature
-                    } else {
-                        Invoke-Command -Session $session -ScriptBlock { Update-MpSignature }
-                    }
-    
-                    Write-Host "Windows Defender has been enabled and updated on $computer." -ForegroundColor Green
-                }
-    
             } catch {
-                # Only report an error if it's not on localhost
-                if ($computer -ne "localhost") {
-                    Write-Host "Error processing $computer" -ForegroundColor Red
-                }
-            } finally {
-                if ($session) { Remove-PSSession -Session $session }
+                Write-Host "Error processing $computer" -ForegroundColor Red
             }
+        }
+    }
+    
+    function Process-Local-Defender {
+        try {
+            # Ensure the Defender service is running
+            $service = Get-Service -Name WinDefend -ErrorAction Stop
+            if ($service.Status -ne "Running") {
+                Write-Host "Starting Windows Defender service locally..." -ForegroundColor Yellow
+                Set-Service -Name WinDefend -StartupType Automatic
+                Start-Service -Name WinDefend
+            }
+    
+            # Check and enable real-time protection
+            $DefenderStatus = Get-MpPreference
+            if ($DefenderStatus.DisableRealtimeMonitoring -eq $false) {
+                Write-Host "Windows Defender real-time protection is already enabled." -ForegroundColor Green
+            } else {
+                Write-Host "Enabling Windows Defender real-time protection locally..." -ForegroundColor Yellow
+                Set-MpPreference -DisableRealtimeMonitoring $false
+                Write-Host "Real-time protection enabled." -ForegroundColor Green
+            }
+    
+        } catch {
+            Write-Host "Error enabling Defender locally" -ForegroundColor Red
+        }
+    }
+    
+    function Process-Remote-Defender {
+        param (
+            [string]$ComputerName,
+            [pscredential]$Credential
+        )
+        try {
+            # Create a remote session with Basic authentication
+            $session = New-PSSession -ComputerName $ComputerName -Credential $Credential -Authentication Basic -ErrorAction Stop
+    
+            # Check Defender status on the remote machine
+            Invoke-Command -Session $session -ScriptBlock {
+                try {
+                    # Get Defender status
+                    $DefenderStatus = Get-MpPreference
+    
+                    # Check real-time protection
+                    if ($DefenderStatus.DisableRealtimeMonitoring -eq $false) {
+                        Write-Host "Real-time protection is already enabled on $env:COMPUTERNAME." -ForegroundColor Green
+                    } else {
+                        Write-Host "Real-time protection is disabled on $env:COMPUTERNAME. Enabling now..." -ForegroundColor Yellow
+                        Set-MpPreference -DisableRealtimeMonitoring $false
+                        Write-Host "Real-time protection enabled on $env:COMPUTERNAME." -ForegroundColor Green
+                    }
+    
+                    # Check cloud-delivered protection
+                    if ($DefenderStatus.MAPSReporting -eq 2) {
+                        Write-Host "Cloud-delivered protection is already enabled on $env:COMPUTERNAME." -ForegroundColor Green
+                    } else {
+                        Write-Host "Cloud-delivered protection is not fully enabled on $env:COMPUTERNAME. Enabling now..." -ForegroundColor Yellow
+                        Set-MpPreference -MAPSReporting Advanced
+                        Write-Host "Cloud-delivered protection enabled on $env:COMPUTERNAME." -ForegroundColor Green
+                    }
+    
+                } catch {
+                    Write-Host "Error checking or enabling Defender status on $env:COMPUTERNAME" -ForegroundColor Red
+                }
+            }
+    
+            # Remove the session
+            Remove-PSSession -Session $session
+        } catch {
+            Write-Host "Error enabling Defender on $ComputerName" -ForegroundColor Red
         }
     }
     
@@ -112,13 +154,12 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
     
     # Check and enable Defender
     Check-And-Enable-Defender -RemoteComputers $computerList
-    ``` 
-   
-3. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
+    ```
+2. Set Execution Policy (if necessary): If you encounter a script execution error, use the following command to allow the script to run:
    ```
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
-4. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
+3. To enable PowerShell remoting between local and target VMs, get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections
    ```
    winrm quickconfig -Force
    Enable-PSRemoting -Force
@@ -128,19 +169,17 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
    Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
    Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
    ```
-5. To test the PowerShell remoting capability, use
+4. To test the PowerShell remoting capability, use
    ```
    Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
    ```
-6. To allow PowerShell scripts to change the state of the Real-time protection in Windows, Tamper Protection must be turned off first
+5. To allow PowerShell scripts to change the state of the Real-time protection in Windows, Tamper Protection must be turned off first
    ![image](https://github.com/user-attachments/assets/c3797063-14f5-4a93-8830-8218c61e4f48)
-7. Enable Windows Defender on the local Windows 11 machine and run the script
+6. Enable Windows Defender on the local Windows 11 machine and run the script
    ![image](https://github.com/user-attachments/assets/52d5d513-3d92-4dc4-b815-365611acd3a0)
-
-9. Disable Windows Defender on the local Windows 11 machine and run the script again
+7. Disable Windows Defender on the local Windows 11 machine and run the script again
    ![image](https://github.com/user-attachments/assets/5e33a5ba-0515-4517-ab01-fc753ebe0078)
-
-11. Enable Windows Defender on the first remote Windows 10 VM and disable Windows Defender on the second remote Windows 10 VM
-12. Run the script to target both Windows 10 VMs
+8. Enable Windows Defender on the first remote Windows 10 VM and disable Windows Defender on the second remote Windows 10 VM
+9. Run the script to target 
 
 
