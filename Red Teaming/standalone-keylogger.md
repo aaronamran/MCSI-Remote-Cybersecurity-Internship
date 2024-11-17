@@ -112,5 +112,7 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
     </body>
     </html>
    ```
-3. Reboot the Windows 10 VM and open `login.html` in a web browser. Show that the keylogger records all keystrokes in hidden files
+3. Reboot the Windows 10 VM. Since the keylogger executable creates an entry in the registry at `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`, it will autorun at startup
+   ![image](https://github.com/user-attachments/assets/9dc68225-187c-4afe-a4d8-dc935422cc7a)
+4. Open `login.html` in a web browser. Show that the keylogger records all keystrokes in hidden files
    
