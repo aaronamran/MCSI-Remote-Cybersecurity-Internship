@@ -31,7 +31,7 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
 
 
 ## Solutions With Scripts
-1. Save the following C++ program and compile it into a binary file (.exe) to be used in a Windows 10 VM
+1. Save the following C++ program and compile it into a binary file called `keylogger.exe` to be used in a Windows 10 VM
    ```
     #include <iostream>
     #include <windows.h>
@@ -91,3 +91,26 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
         return 0;
     }
    ```
+2. Save the following HTML file as `login.html` for the purpose of inputting a fictional username and password in the login form
+   ```
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Demo Login Page</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <button type="submit">Login</button>
+        </form>
+    </body>
+    </html>
+   ```
+3. Reboot the Windows 10 VM and open `login.html` in a web browser. Show that the keylogger records all keystrokes in hidden files
+   
