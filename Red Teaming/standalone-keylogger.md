@@ -195,4 +195,8 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
    If rebooting the VM does not cause the keylogger to autorun on startup, a manual fix is to press `Win + R` key, and enter `shell:startup`. This will bring you to the folder that stores programs to run on startup. Create a shortcut of `keylogger.exe` and save it here
    ![image](https://github.com/user-attachments/assets/e55bf18f-e6b2-4b26-bbd2-d00a8888b556)
 7. Open `login.html` in a web browser. Show that the keylogger records all keystrokes in hidden files
+   ![image](https://github.com/user-attachments/assets/265cc2bb-eb34-4b51-b37f-e6c792f2c447)
+   ![image](https://github.com/user-attachments/assets/08b3b759-fb9a-4375-b011-94c30f203111)
+
+
    
