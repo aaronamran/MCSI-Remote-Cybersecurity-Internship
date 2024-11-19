@@ -30,7 +30,7 @@ Properly handling crashes and exceptions is crucial in software development, as 
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/handle-crashes-exception)
 
 1. Start XAMPP and ensure that Apache and MySQL services are running
-2. In the XAMPPP htdocs directory, create a folder called 'errorhandling' and add the following files: `index.php` and `error_handler.php`
+2. In the XAMPPP htdocs directory, create a folder called 'handleerrors' and add the following files: `index.php` and `error_handler.php`
 3. Access phpMyAdmin at `http://localhost/phpmyadmin`. To create a new database and populate it, run the following SQL queries
    ```
     CREATE DATABASE vulnerable_app;
