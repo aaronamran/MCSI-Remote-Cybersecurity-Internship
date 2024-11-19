@@ -56,6 +56,7 @@ Properly handling crashes and exceptions is crucial in software development, as 
      - `' OR 1=1--`
      - `1 UNION SELECT NULL, username FROM users--`
      - `' AND SLEEP(5)--`
+     <br/>
      Start the attack and analyze server responses for successful injections
    - Payload set for fuzzing command injection:
      - `; ls`
