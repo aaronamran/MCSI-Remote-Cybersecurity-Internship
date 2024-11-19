@@ -26,3 +26,43 @@ Properly handling crashes and exceptions is crucial in software development, as 
 
 
 ## Solutions With Scripts
+
+- [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/handle-crashes-exception)
+
+1. Start XAMPP and ensure that Apache and MySQL services are running
+2. In the XAMPPP htdocs directory, create a folder called 'errorhandling' and add the following files: `index.php` and `error_handler.php`
+3. Access phpMyAdmin at `http://localhost/phpmyadmin`. To create a new database and populate it, run the following SQL queries
+   ```
+    CREATE DATABASE vulnerable_app;
+
+    USE vulnerable_app;
+    
+    CREATE TABLE users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50),
+        password VARCHAR(50)
+    );
+    
+    INSERT INTO users (username, password) VALUES
+    ('admin', 'password123'),
+    ('test_user', 'test123');
+   ```
+4. Open a web browser and navigate to localhost. Access the web application and try the following SQL injections:
+   - Add `?user_id=1 OR 1=1` to the end of the URL. This would retrieve all rows because 1=1 is always true
+   - 
+5. To test command injections, input the following commands: `ls`, `whoami`. These inputs can be exploited by appending malicious commands such as `; cat /etc/passwd`
+6. To fuzz with Burp Suite, capture the SQL injection request (e.g., `http://localhost/vulnerable_app/?user_id=1`) and send the request to the Intruder. Configure payloads for the `user_id` parameter: 
+   - Payload set for fuzzing SQL injection:
+     - `' OR 1=1--`
+     - `1 UNION SELECT NULL, username FROM users--`
+     - `' AND SLEEP(5)--`
+     Start the attack and analyze server responses for successful injections
+   - Payload set for fuzzing command injection:
+     - `; ls`
+     - `; whoami`
+     - `; cat /etc/passwd`
+7. Expected example of logged error in `logs/errors.log` handled by custom error handler:
+   `[2024-11-19 12:00:00] Error: SQL syntax error in /opt/lampp/htdocs/vulnerable_app/index.php on line 20`
+
+
+
