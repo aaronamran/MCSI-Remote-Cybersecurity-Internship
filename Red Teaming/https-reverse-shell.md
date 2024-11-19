@@ -145,11 +145,11 @@ An HTTPS reverse shell is a tool hackers use to remotely control a target comput
    ```
 2. To cross-compile on Kali Linux as the attacker machine, use
    ```
-   x86_64-w64-mingw32-g++ reverse_shell.cpp -o reverse_shell.exe -lws2_32 -lssl -lcrypto
+   x86_64-w64-mingw32-g++ httpsreverseshell.cpp -o httpsreverseshell.exe -lws2_32 -lssl -lcrypto
    ```
    To compile using MinGW or another suitable Windows-compatible compiler, use
    ```
-   g++ reverse_shell.cpp -o reverse_shell.exe -lws2_32 -lssl -lcrypto
+   g++ httpsreverseshell.cpp -o httpsreverseshell.exe -lws2_32 -lssl -lcrypto
    ```
    To compile in Dev-C++, download the precompiled OpenSSL binaries for Windows. Ensure they match the architecture (32-bit or 64-bit) of your system.
    Add the OpenSSL include and library directories to Dev-C++:
