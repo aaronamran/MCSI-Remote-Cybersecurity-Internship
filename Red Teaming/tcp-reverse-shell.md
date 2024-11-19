@@ -3,6 +3,7 @@ Reverse shells are a common malware tool used by cyber adversaries. In this exer
 
 ## References
 - [Reverse Connection](https://en.wikipedia.org/wiki/Reverse_connection) by Wikipedia
+- [Simple C++ reverse shell for windows](https://cocomelonc.github.io/tutorial/2021/09/15/simple-rev-c-1.html) by cocomelonc
 
 ## Tasks
 - Write a custom program to establish a reverse shell via TCP from a target machine to a controller machine, with the capability to execute commands, upload and download files. The reverse shell program has two components - server and client
