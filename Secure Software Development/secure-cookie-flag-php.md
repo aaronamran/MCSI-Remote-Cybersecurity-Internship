@@ -23,7 +23,7 @@ To enhance HTTP security, enable the secure cookie flag. This ensures cookies ar
 - Confirm that the session id cookie has the Secure flag turned on, indicating that it is only transmitted over HTTPS connections
 
 
-## Solutions With Scripts
+## Practical Approach
 [Link to the folder of scripts for the web application](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/secure-cookie-flag)
 1. Before starting the PHP Session on localhost in XAMPP, HTTPS needs to be set up by configuring Apache to use SSL with a self-signed certificate
 2. Enable OpenSSL in XAMPP by navigating to XAMPP's configuration directory
