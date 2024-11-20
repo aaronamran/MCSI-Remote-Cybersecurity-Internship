@@ -17,7 +17,7 @@ YARA rules are essential for threat hunting, enabling the identification of spec
 4. Follow along with the 'YARA Rules Testing' guideline and test the rule
 5. Confirm that the rule correctly identifies files containing the specified strings using hexadecimal notation and wild-cards without false positives
 
-## Solutions With Scripts
+## Practical Approach
 [Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/hex_wildcard_strings.yar)
 <br/>
 1. Write the following YARA rule:
