@@ -2,10 +2,14 @@
 Database applications like MySQL, MS SQL, and Oracle can execute system commands with root or admin privileges. A SQL injection vulnerability could allow arbitrary command execution. In MS SQL, the `xp_cmdshell` stored procedure enables OS command execution from within SQL Server, potentially leading to remote system exploitation
 
 ## References
-- [Try SQL Server on-premises or in the cloud](https://www.microsoft.com/en-my/sql-server/sql-server-downloads)
-- [Download SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
-- [Download ODBC Driver for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16)
-- [MSSQL Injection Cheat Sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet)
+- [Try SQL Server on-premises or in the cloud](https://www.microsoft.com/en-my/sql-server/sql-server-downloads) by Microsoft
+- [Download SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) by Microsoft
+- [Download ODBC Driver for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16) by Microsoft
+- [MSSQL Injection Cheat Sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet) by pentestmonkey
+- [MSSQL Practical Injection Cheat Sheet](https://www.advania.co.uk/insights/blog/mssql-practical-injection-cheat-sheet/) by advania
+- [MSSQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md) by swisskyrepo on GitHub
+- [MSSQL Injection](https://book.hacktricks.xyz/pentesting-web/sql-injection/mssql-injection) by HackTricks
+
 
 
 ## Tasks
