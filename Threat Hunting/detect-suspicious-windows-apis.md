@@ -23,7 +23,7 @@ For each rule listed below, compile a list of at least 10 suspicious Windows API
 8. Validate that your YARA rules accurately detect the respective categories of malware based on the specific suspicious Windows APIs used
 
 
-## Solutions With Scripts
+## Practical Approach
 [The YARA rule can be found here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/windows_api.yar)
 
 1. YARA rule that detects malware using anti-debugging techniques
