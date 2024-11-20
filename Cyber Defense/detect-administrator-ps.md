@@ -18,7 +18,7 @@ Best practice is to have only one local administrator per machine. Multiple admi
 - Run the script against the remote machine and validate its ability to detect multiple local administrator accounts and nested group members
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following PowerShell script as `check-admins.ps1` in a Windows 7 VM
    ```
    # Define function to check local administrator accounts on a machine
