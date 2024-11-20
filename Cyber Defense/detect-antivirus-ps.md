@@ -19,7 +19,7 @@ Detecting installed antivirus software on Windows is essential for security prof
 - Run the script against the remote machine and demonstrate that it correctly detects the presence of anti-virus software
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following PowerShell script as `detect-antivirus.ps1` on a local Windows 7 VM
    ```
    # Function to interpret product state and determine if AV is enabled based on SecurityCenter2
