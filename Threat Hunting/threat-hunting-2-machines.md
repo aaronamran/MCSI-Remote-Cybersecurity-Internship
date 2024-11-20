@@ -27,6 +27,6 @@ The following attacks in the dataset can be found:
    - Limitations and Constraints: List any limitations or constraints you faced during your analysis, which may have impacted the scope or accuracy of your findings
    - Assumptions: Clearly state any assumptions you made while conducting your analysis
 
-## Solutions With Scripts
+## Practical Approach
 [Link to comprehensive PDF report]() <br/>
 1. 
