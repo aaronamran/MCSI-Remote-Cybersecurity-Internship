@@ -31,7 +31,7 @@ A website's login form is crucial for account access and must be secure to prote
 - Emphasize the secure deployment over HTTPS for data protection
 
 
-## Solutions With Scripts
+## Practical Approach
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/secure-login-form)
 - If a self-signed SSL certificate is not yet created, follow the steps in [this task](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/secure-cookie-flag-php.md)
 
