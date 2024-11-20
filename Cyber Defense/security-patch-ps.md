@@ -21,7 +21,7 @@ Keeping your software up to date is crucial for security. Security patches fix k
 - Run the script against a remote machine and demonstrate that it correctly identifies installed and\or missing patches
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following PowerShell script as `check-missingpatches.ps1` in a Windows 7 VM
     ```
     # Function to check for missing updates on a local machine
