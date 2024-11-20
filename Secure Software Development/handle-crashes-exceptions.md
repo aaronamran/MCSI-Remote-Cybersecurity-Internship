@@ -25,7 +25,7 @@ Properly handling crashes and exceptions is crucial in software development, as 
 - Use a fuzzer tool to fuzz vulnerable inputs and confirm that the web application's error handling remains robust and secure
 
 
-## Solutions With Scripts
+## Practical Approach
 
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/handle-crashes-exception)
 
