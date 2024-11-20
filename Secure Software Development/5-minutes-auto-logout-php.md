@@ -17,6 +17,6 @@ Securing user sessions is vital in web development. Allowing idle sessions can l
 - Confirm that the web application automatically logs you out after the 5-minute inactivity period
 - Attempt to access protected resources or perform actions that require authentication after being logged out to ensure proper security measures are enforced
 
-## Solutions with Scripts
+## Practical Approach
 - [Link to the folder of scripts for the web application](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/5mins-autologout)
 - 
