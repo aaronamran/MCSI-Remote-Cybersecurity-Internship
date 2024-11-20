@@ -14,7 +14,7 @@ This remote cybersecurity internship focuses on the following domains:
 6. [Secure Software Development](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/CONTENTS-Secure-Software-Development.md)  [`PHP`]
 7. [Red Teaming](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Red%20Teaming/CONTENTS-Red-Teaming.md)  [`Mimikatz`, `C++`]
 
-Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as .md files within their respective folders.
+Each domain has its own individual folder in this GitHub repository, and activities related to each domain are documented and saved as `.md` files within their respective folders.
 
 ## Disclaimer:
 This GitHub repository is intended to document key lessons learned during the remote internship program for personal reference and future use, as well as to serve as part of a portfolio for job applications. It is intentionally incomplete and should not be used for plagiarism or as a walkthrough for completing similar tasks.
