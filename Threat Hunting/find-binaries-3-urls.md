@@ -18,7 +18,7 @@ YARA rules are powerful tools for threat hunting, enabling the detection of malw
 4. Follow along the "YARA Rules Testing" guideline and test your rule
 5. Ensure that the YARA rule accurately identifies files with more than 3 URLs embedded
 
-## Solutions With Scripts
+## Practical Approach
 [Link to YARA rule](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/more_than_3_urls.yar)
 1. Write the YARA rule:
    ```
