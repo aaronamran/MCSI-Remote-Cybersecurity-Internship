@@ -25,7 +25,7 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 - The tool can perform horizontal brute force attacks to guess passwords for a single user account with different password combinations
 
 
-## Solutions With Scripts
+## Practical Approach
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Penetration%20Testing/scripts/brute-auth-pages) <br/>
 
 1. Start XAMPP and ensure that Apache and MySQL services are running. In the XAMPP htdocs directory, create a folder called 'bruteauth' and add the following files: `setup.php`, `login.php`, `authenticate.php`
