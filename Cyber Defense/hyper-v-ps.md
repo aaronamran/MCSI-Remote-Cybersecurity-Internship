@@ -12,7 +12,7 @@ Hyper-V, Microsoft's hypervisor, enables multiple operating systems to run on on
 - Display a success message after enabling Hyper-V
 - Provide an option in the script to force a reboot
 
-## Solutions With Script
+## Practical Approach
 [Link to the complete PowerShell script](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/scripts/controlhyperv.ps1)
 
 ```
