@@ -21,7 +21,7 @@ Automatic Sample Submission is a valuable feature in Windows Defender Antivirus 
 - Run the script and demonstrate that it correctly detects and enables Automatic Sample Submission on the remote machine
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the PowerShell script below as `autosamplesubmission.ps1`
     ```
     # Enable Automatic Sample Submission on Windows Defender
