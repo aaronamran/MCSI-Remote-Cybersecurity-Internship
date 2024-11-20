@@ -8,7 +8,7 @@ Creating a malicious local account is a simple way to install a backdoor, often 
 - Generate a dummy file in a sensitive directory to simulate a security breach, demonstrating how a malicious actor might misuse this access for unauthorized file manipulation
 - Show how the malicious account can be used to cover tracks, such as deleting the dummy file
 
-## Solutions With Scripts
+## Practical Approach
 1. Open PowerShell as Administrator in Windows 10 VM
 2. Add a user with a non-suspicious name such as `svc_network` or `backup_admin`
    ```
