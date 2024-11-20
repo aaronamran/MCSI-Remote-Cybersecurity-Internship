@@ -189,13 +189,17 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 15. To verify `hacker` was added, check in cmd or PowerShell after adding the user
     ![image](https://github.com/user-attachments/assets/6226b921-0ba3-490c-b937-aa8fdd775137)
 16. To test RDP into the server with the new malicious credentials, enable enable PowerShell remoting between a local and target VMs, and get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections. Run each of the commands below
-      ```      
-      winrm quickconfig -Force
-      Enable-PSRemoting -Force
-      Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
-      Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
-      Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
-      Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
-      Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
-      ```
+    ```      
+    winrm quickconfig -Force
+    Enable-PSRemoting -Force
+    Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
+    Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
+    Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
+    Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
+    Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
+    ```
+    To use the RDP capability, use
+    ```
+    Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
+    ```
     ![image](https://github.com/user-attachments/assets/d561c9d5-0463-400f-a8c2-724e2ae3d0c8)
