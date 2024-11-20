@@ -24,7 +24,7 @@ An arbitrary command execution vulnerability occurs when a web application execu
 - Show the results of arbitrary command execution on the vulnerable web application
 - Show that the three commands injected into the application provide information about the hosting server
 
-## Solutions With Scripts
+## Practical Approach
 - PHP script for the vulnerable web application:
     ```
     <!DOCTYPE html>
