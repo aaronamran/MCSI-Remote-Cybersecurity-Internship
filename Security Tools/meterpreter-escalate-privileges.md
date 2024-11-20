@@ -13,7 +13,7 @@ Gaining SYSTEM privileges on a Windows machine is essential for penetration test
 - Within the Meterpreter session, use the `getsystem` command to escalate your privileges to SYSTEM level
 - Execute either the `whoami` or `getuid` command
 
-## Solutions 
+## Practical Approach
 1. Get the IPv4 addresses of both VMs and ping each other to ensure network connectivity
 2. In Kali Linux, create the reverse shell executable for windows using the following sample command
    ```
