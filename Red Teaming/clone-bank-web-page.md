@@ -13,4 +13,4 @@ Fake login pages are a common and effective spear-phishing tactic, tricking user
 - Illustrate the backend .txt file that captures the entered credentials
 - Emphasize the redirection to the actual bank's website, highlighting how the user is unaware of the malicious activity
 
-## Solutions With Scripts
+## Practical Approach
