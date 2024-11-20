@@ -17,7 +17,7 @@ A clickjacking vulnerability occurs when an invisible frame is placed over a web
 - Use your browsers developer tools to verify that the X-Frame-Options HTTP header is correctly set
 - Open your clickjack test HTML file and verify that your web application cannot be loaded within an iframe
 
-## Solutions With Scripts
+## Practical Approach
 1. Create the main application file
    ```
     <?php
