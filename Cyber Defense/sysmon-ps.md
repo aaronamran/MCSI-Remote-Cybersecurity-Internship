@@ -33,7 +33,7 @@ Windows Sysmon logs system activity, including processes, network connections, a
 - Copies Sysmon to remote machines and installs it with the provided configuration file
 - Verifies that the configuration file correctly captures the required events mentioned in the specifications
 
-## Solutions With Scripts
+## Practical Approach
 1. PowerShell script that copies Sysmon to the remote Windows machine, installs Sysmon with a given configuration file and verifies if Sysmon is running and logs the specified events (Delete credentials where necessary)
     ```
     # Parameters
