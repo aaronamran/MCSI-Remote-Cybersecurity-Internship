@@ -18,7 +18,7 @@ Powerup.ps1 is a PowerShell script that escalates privileges by adding users, ch
 - Execute the PowerShell script to enable the AlwaysInstallElevated registry key on the target system
 - Exploit the AlwaysInstallElevated vulnerability using PowerUp.ps1
 
-## Solutions With Scripts
+## Practical Approach
 1. The `AlwaysInstallElevated` registry key exists in two locations: `HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer` and `HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer`
 2. If the registry key does not exist or if the Installer key containing the registry does not exist, head to the closest existing key and manually create a new `Installer` key and the `AlwaysInstallElevated` registry key
 3. We can query for the value of the AlwaysInstallElevated subkey for each of these registry keys with the following commands
