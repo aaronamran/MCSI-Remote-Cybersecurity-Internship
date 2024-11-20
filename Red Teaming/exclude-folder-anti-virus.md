@@ -11,7 +11,7 @@ Malware evades detection by running from excluded folders, helping it avoid anti
 - Download mimikatz and store it in the folder excluded from antivirus scanning
 - Execute mimikatz from within the excluded location
 
-## Solutions With Scripts
+## Practical Approach
 1. In Windows 10 VM, create a folder named 'Excluded Folder'
 2. Search and open Windows Security. Disable 'Virus & threat protection' and 'Firewall & network protection' temporarily
 3. Download Mimikatz and move it into the excluded folder
