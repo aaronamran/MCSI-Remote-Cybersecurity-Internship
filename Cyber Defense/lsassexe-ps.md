@@ -24,7 +24,7 @@ In Windows Vista and later, processes running in Protected Mode are isolated fro
 - Run the script and demonstrate that it correctly detects and enables LSA protection on the remote machine
 
 
-## Solutions With Scripts
+## Practical Approach
 1. The registry key to mark LSASS is `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa`. The value that needs to be added is `RunAsPPL` (DWORD) set to `1` to enable the protection, and set to `0` to disable it
    ![image](https://github.com/user-attachments/assets/9f4a548f-a9ed-4a15-969b-454c373d9da5)
 2. Save the PowerShell script below as `Enable-LsaProtection.ps1` in Windows 7
