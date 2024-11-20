@@ -1,6 +1,7 @@
 <?php
 // Custom error handler
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    // need to create log directory to prevent logging errora
     $logFile = __DIR__ . '/logs/errors.log';
 
     // Log error details securely
