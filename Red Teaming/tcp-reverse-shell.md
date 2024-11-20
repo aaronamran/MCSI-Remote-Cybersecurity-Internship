@@ -39,8 +39,7 @@ Reverse shells are a common malware tool used by cyber adversaries. In this exer
 - Validate that you can download files from the target to the server
 
 
-## Solutions With Scripts
-
+## Practical Approach
 #### What is a Reverse Shell?
 A reverse shell is a remote access tool where the target machine (client) initiates a connection back to the attacker's machine (server). This bypasses firewalls that block incoming connections
 
