@@ -22,7 +22,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 - Demonstrate that a valid output is received when executing "whoami" on the server using the xp_cmdshell stored procedure
 - RDP into the machine using the newly created local administrator account to prove successful exploitation
 
-## Solutions With Scripts
+## Practical Approach
 1. Download and install XAMPP, Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
 2. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
 3. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
