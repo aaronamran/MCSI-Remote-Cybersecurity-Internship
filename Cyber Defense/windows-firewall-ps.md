@@ -32,7 +32,7 @@ The Windows firewall is software that protects a network by blocking ports and p
 - The remote hosts list scan enables the Windows firewall on the vulnerable machine
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following PowerShell script as `check-firewall.ps1`
    ```
    # Define a function to check and enable Windows Firewall
