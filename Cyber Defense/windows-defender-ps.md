@@ -42,7 +42,7 @@ Windows Defender, pre-installed on Windows 10, protects against malware and onli
 - The remote hosts list scan enables Windows Defender on the vulnerable machine and updates itself
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save and run the following PowerShell script as `enable-defender.ps1` on Windows 11 machine. Note that this task can only be completed among Windows 10 and 11 machines
     ```
     # Ensure the script is running as administrator
