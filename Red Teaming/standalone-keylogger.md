@@ -30,7 +30,7 @@ A keylogger is a type of malware used in cyberattacks to steal sensitive informa
 - Validate that your keylogger runs as a background process (you can view the active process listing in 'Task Manager')
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following C++ program and compile it into a binary file called `keylogger.exe` to be used in a Windows 10 VM
    ```
     #include <iostream>
