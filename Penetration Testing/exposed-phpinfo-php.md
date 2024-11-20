@@ -20,7 +20,7 @@ An exposed `phpinfo.php` page poses a security risk by revealing sensitive serve
 - Show detailed information about the PHP installation and server configuration
 
 
-## Steps with Solutions
+## Practical Approach
 1. Navigate to the web application directory <br/>
    If using XAMPP, the files are placed in the `htdocs` folder. The default location for this folder is:
       - Windows: `C:\xampp\htdocs\`
