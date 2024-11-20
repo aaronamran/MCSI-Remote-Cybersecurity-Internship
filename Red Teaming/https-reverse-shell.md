@@ -24,7 +24,7 @@ An HTTPS reverse shell is a tool hackers use to remotely control a target comput
 
 
 
-## Solutions With Scripts
+## Practical Approach
 1. Save the following C++ file and compile it as `httpsreverseshell.exe`
    ```
     #include <iostream>
