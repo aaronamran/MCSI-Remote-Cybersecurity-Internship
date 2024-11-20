@@ -32,7 +32,7 @@ Pass-the-Hash is a potent technique attackers use to access remote servers or se
 
 
 
-## Solutions
+## Practical Approach
 1. In both Target 1 and 2, open a Command Prompt with administrator privileges, and create a new local user with the same username and password on each machine. To create a new local user with password, use `net user adminuser adminpassword /add`. To add the user to the administrator group, use `net localgroup administrators adminuser /add`. To verify the user was created, use `net localgroup administrators`.
 2. Download Mimikatz on Target 1 from [this link](https://github.com/gentilkiwi/mimikatz/archive/master.zip) and download PsExec from [this link](https://learn.microsoft.com/en-us/sysinternals/downloads/psexec)
 3. If PsExec cannot be launched and used between different version of Windows, just clone the Windows 7 VM used to standardise all the settings
