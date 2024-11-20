@@ -21,7 +21,7 @@ HttpOnly is a flag in the Set-Cookie HTTP response header that helps protect ses
 - Interact with the web application's authentication page and showcase the login process
 - Use the browser's web developer tools to view the cookies associated with the web application
 
-## Solutions With Scripts
+## Practical Approach
 [Link to the folder of scripts for the web application](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/httponly-cookie)
 
 1. Open the web application in a web browser. Open the Developer Tools and navigate to Cookies. Before logging in to the web application, the HTTP Only cookie flag's value should be "false"
