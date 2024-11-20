@@ -21,7 +21,7 @@ A cross-site request forgery (CSRF) vulnerability allows attackers to perform un
 - The CSRF protection mechanism successfully blocks the unauthorized request
 
 
-## Solutions With Scripts
+## Practical Approach
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/block-csrf)
 
 1. Start XAMPP and navigate to the XAMPP folder
