@@ -13,7 +13,7 @@ In cybersecurity, understanding how attackers extract credentials is key to effe
 - Use the "hashdump" command in Meterpreter to dump password hashes from the SAM database
 
 
-## Solutions
+## Practical Approach
 1. Since Kiwi is an integration of Mimikatz into Metasploit by providing functionality directly in a Meterpreter session, it requires a 64-bit Meterpreter session to avoid errors such as `ERROR kuhl_m_sekurlsa_acquireLSA ; mimikatz x86 cannot access x64 process`
 2. If the reverse shell in the previous Meterpreter task is 32-bit, recreate a new 64-bit reverse shell using the command:
    ```
