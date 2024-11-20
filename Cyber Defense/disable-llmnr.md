@@ -24,7 +24,7 @@ For a service like SMB, if a host is configured to automatically authenticate ov
 - Run the script and demonstrate that it correctly detects and disables LLMNR on the remote machine
 
 
-## Solutions With Scripts
+## Practical Approach
 - Save the following PowerShell script as `disableLLMNR.ps1` in a Windows 7 VM
   ```
   # PowerShell script to detect and disable LLMNR on local or remote machines
