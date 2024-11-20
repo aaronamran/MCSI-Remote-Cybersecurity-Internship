@@ -3,6 +3,7 @@ Properly handling crashes and exceptions is crucial in software development, as 
 
 ## References
 - [Testing for Stack Traces](https://www.owasp.org/index.php/Testing_for_Stack_Traces_(OTG-ERR-002)) by OWASP
+- [Fuzzing for vulnerabilities](https://portswigger.net/burp/documentation/desktop/tools/intruder/uses/fuzzing) by PortSwigger
 
 
 ## Tasks
