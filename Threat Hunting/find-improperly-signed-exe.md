@@ -20,7 +20,7 @@ YARA rules help detect malware by defining specific patterns, widely used by ant
 5. Ensure the YARA rule accurately identifies improperly signed executables
 6. Open one of the samples detected by the YARA rule in [PE Studio](https://www.winitor.com/download) and verify that the signature is indeed invalid
 
-## Solutions With Scripts
+## Practical Approach
 [The YARA rule can be found here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/YARA%20rules/improperly_signed_executables.yar)
 
 1. An executable could be improperly signed based on the following conditions:
