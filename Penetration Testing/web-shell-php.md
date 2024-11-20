@@ -24,7 +24,7 @@ A PHP web shell is a script that lets a hacker remotely control a web server. On
 - Simulate an attacker downloading a confidential file from a directory other than where the web server is stored (eg. C:\ or /etc/)
 - Confirm that the downloaded file is received intact and matches the original file on the target web server
 
-## Solutions With Scripts
+## Practical Approach
 [Link to web-shell.php](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/scripts/web-shell.php)
 - Sample of malicious executables:
   - Batch script for Windows:
