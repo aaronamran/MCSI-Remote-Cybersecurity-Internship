@@ -23,7 +23,7 @@ An insecure Windows service is one that can be easily exploited by a Penetration
 - Create a vulnerable Windows Service that any user, regardless of their permission levels, can modify
 - Use PowerUp.ps1 to exploit the vulnerable Windows Service and obtain unauthorised SYSTEM privileges on the machine
 
-## Solutions With Scripts
+## Practical Approach
 1. Create a dummy malware executable, save the following C++ code as `dummymalware.cpp` and compile it into an executable using compilers like Dev-C++
    ```
    #include <windows.h>
