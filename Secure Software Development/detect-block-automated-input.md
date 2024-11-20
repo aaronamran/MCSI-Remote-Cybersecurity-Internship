@@ -25,7 +25,7 @@ Web applications often face attacks from automated web crawlers and bots, which 
 
 
 
-## Solutions With Scripts
+## Practical Approach
 - [Link to the folder of scripts](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/tree/main/Secure%20Software%20Development/scripts/detect-block-automated-input)
 <br/>
 1. 
