@@ -28,7 +28,11 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 
 ## Practical Approach
 1. Download and install XAMPP, Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
-2. The vulnerable PHP web app is called `vuln.php` and is saved in vulnsql folder in htdocs. Note that in MSSQL, SQL or cmd injections are parsed sequentially, meaning that a full SQL with command injection will return only the corresponding SQL output. Hence for the vulnerable web app to be able to perform SQL with command injection, it needs to be tailored specifically to ensure command injections are successful
+2. The vulnerable PHP web app is called `vuln.php` and is saved in vulnsql folder in htdocs. Note that in MSSQL, SQL or cmd injections are parsed sequentially, meaning that a full SQL with command injection will return only the corresponding SQL output. Therefore it needs to:
+   - Process all result sets returned by SQL Server (as implemented in the `sqlsrv_next_result($stmt)` function). The first result set comes from the `SELECT * FROM users WHERE id = '1';` query. The second result set comes from the execution of `EXEC xp_cmdshell 'net user';`
+   - Combine queries into one statement. The code sends both queries in one `sqlsrv_query` call and ensures SQL Server processes both queries as a single batch
+   - Handle inputs dynamically. The input `1'; EXEC xp_cmdshell 'net user';--` successfully works because the entire string is dynamically inserted into the `$sql` query. SQL Server treats the string after the semicolon (`;`) as a separate command due to its batch execution capability. The code doesn't sanitize the input or validate it, so it executes as-is, which is intentional for a vulnerable application
+   - Process query results in loops to process first result set (from `SELECT`) and next result set (from `EXEC xp_cmdshell`)
    ```
    <?php
    error_reporting(E_ALL);
