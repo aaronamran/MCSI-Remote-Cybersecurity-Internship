@@ -9,6 +9,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 - [MSSQL Practical Injection Cheat Sheet](https://www.advania.co.uk/insights/blog/mssql-practical-injection-cheat-sheet/) by advania
 - [MSSQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md) by swisskyrepo on GitHub
 - [MSSQL Injection](https://book.hacktricks.xyz/pentesting-web/sql-injection/mssql-injection) by HackTricks
+- [SQL Injection Cheat Sheet](https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/#SQLServerStoredProcedures) by invicti
 
 
 
