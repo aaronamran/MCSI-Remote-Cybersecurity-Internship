@@ -28,7 +28,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 
 ## Practical Approach
 1. Download and install XAMPP, Microsoft SQL Server and also SQL Server Management Studio (SSMS) in Windows 10 VM
-2. The vulnerable PHP web app is called `vuln.php` and is saved in vulnsql folder in htdocs
+2. The vulnerable PHP web app is called `vuln.php` and is saved in vulnsql folder in htdocs. Note that in MSSQL, SQL or cmd injections are parsed sequentially, meaning that a full SQL with command injection will return only the corresponding SQL output. Hence for the vulnerable web app to be able to perform SQL with command injection, it needs to be tailored specifically to ensure command injections are successful
    ```
    <?php
    error_reporting(E_ALL);
