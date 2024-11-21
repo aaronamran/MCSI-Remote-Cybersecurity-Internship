@@ -35,58 +35,50 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ini_set('display_errors', 1);
    
    // Database connection details
-   $serverName = "localhost"; // Replace with your server name
+   $serverName = "localhost";
    $connectionOptions = array(
-       "Database" => "master", // Replace with your database name
-       "UID" => "sa",          // SQL Server username (sysadmin)
-       "PWD" => "sa"           // SQL Server password
+       "Database" => "master",
+       "UID" => "sa",
+       "PWD" => "sa"
    );
    
-   // Establish the connection to MSSQL Server
    $conn = sqlsrv_connect($serverName, $connectionOptions);
    
-   // Check connection
    if (!$conn) {
        die("Connection failed: " . print_r(sqlsrv_errors(), true));
    }
    
    ?>
    
-   <!-- HTML Form for User Input (only showing 'ID' in the UI) -->
    <h2>SQL Injection Vulnerable Web Application</h2>
    <p>Enter a user ID to view details:</p>
    
    <form action="vuln.php" method="GET">
-       <label for="input">User ID:</label>
-       <input type="text" id="input" name="input" placeholder="Enter User ID" />
+       <label for="id">User ID:</label>
+       <input type="text" id="id" name="id" placeholder="Enter User ID" />
        <input type="submit" value="Submit" />
    </form>
    
    <?php
+   if (isset($_GET['id'])) {
+       $id = $_GET['id'];
    
-   // Check if the 'input' field has been set (this could be either an ID or command)
-   if (isset($_GET['input'])) {
-       $input = $_GET['input']; // This is the user input that could be used for SQL injection or command injection
-   
-       // First, try to execute as a SQL query (vulnerable to SQL injection)
-       $sql = "SELECT * FROM users WHERE id = '$input';"; // SQL injection vulnerability here
+       $sql = "SELECT * FROM users WHERE id = '$id';";
        $result = sqlsrv_query($conn, $sql);
    
        if ($result !== false) {
-           // If SQL query succeeds, show the result
            echo "<h3>Results:</h3>";
            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                foreach ($row as $column => $value) {
                    echo "$column: $value<br />";
                }
-               echo "<br />"; // Line break between rows
+               echo "<br />";
            }
    
            sqlsrv_free_stmt($result);
        } else {
-           // If SQL query fails, attempt to treat the input as a command for xp_cmdshell (vulnerable to command injection)
            echo "<h3>Results:</h3>";
-           $sql = "EXEC xp_cmdshell '$input';"; // Command injection vulnerability here
+           $sql = "EXEC xp_cmdshell '$id';";
            $result = sqlsrv_query($conn, $sql);
    
            if ($result === false) {
@@ -94,10 +86,9 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
                die(print_r(sqlsrv_errors(), true));
            }
    
-           // Display the output of the executed command
            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                foreach ($row as $value) {
-                   echo "$value<br />"; // Display the output of the executed command
+                   echo "$value<br />";
                }
            }
    
@@ -107,7 +98,6 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
        echo "Please provide an ID in the field above.<br />";
    }
    
-   // Close connection to the database
    sqlsrv_close($conn);
    ?>
    ```
