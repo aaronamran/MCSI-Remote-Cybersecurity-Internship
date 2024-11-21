@@ -4,6 +4,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
 ## References
 - [OWASP - XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) by OWASP
 - [How-To - Disable Browser Security Features](https://www.postexplo.com/forum/security-in-general/terms/610-how-to-disable-browser-security-features) by Resheph on PosteXplo
+- [XSS Filter Evasion and WAF Bypassing Tactics](https://n3t-hunt3r.gitbook.io/pentest-book) by n3t_hunt3r
 
 ## Tasks
 - Write a simple web application containing multiple input fields that are vulnerable to cross-site scripting
