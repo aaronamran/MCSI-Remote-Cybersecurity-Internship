@@ -190,4 +190,5 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
     ```
     Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
     ```
-    ![image](https://github.com/user-attachments/assets/d561c9d5-0463-400f-a8c2-724e2ae3d0c8)
+    ![image](https://github.com/user-attachments/assets/3ca1f203-07f5-487a-be3a-fc021aaf456f)
+
