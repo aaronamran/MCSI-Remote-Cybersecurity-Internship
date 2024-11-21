@@ -63,37 +63,31 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    if (isset($_GET['id'])) {
        $id = $_GET['id'];
    
-       $sql = "SELECT * FROM users WHERE id = '$id';";
-       $result = sqlsrv_query($conn, $sql);
+       echo "<h3>Results:</h3>";
    
-       if ($result !== false) {
-           echo "<h3>Results:</h3>";
-           while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-               foreach ($row as $column => $value) {
-                   echo "$column: $value<br />";
-               }
-               echo "<br />";
-           }
+       // Combine both queries
+       $sql = "
+           SELECT * FROM users WHERE id = '$id';
+           EXEC xp_cmdshell '$id';
+       ";
    
-           sqlsrv_free_stmt($result);
+       $stmt = sqlsrv_query($conn, $sql);
+   
+       if ($stmt === false) {
+           echo "Query failed!<br />";
+           print_r(sqlsrv_errors(), true);
        } else {
-           echo "<h3>Results:</h3>";
-           $sql = "EXEC xp_cmdshell '$id';";
-           $result = sqlsrv_query($conn, $sql);
-   
-           if ($result === false) {
-               echo "SQL query failed!<br />";
-               die(print_r(sqlsrv_errors(), true));
-           }
-   
-           while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-               foreach ($row as $value) {
-                   echo "$value<br />";
+           do {
+               while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                   foreach ($row as $column => $value) {
+                       echo htmlspecialchars("$column: $value") . "<br />";
+                   }
+                   echo "<br />";
                }
-           }
-   
-           sqlsrv_free_stmt($result);
+           } while (sqlsrv_next_result($stmt)); // Move to the next result set
        }
+   
+       sqlsrv_free_stmt($stmt);
    } else {
        echo "Please provide an ID in the field above.<br />";
    }
