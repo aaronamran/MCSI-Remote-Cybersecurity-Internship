@@ -85,6 +85,8 @@ An insecure XSS filter occurs when an application fails to properly validate use
    <img src="nonexistent.jpg" onerror="alert('XSS')">
    <a href="javascript:alert('XSS')">Click Me</a>
    ```
+   ![image](https://github.com/user-attachments/assets/6e2116ed-e305-49ac-9557-4597a0eee77d)
+
 4. To test the vulnerability, use the following payloads and ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS
    - SVG element with onload event handler
      ```
