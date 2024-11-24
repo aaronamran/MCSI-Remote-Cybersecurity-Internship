@@ -34,9 +34,9 @@ Properly handling crashes and exceptions is crucial in software development, as 
 2. In the XAMPPP htdocs directory, create a folder called 'handleerrors' and add the following files: `index.php` and `error_handler.php`
 3. Access phpMyAdmin at `http://localhost/phpmyadmin`. To create a new database and populate it, run the following SQL queries
    ```
-    CREATE DATABASE vulnerable_app;
+    CREATE DATABASE handleerrorapp;
 
-    USE vulnerable_app;
+    USE handleerrorapp;
     
     CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
