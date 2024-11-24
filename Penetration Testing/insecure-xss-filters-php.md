@@ -79,6 +79,12 @@ An insecure XSS filter occurs when an application fails to properly validate use
      Example: `<img src="x" onerror="alert('XSS')">` might bypass filters if `onerror=` is not blacklisted correctly
    - Obfuscation Techniques:
      Using techniques such as breaking keywords (e.g., `java + script:`) to bypass string-based filters
+   To test that the blacklist rejects XSS attempts, try the following payloads
+   ```
+   <script>alert('XSS')</script>
+   <img src="nonexistent.jpg" onerror="alert('XSS')">
+   <a href="javascript:alert('XSS')">Click Me</a>
+   ```
 4. To test the vulnerability, use the following payloads and ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS
    - SVG element with onload event handler
      ```
