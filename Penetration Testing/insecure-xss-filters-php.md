@@ -19,7 +19,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
 2. PHP for vulnerable web application:
    ```
    <?php
-   // XSS Blacklist - intentionally weakened to make it easier to bypass
+   // XSS Blacklist filters
    $blacklist = [
        "<script>", "</script>", "<img>", "<svg>", "onload=", "onerror=",
        "alert(", "prompt(", "confirm(", "javascript:", "document.cookie",
@@ -50,8 +50,7 @@ An insecure XSS filter occurs when an application fails to properly validate use
            echo "Input rejected: contains blacklisted content.";
        } else {
            // Directly echo input into the page (vulnerable to XSS)
-           echo "User Input: " . $user_input;
-           // echo "<div>User Input: $user_input</div>";
+           echo $user_input;
        }
    }
    ?>
