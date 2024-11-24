@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "vulnerable_app";
+$dbname = "handleerrorapp";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
