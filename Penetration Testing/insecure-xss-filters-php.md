@@ -19,22 +19,22 @@ An insecure XSS filter occurs when an application fails to properly validate use
 2. PHP for vulnerable web application:
    ```
    <?php
-   // XSS Blacklist - 30 dangerous XSS keywords (with some intentionally weakened or ineffective)
+   // XSS Blacklist - intentionally weakened to make it easier to bypass
    $blacklist = [
-        "<script>", "</script>", "<img>", "<svg>", "onload=", "onerror=",
-        "alert(", "prompt(", "confirm(", "javascript:", "document.cookie",
-        "window.location", "eval(", "setTimeout(", "setInterval(",
-        "innerHTML", "outerHTML", "src=", "href=", "<iframe>", "</iframe>",
-        "expression(", "vbscript:", "style=", "onmouseover=", "onfocus=",
-        "onblur=", "onclick=", "onkeypress=", "onkeyup=", "onkeydown="
+       "<script>", "</script>", "<img>", "<svg>", "onload=", "onerror=",
+       "alert(", "prompt(", "confirm(", "javascript:", "document.cookie",
+       "window.location", "eval(", "setTimeout(", "setInterval(",
+       "innerHTML", "outerHTML", "src=", "href=", "<iframe>", "</iframe>",
+       "expression(", "vbscript:", "style=", "onmouseover=", "onfocus=",
+       "onblur=", "onclick=", "onkeypress=", "onkeyup=", "onkeydown="
    ];
    
    // Function to check for blacklisted words
    function is_blacklisted($input, $blacklist) {
-       // Weak blacklisting mechanism (case insensitive, doesn't account for encoded strings or obfuscation)
+       // Weak blacklisting: no decoding, no normalization
        foreach ($blacklist as $word) {
-           // Intentionally use stripos (partial match, ignoring encoding techniques)
-           if (stripos($input, $word) !== false) {
+           // Case-insensitive match for raw strings
+           if (strpos($input, $word) !== false) {
                return true;
            }
        }
@@ -49,9 +49,9 @@ An insecure XSS filter occurs when an application fails to properly validate use
        if (is_blacklisted($user_input, $blacklist)) {
            echo "Input rejected: contains blacklisted content.";
        } else {
-           // Display the user's input directly (vulnerable to XSS due to ineffective blacklist)
-           // htmlspecialchars function can still be bypassed using encoding techniques
-           echo "User Input: " . htmlspecialchars($user_input);
+           // Directly echo input into the page (vulnerable to XSS)
+           echo "User Input: " . $user_input;
+           // echo "<div>User Input: $user_input</div>";
        }
    }
    ?>
@@ -65,9 +65,9 @@ An insecure XSS filter occurs when an application fails to properly validate use
    </head>
    <body>
        <h1>Vulnerable XSS Web App</h1>
-       <form action="vulnerable_xss.php" method="POST">
+       <form action="" method="POST">
            <label for="user_input">Enter some text:</label><br>
-           <input type="text" id="user_input" name="user_input"><br><br>
+           <input type="text" id="user_input" name="user_input" size="100"><br><br>
            <input type="submit" value="Submit">
        </form>
    </body>
@@ -80,17 +80,8 @@ An insecure XSS filter occurs when an application fails to properly validate use
      Example: `<img src="x" onerror="alert('XSS')">` might bypass filters if `onerror=` is not blacklisted correctly
    - Obfuscation Techniques:
      Using techniques such as breaking keywords (e.g., `java + script:`) to bypass string-based filters
-4. To test the vulnerability, perform the following
-   - Inject JavaScript into the form input, such as the line of code below. It will trigger an alert if the blacklist is bypassed
-     ```
-     <img src="x" onerror="alert('XSS')">
-     ```
-   - Test different bypass techniques like encoding, whitespace, or breaking keywords
-     ```
-     <scr<script>ipt>alert('XSS')</script>
-     ```
-   - Try using encoded input like
-     ```
-     &#x3C;script&#x3E;alert('XSS')&#x3C;/script&#x3E;
-     ```
+4. To test the vulnerability, use the following payloads
+   ```
+   <svg ONLOAD="&#x61;&#x6c;&#x65;&#x72;&#x74;(1)">
+   ```
 5. For validation purposes, ensure that the injected JavaScript successfully executes on the frontend (e.g., showing an alert box) and different bypass techniques successfully trigger the XSS, demonstrating the insecure filter
