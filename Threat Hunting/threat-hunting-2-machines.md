@@ -3,7 +3,8 @@ A threat hunter can use Python's pandas to find indicators of compromise by merg
 
 ## References
 - [Reading and Writing the Apache Parquet Format](https://arrow.apache.org/docs/python/parquet.html#reading-and-writing-the-apache-parquet-format) by Apache
-- [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+- [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf) by pandas
+- [What are indicators of compromise (IOCs)?](https://www.microsoft.com/en-my/security/business/security-101/what-are-indicators-of-compromise-ioc#:~:text=An%20indicator%20of%20compromise%20(IOC,data%20exfiltration%2C%20has%20already%20occurred.) by Microsoft
 
 ## Hints
 The following attacks in the dataset can be found:
