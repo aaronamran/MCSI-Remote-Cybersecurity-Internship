@@ -30,4 +30,80 @@ The following attacks in the dataset can be found:
 
 ## Practical Approach
 [Link to comprehensive PDF report]() <br/>
-1. 
+1. To investigate the given attacks in the dataset, it is essential to know the specific indicators of compromise (IoCs) or behaviors associated with each attack
+2. Prepare the Jupyter Notebook and in the first cell, use the following code to import libraries and declare variables
+   ```
+   # MRCI Threat Hunting - Perform Threat Hunting On 2 Machines
+
+   # import dependencies
+   import pandas as pd
+   import pyarrow as pa
+   import pyarrow.parquet as pq
+   
+   # convert Parquet file into a dataset
+   # change backslashes in copied file path to forward slashes to prevent Unicode escape sequence errors 
+   # cannot use hyphens '-' in variable names
+   domainusers_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/domain_users.parquet')
+   loggedonusers_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/loggedonusers/0000DQQEE.parquet')
+   useraccounts_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/useraccounts/0000DQQEE.parquet')
+   w32drivers_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32drivers/0000DQQEE.parquet')
+   w32persistence_fileitems_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32persistencefileitems/0000DQQEE.parquet')
+   w32persistence_registryitems_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32persistenceregistryitems/0000DQQEE.parquet')
+   w32persistence_servicesitems_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32persistenceservicesitems/0000DQQEE.parquet')
+   w32processes_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32processes/0000DQQEE.parquet')
+   w32processes_memorysections_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32processesmemorysections/0000DQQEE.parquet')
+   w32services_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32services/0000DQQEE.parquet')
+   w32tasks_dataset = pq.ParquetDataset('C:/Users/bboyz/OneDrive/Desktop/MCSI Remote Cybersecurity Internship/Threat Hunting/mcsithreathunting2machines/w32tasks/0000DQQEE.parquet')
+   
+   # convert dataset into pandas
+   domainusers = domainusers_dataset.read().to_pandas()
+   loggedonusers = loggedonusers_dataset.read().to_pandas()
+   useraccounts = useraccounts_dataset.read().to_pandas()
+   w32drivers = w32drivers_dataset.read().to_pandas()
+   w32persistence_fileitems = w32persistence_fileitems_dataset.read().to_pandas()
+   w32persistence_registryitems = w32persistence_registryitems_dataset.read().to_pandas()
+   w32persistence_servicesitems = w32persistence_servicesitems_dataset.read().to_pandas()
+   w32processes = w32processes_dataset.read().to_pandas()
+   w32processes_memorysections = w32processes_memorysections_dataset.read().to_pandas()
+   w32services = w32services_dataset.read().to_pandas()
+   w32tasks = w32tasks_dataset.read().to_pandas()
+   ```
+
+3. Regarding Malicious Windows Commands, look for suspicious commands executed by users or processes, often seen in:
+   - Task Scheduler commands (`schtasks.exe`)
+   - Command Prompt commands (`cmd.exe`)
+   - PowerShell commands (`powershell.exe`)
+   - Tools like `net.exe`, `net1.exe`, `wmic.exe`, `reg.exe`, etc
+   Focus on datasets like `w32processes` and `w32tasks`. Review command lines for keywords like `add`, `delete`, or execution of `.bat` or `.ps1` files from non-standard directories like `%Temp%` or `%AppData%`. To filter out suspicious activities in `w32processes`, use
+   ```
+   malicious_commands = w32processes[w32processes['arguments'].str.contains(
+      r'(?:cmd\.exe|powershell\.exe|schtasks\.exe|wmic\.exe|net\.exe|reg\.exe)', na=False, case=False
+   )]
+   print(malicious_commands)
+   ```
+   ![image](https://github.com/user-attachments/assets/61a7627a-cbfe-4511-b74a-268d6f20ad92)
+
+   To filter out suspicious activities in `w32tasks`, the criteria for filtering suspicious activities are as the following:
+   - Unverified Signatures: `signatureverified == False` or `signatureexists == False`. Tasks with unsigned or unverified executables are suspicious
+   - Executable Paths: Check `execprogrampath` for unusual locations (e.g., `C:\Windows\Temp`, `AppData`, etc.). Suspicious tasks often run executables outside of trusted directories
+   - Execution Arguments: Use similar patterns as you did for `arguments` in `w32processes`. Look for commands like `cmd.exe`, `powershell.exe`, `reg.exe`, etc., in the `execarguments` field
+   - Account Types: `accountrunlevel == SYSTEM` or privileged accounts running tasks that seem out of the ordinary.
+   - Task Creators: Check the `creator` column for unknown or non-standard creators.
+   ```
+   # Ensure boolean columns for signatureverified and signatureexists
+   w32tasks['signatureverified'] = w32tasks['signatureverified'].str.lower() == "true"
+   w32tasks['signatureexists'] = w32tasks['signatureexists'].str.lower() == "true"
+   
+   # Filter for suspicious tasks
+   suspicious_tasks = w32tasks[
+       (~w32tasks['signatureverified']) |  # Unverified signatures
+       (~w32tasks['signatureexists']) |    # Missing signatures
+       (w32tasks['execprogrampath'].str.contains(r'(?:temp|AppData|ProgramData)', na=False, case=False)) |  # Unusual paths
+       (w32tasks['execarguments'].str.contains(r'(?:cmd\.exe|powershell\.exe|schtasks\.exe|wmic\.exe|reg\.exe)', na=False, case=False)) |  # Suspicious commands
+       (w32tasks['accountrunlevel'].str.contains(r'(?:SYSTEM|Administrator)', na=False, case=False))  # Privileged accounts
+   ]
+   
+   print(suspicious_tasks)
+   ```
+
+
