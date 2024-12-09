@@ -105,5 +105,9 @@ The following attacks in the dataset can be found:
    
    print(suspicious_tasks)
    ```
+   ![image](https://github.com/user-attachments/assets/42ae00b7-3209-46d8-bba5-987362f43c5a) <br/>
+   ![image](https://github.com/user-attachments/assets/592f6abc-9f08-4e81-a5c9-147b97e6ee84)
+
+
 
 
