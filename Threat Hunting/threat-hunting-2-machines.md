@@ -107,7 +107,8 @@ The following attacks in the dataset can be found:
    ```
    ![image](https://github.com/user-attachments/assets/42ae00b7-3209-46d8-bba5-987362f43c5a) <br/>
    ![image](https://github.com/user-attachments/assets/133cb4fb-1a9b-41bc-a486-a49ceb1bda8f)
-4. 
+4. For the attack Using Accessibility Features for Persistence, attackers often replace accessibility tools like `sethc.ex` (Sticky Keys) to gain persistence. Focus on datasets like `w32persistence_fileitems` or `w32drivers`. Search for renamed or modified accessibility tools (`sethc.exe`, `utilman.exe`) and look for new file paths or unexpected replacements
+5. 
 
 
 
