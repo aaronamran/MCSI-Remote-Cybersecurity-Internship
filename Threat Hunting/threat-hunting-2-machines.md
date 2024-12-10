@@ -108,8 +108,10 @@ The following attacks in the dataset can be found:
    ![image](https://github.com/user-attachments/assets/42ae00b7-3209-46d8-bba5-987362f43c5a) <br/>
    ![image](https://github.com/user-attachments/assets/133cb4fb-1a9b-41bc-a486-a49ceb1bda8f)
 4. For the attack Using Accessibility Features for Persistence, attackers often replace accessibility tools like `sethc.ex` (Sticky Keys) to gain persistence. Focus on datasets like `w32persistence_fileitems` or `w32drivers`. Search for renamed or modified accessibility tools (`sethc.exe`, `utilman.exe`) and look for new file paths or unexpected replacements
-5. 
-
+5. In terms of Modifying a Windows Service, attackers can modify existing services to gain persistence by changing configurations or binary paths. Focus on datasets like `w32persistence_servicesitems` and `w32services`. Search for suspicious `service_name` or modified `image_path`. Investigate services with unexpected binary paths or descriptions
+6. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
+7. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for: Memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
+8. 
 
 
 
