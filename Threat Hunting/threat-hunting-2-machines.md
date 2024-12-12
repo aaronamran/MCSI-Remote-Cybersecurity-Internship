@@ -179,6 +179,28 @@ The following attacks in the dataset can be found:
    print(suspicious_registry_items)
    ```
 7. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
+   ```
+   # Filter for suspicious files in w32persistence_fileitems
+   suspicious_fileitems = w32persistence_fileitems[
+       (w32persistence_fileitems['filepath'].str.contains(r'(?:temp|program files|users\\public|AppData)', na=False, case=False)) |  # Unusual directories
+       (w32persistence_fileitems['fileextension'].str.contains(r'(?:exe|dll|bat|vbs|ps1)', na=False, case=False)) |  # Suspicious file extensions
+       (w32persistence_fileitems['filename'].str.contains(r'(?:cmd|powershell|wmic|schtasks|net|mimikatz)', na=False, case=False))  # Potentially malicious filenames
+   ]
+   
+   print("Suspicious File Items:")
+   print(suspicious_fileitems)
+   ```
+   ```
+   # Filter for suspicious drivers in w32drivers
+   suspicious_drivers = w32drivers[
+       (w32drivers['modulepath'].str.contains(r'(?:temp|AppData|users\\public|program files)', na=False, case=False)) |  # Unusual driver locations
+       (w32drivers['modulename'].str.contains(r'(?:driver|filter|hook|monitor|sys)', na=False, case=False)) |  # Generic malicious driver names
+       (w32drivers['extracted'].str.contains(r'false', na=False, case=False))  # Drivers not successfully extracted
+   ]
+   
+   print("Suspicious Drivers:")
+   print(suspicious_drivers)
+   ```
 8. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
 9. 
 
