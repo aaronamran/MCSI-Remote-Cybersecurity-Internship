@@ -166,6 +166,18 @@ The following attacks in the dataset can be found:
    print(suspicious_services)
    ```
 6. Regarding Searching for Credentials in the Registry, attackers often look for stored credentials in registry keys, such as `HKLM` or `HKCU` hives. Focus on datasets like `w32persistence_registryitems` and search for keywords such as `password`, `credentials`, `admin`
+   ```
+   # Filter for suspicious registry items
+   suspicious_registry_items = w32persistence_registryitems[
+       (w32persistence_registryitems['keypath'].str.contains(r'(?:run|runonce|startup|services|shell|powershell)', na=False, case=False)) |  # Auto-run keys
+       (w32persistence_registryitems['valuename'].str.contains(r'(?:password|cred|admin|key)', na=False, case=False)) |  # Sensitive keywords
+       (w32persistence_registryitems['text'].str.contains(r'(?:password|credentials|token|auth|key)', na=False, case=False)) |  # Suspicious text values
+       (w32persistence_registryitems['path'].str.contains(r'(?:temp|AppData|ProgramData)', na=False, case=False))  # Unusual registry paths
+   ]
+   
+   print("Suspicious Registry Items:")
+   print(suspicious_registry_items)
+   ```
 7. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
 8. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
 9. 
