@@ -202,6 +202,34 @@ The following attacks in the dataset can be found:
    print(suspicious_drivers)
    ```
 8. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
+   ```
+   # Filter for suspicious processes in w32processes
+   suspicious_processes = w32processes[
+       (w32processes['arguments'].str.contains(r'(?:cmd\.exe|powershell\.exe|wmic\.exe|schtasks\.exe|reg\.exe|net\.exe)', na=False, case=False)) |  # Suspicious commands
+       (w32processes['path'].str.contains(r'(?:temp|AppData|ProgramData)', na=False, case=False)) |  # Unusual execution paths
+       (w32processes['name'].str.contains(r'(?:mimikatz|dump|inject|keylogger|debugger)', na=False, case=False))  # Known malicious process names
+   ]
+   
+   print("Suspicious Processes:")
+   print(suspicious_processes)
+   ```
+   ```
+   # Ensure boolean columns for signatureverified and signatureexists
+   w32processes_memorysections['signatureverified'] = w32processes_memorysections['signatureverified'].str.lower() == "true"
+   w32processes_memorysections['signatureexists'] = w32processes_memorysections['signatureexists'].str.lower() == "true"
+   
+   # Filter for suspicious memory sections
+   suspicious_memorysections = w32processes_memorysections[
+       (~w32processes_memorysections['signatureverified']) |  # Unverified signatures
+       (~w32processes_memorysections['signatureexists']) |    # Missing signatures
+       (w32processes_memorysections['description'].str.contains(r'(?:inject|unmapped|malicious|code)', na=False, case=False)) |  # Unusual descriptions
+       (w32processes_memorysections['name'].str.contains(r'(?:unknown|suspicious|malware)', na=False, case=False))  # Suspicious memory section names
+   ]
+   
+   print("Suspicious Memory Sections:")
+   print(suspicious_memorysections)
+   ```
+
 9. 
 
 
