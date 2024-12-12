@@ -196,7 +196,6 @@ The following attacks in the dataset can be found:
    suspicious_drivers = w32drivers[
        (w32drivers['modulepath'].str.contains(r'(?:temp|AppData|users\\public|program files)', na=False, case=False)) |  # Unusual driver locations
        (w32drivers['modulename'].str.contains(r'(?:driver|filter|hook|monitor|sys)', na=False, case=False)) |  # Generic malicious driver names
-       (w32drivers['extracted'].str.contains(r'false', na=False, case=False))  # Drivers not successfully extracted
    ]
    
    print("Suspicious Drivers:")
