@@ -132,6 +132,39 @@ The following attacks in the dataset can be found:
    
 
 5. In terms of Modifying a Windows Service, attackers can modify existing services to gain persistence by changing configurations or binary paths. Focus on datasets like `w32persistence_servicesitems` and `w32services`. Search for suspicious `service_name` or modified `image_path`. Investigate services with unexpected binary paths or descriptions
+   ```
+   # Ensure boolean conversion for 'pathsignatureverified'
+   w32persistence_servicesitems['pathsignatureverified'] = w32persistence_servicesitems['pathsignatureverified'].str.lower() == "true"
+   
+   # Filter for suspicious persistence service items
+   suspicious_persistence_services = w32persistence_servicesitems[
+       (~w32persistence_servicesitems['pathsignatureverified']) |  # Unverified signatures
+       (w32persistence_servicesitems['path'].str.contains(r'(?:temp|AppData|ProgramData|Startup)', na=False, case=False)) |  # Suspicious paths
+       (w32persistence_servicesitems['arguments'].str.contains(r'(?:cmd\.exe|powershell\.exe|schtasks\.exe|wmic\.exe|reg\.exe)', na=False, case=False)) |  # Suspicious commands
+       (w32persistence_servicesitems['pathmd5sum'].isnull())  # Missing MD5 hash
+   ]
+   
+   print("Suspicious Persistence Service Items:")
+   print(suspicious_persistence_services)
+   ```
+   ```
+   # Ensure boolean conversion for 'pathsignatureverified' and 'pathsignatureexists'
+   w32services['pathsignatureverified'] = w32services['pathsignatureverified'].str.lower() == "true"
+   w32services['pathsignatureexists'] = w32services['pathsignatureexists'].str.lower() == "true"
+   
+   # Filter for suspicious services
+   suspicious_services = w32services[
+       (~w32services['pathsignatureverified']) |  # Unverified signatures
+       (~w32services['pathsignatureexists']) |    # Missing signatures
+       (w32services['path'].str.contains(r'(?:temp|AppData|ProgramData|Startup)', na=False, case=False)) |  # Suspicious paths
+       (w32services['arguments'].str.contains(r'(?:cmd\.exe|powershell\.exe|schtasks\.exe|wmic\.exe|reg\.exe)', na=False, case=False)) |  # Suspicious commands
+       (w32services['pathmd5'].isnull()) |  # Missing MD5 hash
+       (w32services['type'].str.contains(r'(?:kernel|user)', na=False, case=False))  # Kernel/User mode services
+   ]
+   
+   print("Suspicious Services:")
+   print(suspicious_services)
+   ```
 6. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
 7. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
 8. 
