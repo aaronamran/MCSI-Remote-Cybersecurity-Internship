@@ -148,9 +148,9 @@ The following attacks in the dataset can be found:
    print(suspicious_persistence_services)
    ```
    ```
-   # Ensure boolean conversion for 'pathsignatureverified' and 'pathsignatureexists'
-   w32services['pathsignatureverified'] = w32services['pathsignatureverified'].str.lower() == "true"
-   w32services['pathsignatureexists'] = w32services['pathsignatureexists'].str.lower() == "true"
+   # Ensure 'pathsignatureverified' and 'pathsignatureexists' are strings before processing
+   w32services['pathsignatureverified'] = w32services['pathsignatureverified'].astype(str).str.lower() == "true"
+   w32services['pathsignatureexists'] = w32services['pathsignatureexists'].astype(str).str.lower() == "true"
    
    # Filter for suspicious services
    suspicious_services = w32services[
@@ -158,10 +158,11 @@ The following attacks in the dataset can be found:
        (~w32services['pathsignatureexists']) |    # Missing signatures
        (w32services['path'].str.contains(r'(?:temp|AppData|ProgramData|Startup)', na=False, case=False)) |  # Suspicious paths
        (w32services['arguments'].str.contains(r'(?:cmd\.exe|powershell\.exe|schtasks\.exe|wmic\.exe|reg\.exe)', na=False, case=False)) |  # Suspicious commands
-       (w32services['pathmd5'].isnull()) |  # Missing MD5 hash
+       (w32services['md5'].isnull()) |  # Missing MD5 hash
        (w32services['type'].str.contains(r'(?:kernel|user)', na=False, case=False))  # Kernel/User mode services
    ]
    
+   # Display suspicious services
    print("Suspicious Services:")
    print(suspicious_services)
    ```
