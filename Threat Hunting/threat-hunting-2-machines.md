@@ -165,9 +165,10 @@ The following attacks in the dataset can be found:
    print("Suspicious Services:")
    print(suspicious_services)
    ```
-6. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
-7. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
-8. 
+6. Regarding Searching for Credentials in the Registry, attackers often look for stored credentials in registry keys, such as `HKLM` or `HKCU` hives. Focus on datasets like `w32persistence_registryitems` and search for keywords such as `password`, `credentials`, `admin`
+7. A Path Interception attack means attackers may place malicious executables in directories higher in the PATH environment variable order. Focus on datasets like `w32persistence_fileitems` and `w32drivers`. Search for files in common directories, e.g., `C:\Windows\Temp\`, `C:\Users\Public\`, or paths with missing quotes (e.g., "C:\Program Files\malware.exe" instead of "C:\Program Files\ Legit App\legit.exe"). Check for `.exe` or `.dll` files placed in these directories
+8. Process Injection attack is performed by attackers injecting malicious code into legitimate processes like `explorer.exe` or `svchost.exe`. Focus on datasets like `w32processes` and `w32processes_memorysections`. Search for memory sections marked as writable and executable (`RWX` permissions). Suspicious processes like `svchost.exe`, `explorer.exe`, `notepad.exe`, etc
+9. 
 
 
 
