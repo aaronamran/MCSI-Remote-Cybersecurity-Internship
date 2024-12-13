@@ -126,7 +126,7 @@ The following attacks in the dataset can be found:
    ```
    Note that a number of suspicious processes involving credential harvesting and net.exe can be observed in machine 0000DQQEE <br/>
    ![image](https://github.com/user-attachments/assets/e2de1a7c-92a7-4b91-88b9-b9bea9fe280e)
-
+6. The final complete report can be found in this [link here](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-2-machines/threathunting2machines.pdf)
 
 
 
