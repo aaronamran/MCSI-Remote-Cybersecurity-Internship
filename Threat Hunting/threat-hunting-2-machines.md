@@ -48,6 +48,8 @@ The following attacks in the dataset can be found:
    import pandas as pd
    import pyarrow as pa
    import pyarrow.parquet as pq
+
+   pd.set_option('display.max_colwidth', None)
    
    # convert Parquet file into a dataset
    # change backslashes in copied file path to forward slashes to prevent Unicode escape sequence errors 
