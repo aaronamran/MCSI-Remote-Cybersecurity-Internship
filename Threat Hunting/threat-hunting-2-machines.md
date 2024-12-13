@@ -80,6 +80,53 @@ The following attacks in the dataset can be found:
    w32tasks = w32tasks_dataset.read().to_pandas()
    ```
 
-3. 
+3. Perform a filter for suspicious drivers for both machines 0000DQQEE and 0001LXQEN
+   ```
+   # Filter for suspicious drivers
+   suspicious_drivers_modulename = w32drivers[
+       (w32drivers['modulename'].str.contains(r'(?:debug|hook|dump|malware|rootkit)', na=False, case=False))  # Driver names suggesting malicious behavior
+   ]
+   
+   print("Suspicious Drivers Module Names:")
+   print(suspicious_drivers_modulename)
+   ```
+   Based on the given datasets, both machines will give the same results <br/>
+   ![image](https://github.com/user-attachments/assets/4639dddb-dffc-462e-b744-7a759a119aae)
+4. Then filter for suspicious processes in machine 0000DQQEE
+   ```
+   # List of suspicious executables
+   suspicious_executables = r'(?:narrator\.exe|sethc\.exe|utilman\.exe|osk\.exe|searchui\.exe|magnify\.exe|calculator\.exe)'
+   
+   # Filter rows in w32processes dataset
+   suspicious_processes = w32processes[
+       w32processes['name'].str.contains(suspicious_executables, na=False, case=False)
+   ]
+   
+   print("Suspicious Processes:")
+   print(suspicious_processes)
+   ```
+   Take note of the process names and the corresponding usernames <br/>
+   ![image](https://github.com/user-attachments/assets/6fa89c69-c676-4aec-8f54-270b86e9cee4)
+5. Check the processes for malicious activities using the given suspicious terms
+   ```
+   # List of suspicious terms
+   suspicious_terms_processes = r'(?:tasklist|ipconfig|systeminfo|net|query|wmic|sc|rundll32|Powershell|mshta|netstat)'
+   
+   # Filter rows in w32processes dataset
+   suspicious_processes = w32processes[
+       w32processes.apply(
+           lambda row: row.astype(str).str.contains(suspicious_terms_processes, na=False, case=False).any(),
+           axis=1
+       )
+   ]
+   
+   # Print suspicious processes
+   print("Suspicious Processes:")
+   print(suspicious_processes)
+   ```
+   Note that a number of suspicious processes involving credential harvesting and net.exe can be observed in machine 0000DQQEE <br/>
+   ![image](https://github.com/user-attachments/assets/e2de1a7c-92a7-4b91-88b9-b9bea9fe280e)
+
+
 
 
