@@ -31,14 +31,14 @@ The following attacks in the dataset can be found:
 ## Practical Approach
 [Link to comprehensive PDF report]() <br/>
 1. To investigate the given attacks in the dataset, it is essential to know the specific indicators of compromise (IoCs) or behaviors associated with each attack
-   | Attack Type	| Category	| IOCs | 
-   |--------------|-----------|------|
-   | Malicious Windows Commands | Windows Processes, Windows Services | tasklist, ipconfig, systeminfo, net, query, wmic, sc, rundll32, Powershell, mshta, netstat |
-   | Using Accessibility Features for Persistence | Windows Services, Windows Drivers, Windows Persistence File Items | narrator.exe, sethc.exe, utilman.exe, osk.exe, searchui.exe, magnify.exe, calculator.exe |
-   | Modifying a Windows Service | Windows Services, Windows Persistence Registry Items | sc, binPath, HKLM, ImagePath, FailureCommand, HKEY, svchost.exe, winlogon.exe, regedit.exe |
-   | Searching for Credentials in the Registry | Windows Persistence Registry Items, User Accounts | reg.exe, ServiceName, Reg query, HKCU, HKLM, Lsass.exe, HKEY, PuTTY, SAM, kerberos |
-   | Path Interception | Windows Persistence Registry Items, Windows Services | %SystemRoot%, unquoted service paths |
-   | Process Injection | Windows Processes, Windows Processes Memory Sections, Windows Persistence Registry Items | .dll, Appinit_Dlls, AppCertDlls, Image File Executable Options, HKLM\Software\Microsoft\Windows, HKLM\Software\Wow6432Node\Microsoft\Windows, AppInit_DLLs |
+   | Attack Type	                                | Category	                                                                              | IOCs                                                               | 
+   |----------------------------------------------|------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+   | Malicious Windows Commands                   | Windows Processes, Windows Services                                                      | tasklist, ipconfig, systeminfo, net, query, wmic, sc, rundll32, Powershell, mshta, netstat |
+   | Using Accessibility Features for Persistence | Windows Services, Windows Drivers, Windows Persistence File Items                        | narrator.exe, sethc.exe, utilman.exe, osk.exe, searchui.exe, magnify.exe, calculator.exe |
+   | Modifying a Windows Service                  | Windows Services, Windows Persistence Registry Items                                     | sc, binPath, HKLM, ImagePath, FailureCommand, HKEY, svchost.exe, winlogon.exe, regedit.exe |
+   | Searching for Credentials in the Registry    | Windows Persistence Registry Items, User Accounts                                        | reg.exe, ServiceName, Reg query, HKCU, HKLM, Lsass.exe, HKEY, PuTTY, SAM, kerberos |
+   | Path Interception                            | Windows Persistence Registry Items, Windows Services                                     | %SystemRoot%, unquoted service paths |
+   | Process Injection                            | Windows Processes, Windows Processes Memory Sections, Windows Persistence Registry Items | .dll, Appinit_Dlls, AppCertDlls, Image File Executable Options, HKLM\Software\Microsoft\Windows, HKLM\Software\Wow6432Node\Microsoft\Windows, AppInit_DLLs |
 
 2. Prepare the Jupyter Notebook and in the first cell, use the following code to import libraries and declare variables
    ```
