@@ -29,7 +29,7 @@ The following attacks in the dataset can be found:
    - Assumptions: Clearly state any assumptions you made while conducting your analysis
 
 ## Practical Approach
-[Link to comprehensive PDF report]() <br/>
+[Link to comprehensive PDF report](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-2-machines/threathunting2machines.pdf) <br/>
 1. To investigate the given attacks in the dataset, it is essential to know the specific indicators of compromise (IoCs) or behaviors associated with each attack
    | Attack Type	                                | Category	                                                                              | IOCs                                                               | 
    |----------------------------------------------|------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
