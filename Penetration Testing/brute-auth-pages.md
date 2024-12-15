@@ -32,11 +32,22 @@ Guessing credentials remains one of the easiest ways to escalate privileges in s
 2. Open a web browser and navigate to localhost. Access the web application first access `setup.php`. This will automatically generate 1000 user accounts with sequential usernames (1, 2, 3, etc.) and passwords each
 3. In localhost, navigate to phpMyAdmin. Refresh the page if needed to ensure that the database `brute_auth_pages` with the table `Users` are created <br/>
    ![image](https://github.com/user-attachments/assets/291adb04-d8b8-4aed-a8ef-8cde94357808)
+   <br/>
+   Mix up some of the passwords to add realism <br/>
+   ![image](https://github.com/user-attachments/assets/a83a7d4a-c042-4e83-82f5-e95a0d54459c)
+
 4. Create a python file named `bruteforce.py` to brute force the logins
-5. To confirm a random CSRF token is generated and submitted with each login request, inspect the login html page and look for the hidden CSRF token value. Refreshing the page should change the value as shown in the following images
+5. To confirm a random CSRF token is generated and submitted with each login request, inspect the login html page and look for the hidden CSRF token value. Refreshing the page should change the value as shown in the following images <br/>
    ![image](https://github.com/user-attachments/assets/9c4de8f4-b674-429a-9df9-dd1e7264b16c)
-   ![image](https://github.com/user-attachments/assets/8532a3c0-6c52-4dcb-b8fd-0597677ca66e)
-6. 
+6. Store the web page cookie name and value in `browser_cookie.txt` file. The information can be retrieved in the Storage tab <br/>
+   ![image](https://github.com/user-attachments/assets/40abfaff-4c95-44ae-88ac-f034d5330c96)
+7. Launch the Python script and select Vertical attack <br/>
+   ![image](https://github.com/user-attachments/assets/1e236e68-c118-4678-9396-061d9501bbd9)
+8. Then try Horizontal attack <br/>
+   ![image](https://github.com/user-attachments/assets/9bce44ad-ad00-49b8-b7fd-59141a992ca3)
+
+
+
 
    
 
