@@ -28,7 +28,9 @@ $conn->select_db($dbname);
 $sql = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    failed_attempts INT DEFAULT 0, -- Tracks failed login attempts
+    last_failed_attempt TIMESTAMP NULL DEFAULT NULL -- Tracks the timestamp of the last failed attempt
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'users' created successfully or already exists.<br>";
@@ -45,6 +47,8 @@ if ($row['user_count'] < 300) {
     for ($i = 1; $i <= 300; $i++) {
         $username = str_pad($i, 4, '0', STR_PAD_LEFT); // Pad with leading zeros (e.g., 0001, 0002)
         $password = "password$i"; // Example weak password
+
+        // Insert users, ignoring duplicates
         $stmt = $conn->prepare("INSERT IGNORE INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
