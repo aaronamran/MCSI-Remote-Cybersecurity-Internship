@@ -3,7 +3,7 @@ session_start();
 $servername = "localhost";
 $username = "root"; // XAMPP default
 $password = ""; // XAMPP default
-$dbname = "bruteauth";
+$dbname = "block_brute_force";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
