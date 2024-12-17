@@ -1,15 +1,5 @@
 <?php
 session_start();
-$max_attempts = 3; // Max attempts before lockout
-$lockout_time = 120; // Lockout duration in seconds (2 minutes)
-$login_attempts = isset($_SESSION['login_attempts']) ? $_SESSION['login_attempts'] : 0;
-$last_attempt_time = isset($_SESSION['last_attempt_time']) ? $_SESSION['last_attempt_time'] : 0;
-
-if ($login_attempts >= $max_attempts && (time() - $last_attempt_time) < $lockout_time) {
-    // Account is locked
-    echo "<p>Your account is locked due to multiple failed login attempts. Please try again after 2 minutes.</p>";
-    exit;
-}
 
 if (isset($_SESSION['username'])) {
     header('Location: dashboard.php');
@@ -20,17 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Perform authentication (dummy check for example)
     if (authenticate($username, $password)) {
+        // Successful login
         $_SESSION['username'] = $username;
-        $_SESSION['login_attempts'] = 0; // Reset login attempts on successful login
         header('Location: dashboard.php');
         exit;
-    } else {
-        $_SESSION['login_attempts'] = $login_attempts + 1;
-        $_SESSION['last_attempt_time'] = time();
-        $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
-        echo "<p>Invalid credentials. You have $remaining_attempts attempts remaining.</p>";
     }
 }
 
@@ -44,12 +28,11 @@ function authenticate($username, $password) {
     // Create connection
     $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Query to get the user's data from the database
+    // Query to get user data
     $stmt = $conn->prepare("SELECT id, username, password, failed_attempts, last_failed_attempt FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -57,41 +40,62 @@ function authenticate($username, $password) {
     $user = $result->fetch_assoc();
 
     if ($user) {
-        // Check if the user has been locked out due to failed attempts
-        $lockout_time = 300; // 5 minutes lockout duration (in seconds)
+        $max_attempts = 3;  // Set max attempts to 3
+        $lockout_time = 120; // Lockout duration in seconds
         $current_time = time();
-        
-        if ($user['failed_attempts'] >= 5 && (strtotime($user['last_failed_attempt']) + $lockout_time) > $current_time) {
-            // If the account is locked out
-            echo "Your account is locked due to multiple failed login attempts. Please try again later.";
+        $last_failed_time = strtotime($user['last_failed_attempt']);
+
+        // Check if the user is locked out
+        if ($user['failed_attempts'] >= $max_attempts && ($current_time - $last_failed_time) < $lockout_time) {
+            // Block login and send a 403 status code
+            http_response_code(403);
+            echo "<p>Your account is locked due to multiple failed login attempts. Please try again after 2 minutes.</p>";
+            $conn->close();
             return false;
         }
 
-        // Check if the password matches
-        if (password_verify($password, $user['password'])) {
-            // If the password is correct, reset failed attempts
+        // Password check
+        if ($password === $user['password']) {
+            // Successful login: Reset failed attempts
             $stmt = $conn->prepare("UPDATE users SET failed_attempts = 0, last_failed_attempt = NULL WHERE username = ?");
             $stmt->bind_param("s", $username);
             $stmt->execute();
-
             $conn->close();
-            return true; // Successful login
+            return true;
         } else {
-            // Increment failed attempts and update last failed attempt time
+            // Increment failed attempts and check if lockout should trigger
             $failed_attempts = $user['failed_attempts'] + 1;
+
+            // Print debugging information
+            echo "<p>Failed attempts: " . $failed_attempts . "</p>";
+
+            // If attempts exceed threshold, lock the account and trigger a 403 response
+            if ($failed_attempts >= $max_attempts) {
+                // Lock account after 3 failed attempts
+                http_response_code(403);
+                echo "<p>Your account has been locked due to multiple failed login attempts. Please try again after 2 minutes.</p>";
+            } else {
+                $remaining_attempts = $max_attempts - $failed_attempts;
+                echo "<p>Invalid credentials. You have $remaining_attempts attempts remaining.</p>";
+            }
+
+            // Update failed attempts in the database
             $stmt = $conn->prepare("UPDATE users SET failed_attempts = ?, last_failed_attempt = NOW() WHERE username = ?");
             $stmt->bind_param("is", $failed_attempts, $username);
             $stmt->execute();
 
             $conn->close();
-            return false; // Incorrect password
+            return false;
         }
     } else {
-        // If the user doesn't exist
+        // Invalid username
+        echo "<p>Invalid username or password.</p>";
         $conn->close();
         return false;
     }
 }
+
+
 
 ?>
 
