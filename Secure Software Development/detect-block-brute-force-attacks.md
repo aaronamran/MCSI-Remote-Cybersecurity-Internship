@@ -38,7 +38,9 @@ Detecting brute force attacks is important because it can help you protect your 
 1. Create the files needed and host it locally on XAMPP
 2. Create a database in phpMyAdmin called `block_brute_force` and populate it using `setup.php` by clicking `Setup Database and Populate Users` <br/>
    ![image](https://github.com/user-attachments/assets/44d120e0-3fdc-443c-9a1f-c30abad32273) <br/>
-   Then modify some of the passwords so that it contains several passwords from `passwords.txt` file
+   Then modify some of the passwords so that it contains several passwords from `passwords.txt` file <br/>
+   ![image](https://github.com/user-attachments/assets/058e7fdb-c386-48d8-9f06-a1927a921ec6)
+
 3. Login to a known account using the correct username and password <br/>
    ![image](https://github.com/user-attachments/assets/f7d141ab-25ed-4887-9fc7-11d84981a357) <br/>
    Reset the login attempts in `setup.php` <br/>
