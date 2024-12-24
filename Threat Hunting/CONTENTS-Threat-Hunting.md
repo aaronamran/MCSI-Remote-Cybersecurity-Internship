@@ -14,9 +14,7 @@
 
 ## [Write A YARA Rule That Can Find Small Portable Executables](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/find-small-exe.md)
 
-## Perform Threat Hunting Against 2 Machines
-
-## Perform Threat Hunting Against 5 Machines
+## [Perform Threat Hunting Against 2 Machines](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-2-machines.md)
 
 ## [Write A YARA Rule That Can Find Binaries That Have More Than 3 URLs](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/find-binaries-3-urls.md)
 
