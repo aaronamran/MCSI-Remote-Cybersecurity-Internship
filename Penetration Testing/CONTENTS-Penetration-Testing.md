@@ -16,7 +16,7 @@
 
 ## [Write A Web Application With Insecure XSS Filters](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/insecure-xss-filters-php.md)
 
-## [Write A Tool To Brute Authentication Pages]
+## [Write A Tool To Brute Authentication Pages](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/brute-auth-pages.md)
 
 ## [Write A Web Application Penetration Testing Checklist](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/web-app-pentest-checklist.md)
 
