@@ -20,7 +20,7 @@
 
 ## [Write A YARA Rule That Can Find Binaries That Have More Than 3 URLs](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/find-binaries-3-urls.md)
 
-## Write A YARA Rule That Can Find Improperly Signed Executables
+## [Write A YARA Rule That Can Find Improperly Signed Executables](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/find-improperly-signed-exe.md)
 
 ## [Write A YARA Rule That Searches For Strings Using Hex And Wild-Cards](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/find-strings-hex-wild-cards.md)
 
