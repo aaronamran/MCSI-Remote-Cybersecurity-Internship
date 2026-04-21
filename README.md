@@ -6,7 +6,28 @@ The MCSI Remote Cybersecurity Internship is not a traditional office-based, paid
 Duration of internship: September 2024 - December 2024 (4 months)
 
 This remote cybersecurity internship focuses on the following domains:
-1. [Lab Setup](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/CONTENTS-Lab-Setup.md)  
+
+<details>
+<summary><b>1. Lab Setup</b></summary>
+
+ * [Lab Setup: Screen Recording](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/screen-recording-vm.md)
+
+ * [Lab Setup: Deploy A Virtual Machine In VirtualBox](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/screen-recording-vm.md)
+
+ * [Lab Setup: OpenVAS](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/setup-openvas.md)
+
+ * [Create A Template For A Professional Document](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Lab%20Setup/create-template.md)
+
+ * [Lab Setup: Threat Hunting With Pandas](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-pandas.md)
+
+ * [Lab Setup: Threat Hunting With YARA](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/threat-hunting-yara.md)
+
+ * [Lab Setup: Malware Dataset](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/malware-dataset.md)
+
+ * [Lab Setup: Reverse Engineering](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/reverse-engineering.md)
+
+</details>
+
 2. [Security Tools](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/CONTENTS-Security-Tools.md)  [`Nmap`, `OpenVAS`, `TheHarvester`, `Metasploit`, `Meterpreter`, `Mimikatz`]
 3. [Penetration Testing](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/CONTENTS-Penetration-Testing.md)  [`Google Dorking`, `PHP`, `PowerShell`]
 4. [Cyber Defense ](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/CONTENTS-Cyber-Defense.md)  [`PowerShell`]
