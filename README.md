@@ -37,10 +37,24 @@ This remote cybersecurity internship focuses on the following domains:
 
 </details>
 
+<details>
+<summary><b>3. Penetration Testing</b><p>(Google Dorking, PHP, PowerShell)</p></summary>
+
+ * [Create Google Search Queries To Identify Webpages And Publicly Available Documents](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/google-dorking.md)
+ * [Write A PHP Application With An Exposed phpinfo.php Page](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/exposed-phpinfo-php.md)
+ * [Write A Web Shell In PHP](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/web-shell-php.md)
+ * [Write A PS Script That Installs An Insecure Windows Service](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/insecure-service-ps.md)
+ * [Write A PS Script That Enables The AlwaysInstallElevated Registry Key](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/alwaysinstallelevated.md)
+ * [Write An Application Vulnerable To Arbitrary Command Execution](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/vulnerable-arbitrary-command-php.md)
+ * [Execute Arbitrary Commands On A Server Via A SQL Injection Vulnerability](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/arbitrary-command-sql-injection.md)
+ * [Write A Web Application With Insecure XSS Filters](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/insecure-xss-filters-php.md)
+ * [Write A Tool To Brute Authentication Pages](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/brute-auth-pages.md)
+ * [Write A Web Application Penetration Testing Checklist](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/web-app-pentest-checklist.md)
+ 
+</details>
 
 
-
-3. [Penetration Testing](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/CONTENTS-Penetration-Testing.md)  [`Google Dorking`, `PHP`, `PowerShell`]
+3. [Penetration Testing](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/CONTENTS-Penetration-Testing.md)  [`]
 4. [Cyber Defense ](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Cyber%20Defense/CONTENTS-Cyber-Defense.md)  [`PowerShell`]
 5. [Threat Hunting](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Threat%20Hunting/CONTENTS-Threat-Hunting.md) [`YARA`, `Pandas`]
 6. [Secure Software Development](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Secure%20Software%20Development/CONTENTS-Secure-Software-Development.md)  [`PHP`]
