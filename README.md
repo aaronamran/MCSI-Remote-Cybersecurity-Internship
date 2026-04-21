@@ -40,7 +40,9 @@ This remote cybersecurity internship focuses on the following domains:
 </details>
 
 <details>
-<summary><b>3. Penetration Testing</b><p>(Google Dorking, PHP, PowerShell)</p></summary>
+<summary><b>3. Penetration Testing</b></summary>
+
+> Google Dorking, PHP, PowerShell
 
  * [Create Google Search Queries To Identify Webpages And Publicly Available Documents](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/google-dorking.md)
  * [Write A PHP Application With An Exposed phpinfo.php Page](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Penetration%20Testing/exposed-phpinfo-php.md)
