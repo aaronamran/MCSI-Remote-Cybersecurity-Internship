@@ -22,7 +22,7 @@ This remote cybersecurity internship focuses on the following domains:
 </details>
 
 <details>
-<summary><b>2. Security Tools [`Nmap`, `OpenVAS`, `TheHarvester`, `Metasploit`, `Meterpreter`, `Mimikatz`]</b></summary>
+<summary><b>2. Security Tools (Nmap, OpenVAS, TheHarvester, Metasploit, Meterpreter, Mimikatz)</b></summary>
 
  * [Perform A TCP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap-tcp.md)
  * [Perform A UDP Port Scan Using Nmap](https://github.com/aaronamran/MCSI-Remote-Cybersecurity-Internship/blob/main/Security%20Tools/nmap-udp.md)
